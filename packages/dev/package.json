@@ -1,0 +1,32 @@
+{
+  "name": "dev",
+  "private": true,
+  "productName": "App",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Quasar components dev app",
+  "scripts": {
+    "dev": "vitrify dev",
+    "build": "vitrify build",
+    "build:ssr": "vitrify build -m ssr",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "simsustech",
+  "dependencies": {
+    "@fastify/static": "^6.4.0",
+    "@quasar/extras": "^1.13.1",
+    "@simsustech/quasar-components": "workspace:*",
+    "fastify": "^4.0.0",
+    "fastify-plugin": "^3.0.1",
+    "quasar": "^2.6.0",
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@vue/server-renderer": "^3.2.37",
+    "critters": "^0.0.16",
+    "typescript": "^4.6.2",
+    "vite": "^3.2.0-beta.0",
+    "vitrify": "^0.10.5"
+  }
+}

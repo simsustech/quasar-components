@@ -1,0 +1,75 @@
+{
+  "name": "@simsustech/quasar-components",
+  "version": "0.1.0",
+  "author": "simsustech",
+  "description": "High level components for Quasar Framework",
+  "license": "MIT",
+  "type": "module",
+  "types": "./dist/types/ui/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/ui/general/index.d.ts",
+      "import": "./dist/general.js"
+    },
+    "./authentication": {
+      "types": "./dist/types/ui/authentication/index.d.ts",
+      "import": "./dist/authentication.js"
+    },
+    "./flags": {
+      "types": "./dist/types/ui/flags/index.d.ts",
+      "import": "./dist/flags.js"
+    },
+    "./css": {
+      "import": "./dist/style.css"
+    },
+    "./vite-plugin": {
+      "types": "./dist/vite-plugin.d.ts",
+      "import": "./dist/vite-plugin.js"
+    }
+  },
+  "scripts": {
+    "build:plugin": "vite build",
+    "build:vite-plugin": "rimraf tsconfig.build.plugin.tsbuildinfo && tsc -p tsconfig.build.plugin.json",
+    "generate:types": "vue-tsc -p tsconfig.types.json",
+    "build": "run-s build:plugin build:vite-plugin generate:types",
+    "lint": "eslint --ext .vue --ext .ts src",
+    "lint:fix": "eslint --ext .vue --ext .ts src --fix",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simsustech/quasar-components"
+  },
+  "bugs": "https://github.com/simsusech/quasar-components/issues",
+  "dependencies": {
+    "validator": "^13.7.0"
+  },
+  "peerDependencies": {
+    "quasar": "^2.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13",
+    "@types/validator": "^13.7.5",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/parser": "^5.34.0",
+    "@vitejs/plugin-vue": "^3.2.0-beta.0",
+    "@vue/server-renderer": "^3.2.37",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier-vue": "^4.2.0",
+    "eslint-plugin-vue": "^9.6.0",
+    "glob": "^8.0.3",
+    "local-pkg": "^0.4.2",
+    "prettier": "^2.7.1",
+    "quasar": "^2.9.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.4",
+    "unplugin-vue-components": "^0.22.8",
+    "vite": "^3.2.0-beta.0",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.4",
+    "vue-tsc": "^1.0.8"
+  }
+}
