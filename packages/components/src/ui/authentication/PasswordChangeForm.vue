@@ -6,6 +6,7 @@
       id="newPassword"
       v-model="newPassword"
       name="newPassword"
+      :type="showPassword ? 'text' : 'password'"
       :label="lang.password.fields.password"
       bottom-slots
       :rules="validations['newPassword']"
@@ -24,6 +25,7 @@
       id="repeatNewPassword"
       v-model="repeatNewPassword"
       name="repeatNewPassword"
+      :type="showRepeatPassword ? 'text' : 'password'"
       :label="lang.password.fields.repeatPassword"
       bottom-slots
       :rules="validations['repeatNewPassword']"
@@ -31,9 +33,9 @@
     >
       <template #append>
         <q-icon
-          :name="showPassword ? 'visibility' : 'visibility_off'"
+          :name="showRepeatPassword ? 'visibility' : 'visibility_off'"
           class="cursor-pointer"
-          @click="showPassword = !showPassword"
+          @click="showRepeatPassword = !showRepeatPassword"
         />
       </template>
     </q-input>
@@ -108,6 +110,7 @@ const otp = ref('')
 const newPassword = ref('')
 const repeatNewPassword = ref('')
 const showPassword = ref(false)
+const showRepeatPassword = ref(false)
 const header = computed(() => lang.value.password.changePassword)
 
 const formRef = ref<QForm>()

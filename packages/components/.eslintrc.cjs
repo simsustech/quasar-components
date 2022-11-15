@@ -12,7 +12,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    '@typescript-eslint/ban-ts-comment': 'error'
+    '@typescript-eslint/ban-ts-comment': 0
   },
   plugins: ['@typescript-eslint'],
   root: true

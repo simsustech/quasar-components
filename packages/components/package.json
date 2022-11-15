@@ -9,7 +9,8 @@
   "exports": {
     ".": {
       "types": "./dist/types/ui/general/index.d.ts",
-      "import": "./dist/general.js"
+      "import": "./dist/general.js",
+      "src": "./src/ui/general/index.ts"
     },
     "./authentication": {
       "types": "./dist/types/ui/authentication/index.d.ts",

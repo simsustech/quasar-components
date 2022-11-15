@@ -12,9 +12,9 @@ const lang: Language = {
   },
   email: {
     fields: {
-      email: 'Email address.',
-      newEmail: 'Your new email address.',
-      repeatNewEmail: 'Repeat your new email address.'
+      email: 'Email address',
+      newEmail: 'Your new email address',
+      repeatNewEmail: 'Repeat your new email address'
     },
     validations: {
       fieldRequired: 'Field is required.',
@@ -79,7 +79,10 @@ const lang: Language = {
       notAlphaNumeric: 'Veld mag geen speciale tekens bevatten.'
     },
     register: 'Register',
-    forgotPassword: 'Forgot your password?'
+    forgotPassword: 'Forgot your password?',
+    accountCreated:
+      'Your account has been sucessfully created. You can now login with your credentials.',
+    alreadyRegistered: 'Email address is already registered.'
   },
   verification: {
     slider:

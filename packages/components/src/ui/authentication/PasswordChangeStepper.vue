@@ -100,6 +100,8 @@ const step = ref<typeof steps[number]>('requestOtp')
 const email = ref('')
 const header = computed(() => lang.value.password.changePassword)
 const passwordChanged = computed(() => lang.value.password.passwordChanged)
+const unprocessableRequest = computed(() => lang.value.unprocessableRequest)
+const checkEmail = computed(() => lang.value.otp.checkEmail)
 
 const requestOtpFormRef = ref<typeof RequestOtpForm>()
 const passwordChangeFormRef = ref<typeof PasswordChangeForm>()
@@ -137,6 +139,8 @@ const changePassword: InstanceType<
 const variables = ref({
   header,
   passwordChanged,
+  unprocessableRequest,
+  checkEmail,
   steps
 })
 const functions = ref({

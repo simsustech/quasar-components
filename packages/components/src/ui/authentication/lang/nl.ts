@@ -79,7 +79,10 @@ const lang: Language = {
       notAlphaNumeric: 'Veld mag geen speciale tekens bevatten.'
     },
     register: 'Registreren',
-    forgotPassword: 'Wachtwoord vergeten?'
+    forgotPassword: 'Wachtwoord vergeten?',
+    accountCreated:
+      'Uw account is aangemaakt. U kunt nu inloggen met uw inloggegevens.',
+    alreadyRegistered: 'Email adres is al geregistreerd.'
   },
   verification: {
     slider:

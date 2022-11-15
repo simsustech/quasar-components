@@ -151,6 +151,9 @@ const username = ref('')
 const showPassword = ref(false)
 const header = computed(() => lang.value.register.register)
 const forgotPassword = computed(() => lang.value.register.forgotPassword)
+const accountCreated = computed(() => lang.value.register.accountCreated)
+const unprocessableRequest = computed(() => lang.value.unprocessableRequest)
+const alreadyRegistered = computed(() => lang.value.register.alreadyRegistered)
 
 const minimumPasswordLength = toRef(props, 'minimumPasswordLength')
 const formRef = ref<QForm>()
@@ -200,7 +203,10 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = (
 
 const variables = ref({
   header,
-  forgotPassword
+  forgotPassword,
+  accountCreated,
+  unprocessableRequest,
+  alreadyRegistered
 })
 const functions = ref({
   submit

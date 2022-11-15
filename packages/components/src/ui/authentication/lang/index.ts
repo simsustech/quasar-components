@@ -76,6 +76,8 @@ export interface Language {
     }
     register: string
     forgotPassword: string
+    accountCreated: string
+    alreadyRegistered: string
   }
   verification: {
     slider: string
