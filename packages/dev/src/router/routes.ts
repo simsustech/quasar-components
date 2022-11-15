@@ -44,6 +44,10 @@ const routes: RouteRecordRaw[] = [
         path: "flags",
         component: () => import("../pages/Flags.vue"),
       },
+      {
+        path: "icons",
+        component: () => import("../pages/Icons.vue"),
+      },
       // ...testRoutes,
     ],
   },

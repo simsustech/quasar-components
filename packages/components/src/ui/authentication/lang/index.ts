@@ -33,6 +33,7 @@ export interface Language {
       invalidEmail: string
     }
     login: string
+    loginWith: string
     forgotPassword: string
     createAccount: string
     invalidCredentials: string

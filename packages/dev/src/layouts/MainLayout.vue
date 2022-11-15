@@ -57,6 +57,10 @@
       <q-item clickable to="/flags">
         <q-item-label>Flags</q-item-label>
       </q-item>
+      <q-item-label header>Icons</q-item-label>
+      <q-item clickable to="/icons">
+        <q-item-label>Icons</q-item-label>
+      </q-item>
     </q-drawer>
 
     <q-page-container>

@@ -48,6 +48,7 @@ const lang: Language = {
       invalidEmail: 'A valid email address is required.'
     },
     login: 'Login',
+    loginWith: 'Login with',
     createAccount: 'Create account',
     forgotPassword: 'Forgot your password?',
     invalidCredentials: 'Email address or password is incorrect.'

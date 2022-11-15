@@ -48,6 +48,7 @@ const lang: Language = {
       invalidEmail: 'Het email adres is ongeldig.'
     },
     login: 'Inloggen',
+    loginWith: 'Inloggen met',
     createAccount: 'Account aanmaken',
     forgotPassword: 'Wachtwoord vergeten?',
     invalidCredentials: 'Email adres of wachtwoord is incorrect'
