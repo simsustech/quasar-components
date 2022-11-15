@@ -16,13 +16,13 @@ export default {
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { QCard, useQuasar } from 'quasar'
+import { useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
 export interface Props {
   withNetwork?: string
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 // const attrs = useAttrs();
 // const emit = defineEmits<{
 //   (

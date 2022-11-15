@@ -26,7 +26,7 @@
               <template #option="scope">
                 <q-item v-bind="scope.itemProps">
                   <q-item-section avatar>
-                    <nl ref="nlRef" v-if="scope.opt === 'nl'" />
+                    <nl v-if="scope.opt === 'nl'" ref="nlRef" />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-if="scope.opt === 'nl'" caption>
@@ -67,7 +67,7 @@ import { nl } from '../flags'
 export interface Props {
   title: string
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 // const attrs = useAttrs();
 // const emit = defineEmits<{
 //   (

@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   # Lint can run in parallel with Build.
-  lint:
+  test:
     name: Lint
     runs-on: ubuntu-latest
     steps:

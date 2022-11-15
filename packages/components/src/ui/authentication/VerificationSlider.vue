@@ -17,7 +17,7 @@ import { useLang, loadLang } from './lang'
 export interface Props {
   useVerificationSlider?: boolean
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 // const attrs = useAttrs();
 const emit = defineEmits<{
   (e: 'verified'): void
