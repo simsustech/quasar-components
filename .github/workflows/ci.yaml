@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    paths-ignore:
-      - ".vscode/**"
 
 defaults:
   run:
@@ -39,65 +36,8 @@ jobs:
       - name: Format Check
         run: pnpm run format:check
 
-  # Build installs all devDependencies and runs our full build pipeline.
-  # We upload all `dist/` artifacts to GitHub, which can be shared by all dependent jobs.
-  build:
-    name: Build Packages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2.2.1
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
       - name: Build Packages
         run: pnpm run build
-
-      - name: Upload Package Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifacts
-          path: |
-            packages/*/dist/**
-            packages/*/*/dist/**
-          if-no-files-found: error
-
-  test:
-    name: "Test packages"
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2.2.1
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "pnpm"
-
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v3
-
-      - name: Extract Artifacts
-        run: ./.github/extract-artifacts.sh
-
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Test
         run: pnpm run test
