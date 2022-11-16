@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.1.2
+
+### Patch Changes
+
+- 5bdc2d0: Trim email in EmailChange and RequestOtp forms
+
 ## 0.1.1
 
 ### Patch Changes
