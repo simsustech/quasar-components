@@ -83,7 +83,7 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = ({
   formRef.value?.validate().then((success) => {
     if (success) {
       emit('submit', {
-        email: email.value,
+        email: email.value.trim(),
         done: done
       })
     } else done()
