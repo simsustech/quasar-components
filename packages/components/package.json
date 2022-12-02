@@ -14,21 +14,24 @@
     },
     "./authentication": {
       "types": "./dist/types/ui/authentication/index.d.ts",
-      "import": "./dist/authentication.js"
+      "import": "./dist/authentication.js",
+      "src": "./src/ui/authentication/index.ts"
     },
     "./flags": {
       "types": "./dist/types/ui/flags/index.d.ts",
-      "import": "./dist/flags.js"
+      "import": "./dist/flags.js",
+      "src": "./src/ui/flags/index.ts"
     },
     "./icons": {
       "types": "./dist/types/ui/icons/index.d.ts",
-      "import": "./dist/icons.js"
+      "import": "./dist/icons.js",
+      "src": "./src/ui/icons/index.ts"
     },
     "./css": {
       "import": "./dist/style.css"
     },
     "./vite-plugin": {
-      "types": "./dist/vite-plugin.d.ts",
+      "types": "./dist/types/vite-plugin.d.ts",
       "import": "./dist/vite-plugin.js"
     }
   },

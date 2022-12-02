@@ -5,6 +5,7 @@
     </template>
     <register-form
       ref="registerFormRef"
+      :form="{ id: 'registerForm' }"
       :extra-fields="extraFields"
       @submit="register"
     />
@@ -19,6 +20,7 @@
       ></q-btn>
       <q-submit-button
         @submit="registerFormRef?.functions.submit"
+        form="registerForm"
         :disabled="!verified"
       />
     </template>

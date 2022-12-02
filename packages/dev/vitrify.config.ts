@@ -2,7 +2,6 @@ import type { VitrifyConfig } from "vitrify";
 import { certificateFor } from "devcert";
 export default async function ({ mode, command }): Promise<VitrifyConfig> {
   const config: VitrifyConfig = {
-    plugins: [],
     vitrify: {
       lang: "nl",
       hooks: {

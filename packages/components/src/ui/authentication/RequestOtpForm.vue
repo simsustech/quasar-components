@@ -1,5 +1,5 @@
 <template>
-  <q-form ref="formRef" v-bind="form">
+  <q-form ref="formRef" v-bind="form" @submit="(e) => submit">
     <q-input
       v-bind="input"
       id="email"
@@ -29,7 +29,7 @@ import isEmail from 'validator/es/lib/isEmail.js'
 import QSubmitButton from '../general/QSubmitButton.vue'
 
 export interface Props {
-  form?: QFormProps & HTMLFormElement
+  form?: QFormProps & Partial<HTMLFormElement> & Partial<HTMLDivElement>
   input?: Omit<
     QInputProps,
     | 'id'

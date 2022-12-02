@@ -6,12 +6,16 @@
     <q-card-section>
       <email-change-form
         ref="form"
+        :form="{ id: 'emailChangeForm' }"
         email="old@acme.com"
         @submit="submit"
         v-slot="slotProps"
       >
         <q-card-actions align="right">
-          <q-submit-button @submit="slotProps.submit"></q-submit-button>
+          <q-submit-button
+            form="emailChangeForm"
+            @submit="slotProps.submit"
+          ></q-submit-button>
         </q-card-actions>
       </email-change-form>
     </q-card-section>

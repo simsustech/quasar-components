@@ -1,29 +1,52 @@
 import type { Plugin } from 'vite'
+import { promises } from 'fs'
+const { readFile } = promises
 
-export default async function (): Promise<Plugin> {
+export default async function ({
+  buildFromSrc
+}: {
+  buildFromSrc?: boolean
+} = {}): Promise<Plugin> {
+  const pkgJson = JSON.parse(
+    await readFile(
+      new URL('../package.json', import.meta.url).pathname,
+      'utf-8'
+    )
+  )
+  const exports = pkgJson.exports as Record<
+    string,
+    {
+      types: string
+      import: string
+      src: string
+    }
+  >[]
+  const name = pkgJson.name
+
   return {
-    name: '@simsustech/quasar-components-plugin',
+    name: `${name}-plugin`,
     config(config, { mode }) {
-      if (mode === 'development') {
+      if (mode === 'development' || buildFromSrc) {
+        const alias = Object.entries(exports)
+          .map(([key, val]) => {
+            return {
+              find: name + key.slice(1),
+              replacement: new URL('.' + val.src, import.meta.url).pathname
+            }
+          })
+          .sort(
+            (a, b) =>
+              (b.find.match(/\//g) || []).length -
+              (a.find.match(/\//g) || []).length
+          )
+
         return {
           resolve: {
-            alias: [
-              {
-                find: '@simsustech/quasar-components/flags',
-                replacement: new URL(
-                  '../src/ui/flags/index.ts',
-                  import.meta.url
-                ).pathname
-              },
-              {
-                find: '@simsustech/quasar-components',
-                replacement: new URL('../src/ui/index.ts', import.meta.url)
-                  .pathname
-              }
-            ]
+            alias
           }
         }
       }
+
       return {}
     }
   }

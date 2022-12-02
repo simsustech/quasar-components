@@ -4,6 +4,7 @@
       {{ header }}
     </template>
     <login-form
+      :form="{ id: 'loginForm' }"
       ref="loginFormRef"
       password-forgot-url="/passwordchange"
       @submit="login"
@@ -16,7 +17,10 @@
         flat
         :to="registerUrl"
       ></q-btn>
-      <q-submit-button @submit="loginFormRef?.functions.submit" />
+      <q-submit-button
+        form="loginForm"
+        @submit="loginFormRef?.functions.submit"
+      />
     </template>
   </q-styled-card>
 </template>

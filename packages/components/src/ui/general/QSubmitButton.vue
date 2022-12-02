@@ -4,7 +4,7 @@
     :label="isNextButton ? lang.next : lang.submit"
     color="primary"
     :loading="loading || loadingInternal"
-    :type="useForm ? 'submit' : undefined"
+    type="submit"
     @click="submit"
   />
 </template>

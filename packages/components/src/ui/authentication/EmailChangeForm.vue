@@ -1,5 +1,10 @@
 <template>
-  <q-form ref="formRef" class="q-gutter-md" v-bind="form">
+  <q-form
+    ref="formRef"
+    class="q-gutter-md"
+    v-bind="form"
+    @submit="(e) => submit"
+  >
     <otp-input v-bind="input" v-model="otp" />
     <q-input
       v-bind="input"
@@ -41,7 +46,7 @@ import OtpInput from './OtpInput.vue'
 
 export interface Props {
   email: string
-  form?: QFormProps & HTMLFormElement
+  form?: QFormProps & Partial<HTMLFormElement> & Partial<HTMLDivElement>
   input?: Omit<
     QInputProps,
     | 'id'

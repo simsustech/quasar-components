@@ -3,6 +3,7 @@
     <q-step name="requestOtp" :title="requestOtpHeader">
       <request-otp-form
         ref="requestOtpFormRef"
+        :form="{ id: 'requestOtpForm' }"
         :input="input"
         @submit="requestOtp"
       ></request-otp-form>
@@ -11,6 +12,7 @@
     <q-step name="changeEmail" :title="emailChangeHeader">
       <email-change-form
         ref="emailChangeFormRef"
+        :form="{ id: 'emailChangeForm' }"
         :email="email"
         :input="input"
         @submit="changeEmail"
@@ -22,10 +24,12 @@
         <q-submit-button
           v-if="step === 'requestOtp'"
           is-next-button
+          form="requestOtpForm"
           @submit="requestOtpFormRef?.functions.submit"
         ></q-submit-button>
         <q-submit-button
           v-if="step === 'changeEmail'"
+          form="emailChangeForm"
           @submit="emailChangeFormRef?.functions.submit"
         ></q-submit-button>
       </q-stepper-navigation>

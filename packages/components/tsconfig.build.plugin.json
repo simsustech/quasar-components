@@ -3,5 +3,5 @@
     "rootDir": "src/"
   },
   "extends": "./tsconfig.node.json",
-  "include": ["./src/vite-plugin.ts"]
+  "include": ["./src/vite-plugin.ts", "./src/virtualModules.ts"]
 }

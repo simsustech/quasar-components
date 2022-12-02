@@ -1,5 +1,10 @@
 <template>
-  <q-form ref="formRef" class="q-gutter-md" v-bind="form">
+  <q-form
+    ref="formRef"
+    class="q-gutter-md"
+    v-bind="form"
+    @submit="(e) => submit"
+  >
     <q-input
       v-if="!useUsername"
       v-bind="input"
@@ -71,7 +76,7 @@ import QSubmitButton from '../general/QSubmitButton.vue'
 export interface Props {
   useUsername?: boolean
   passwordForgotUrl?: string
-  form?: QFormProps & HTMLFormElement
+  form?: QFormProps & Partial<HTMLFormElement> & Partial<HTMLDivElement>
   input?: Omit<
     QInputProps,
     | 'id'

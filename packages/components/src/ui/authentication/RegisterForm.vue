@@ -1,5 +1,10 @@
 <template>
-  <q-form ref="formRef" class="q-gutter-md" v-bind="form">
+  <q-form
+    ref="formRef"
+    class="q-gutter-md"
+    v-bind="form"
+    @submit="(e) => submit"
+  >
     <q-input
       v-if="!useUsername"
       v-bind="input"
@@ -97,7 +102,7 @@ export interface Props {
     rules?: ((val: string) => boolean)[]
   }[]
   minimumPasswordLength?: number
-  form?: QFormProps & HTMLFormElement
+  form?: QFormProps & Partial<HTMLFormElement> & Partial<HTMLDivElement>
   input?: Omit<
     QInputProps,
     | 'id'
