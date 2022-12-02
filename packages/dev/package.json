@@ -2,7 +2,7 @@
   "name": "dev",
   "private": true,
   "productName": "App",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "Quasar components dev app",
   "scripts": {
