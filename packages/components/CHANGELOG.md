@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.1.3
+
+### Patch Changes
+
+- 0926b41: Bind submit button to forms
+
 ## 0.1.2
 
 ### Patch Changes
