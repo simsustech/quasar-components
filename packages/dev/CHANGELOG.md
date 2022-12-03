@@ -1,5 +1,13 @@
 # dev
 
+## 1.0.4
+
+### Patch Changes
+
+- 0926b41: Bind submit button to forms
+- Updated dependencies [0926b41]
+  - @simsustech/quasar-components@0.1.3
+
 ## 1.0.3
 
 ### Patch Changes
