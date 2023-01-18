@@ -2,7 +2,7 @@
   <q-btn
     v-bind="attrs"
     :label="isNextButton ? lang.next : lang.submit"
-    color="primary"
+    :color="color"
     :loading="loading || loadingInternal"
     type="submit"
     @click="submit"
@@ -24,6 +24,7 @@ export interface Props {
   loading?: boolean
   useForm?: boolean
   isNextButton?: boolean
+  color?: string
 }
 const props = defineProps({
   loading: {
@@ -35,6 +36,10 @@ const props = defineProps({
   },
   isNextButton: {
     type: Boolean
+  },
+  color: {
+    type: String,
+    default: 'primary'
   }
 })
 const attrs = useAttrs()
