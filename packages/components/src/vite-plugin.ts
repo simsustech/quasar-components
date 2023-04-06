@@ -1,5 +1,6 @@
 import type { Plugin } from 'vite'
 import { promises } from 'fs'
+import { Icon, FlagIcon } from './virtualModules.js'
 const { readFile } = promises
 
 export default async function ({
@@ -25,20 +26,39 @@ export default async function ({
 
   return {
     name: `${name}-plugin`,
+    enforce: 'pre',
+    resolveId: (id) => {
+      if (id.includes('.flag')) return id
+      else if (id.includes('.icon')) return id
+    },
+    load: (id) => {
+      if (id.includes('.flag')) {
+        const locale = id.slice(0, -5)
+        const flag = FlagIcon(locale)
+        return flag
+      } else if (id.includes('.icon')) {
+        const iconId = id.slice(0, -5)
+        const icon = Icon(iconId)
+        return icon
+      }
+    },
     config(config, { mode }) {
       if (mode === 'development' || buildFromSrc) {
         const alias = Object.entries(exports)
+          .filter(([key, val]) => {
+            return val.src
+          })
           .map(([key, val]) => {
             return {
-              find: name + key.slice(1),
+              find: new RegExp(
+                `^${
+                  name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + key.slice(1)
+                }$`
+              ),
+              // name: name + key.slice(1),
               replacement: new URL('.' + val.src, import.meta.url).pathname
             }
           })
-          .sort(
-            (a, b) =>
-              (b.find.match(/\//g) || []).length -
-              (a.find.match(/\//g) || []).length
-          )
 
         return {
           resolve: {

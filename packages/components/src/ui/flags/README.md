@@ -16,7 +16,7 @@ Tree-shakeable flag icons for Quasar Framework built with Vite.
 </template>
 
 <script setup>
-  import {enUsIcon} from '@simsustech/quasar-components/flags'
+  import {enUS} from '@simsustech/quasar-components/flags'
   ...
 </script>
 ```

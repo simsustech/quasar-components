@@ -27,6 +27,11 @@
       "import": "./dist/icons.js",
       "src": "./src/ui/icons/index.ts"
     },
+    "./form": {
+      "types": "./dist/types/ui/form/index.d.ts",
+      "import": "./dist/form.js",
+      "src": "./src/ui/form/index.ts"
+    },
     "./css": {
       "import": "./dist/style.css"
     },

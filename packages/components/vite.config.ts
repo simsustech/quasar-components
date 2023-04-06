@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { QuasarResolver } from 'unplugin-vue-components/resolvers'
@@ -74,34 +74,30 @@ import { FlagIcon, Icon } from './src/virtualModules.js'
 //   }}
 // `
 
+export const moduleTransformPlugin: Plugin = {
+  name: 'module-tranform-plugin',
+  enforce: 'pre',
+  resolveId: (id) => {
+    if (id.includes('.flag')) return id
+    else if (id.includes('.icon')) return id
+  },
+  load: (id) => {
+    if (id.includes('.flag')) {
+      const locale = id.slice(0, -5)
+      console.log(locale)
+      const flag = FlagIcon(locale)
+      return flag
+    } else if (id.includes('.icon')) {
+      const iconId = id.slice(0, -5)
+      const icon = Icon(iconId)
+      return icon
+    }
+  }
+}
+
 export default defineConfig(async ({ command, mode }) => ({
   plugins: [
-    {
-      name: 'module-tranform-plugin',
-      enforce: 'pre',
-      resolveId: (id) => {
-        if (id.includes('.flag')) return id
-        else if (id.includes('.icon')) return id
-      },
-      load: (id) => {
-        if (id.includes('.flag')) {
-          const locale = id.slice(0, -5)
-          const flag = FlagIcon(locale)
-          return flag
-        } else if (id.includes('.icon')) {
-          const iconId = id.slice(0, -5)
-          const icon = Icon(iconId)
-          return icon
-        }
-      }
-      // resolveId: (source) => {
-      //   if (source.includes('FlagIcon.vue')) {
-      //     const split = source.split('FlagIcon.vue')
-      //     split[0].slice(2)
-      //     return { id: './FlagIcon.vue' }
-      //   }
-      // }
-    },
+    moduleTransformPlugin,
     Components({
       resolvers: [QuasarResolver()]
     }),
@@ -111,7 +107,9 @@ export default defineConfig(async ({ command, mode }) => ({
     // minify: false,
     lib: {
       // UMD not supported for code-splitting builds
-      fileName: 'ui',
+      fileName: (format, entryName) => {
+        return entryName + '.js'
+      },
       formats: ['es'],
       entry: './src/ui/index.ts'
     },
@@ -125,10 +123,12 @@ export default defineConfig(async ({ command, mode }) => ({
         ).pathname,
         general: new URL('./src/ui/general/index.ts', import.meta.url).pathname,
         flags: new URL('./src/ui/flags/index.ts', import.meta.url).pathname,
-        icons: new URL('./src/ui/icons/index.ts', import.meta.url).pathname
+        icons: new URL('./src/ui/icons/index.ts', import.meta.url).pathname,
+        form: new URL('./src/ui/form/index.ts', import.meta.url).pathname
       },
       output: {
-        entryFileNames: '[name].js'
+        // entryFileNames: '[name].js',
+        // assetFileNames: '[name].[ext]'
       },
       external: ['vue', 'vue-router', 'quasar']
     }

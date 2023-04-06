@@ -13,30 +13,10 @@
 
         <q-toolbar-title>{{ title }}</q-toolbar-title>
 
-        <q-btn>
-          <nl v-if="locale === 'nl'" />
-          <en-us v-if="locale === 'en-US'" />
-          <q-menu auto-close>
-            <q-list>
-              <q-item clickable @click="locale = 'nl'">
-                <q-item-section avatar>
-                  <nl ref="nlRef" />
-                </q-item-section>
-                <q-item-section>
-                  {{ nlRef?.variables.language }}
-                </q-item-section>
-              </q-item>
-              <q-item clickable @click="locale = 'en-US'">
-                <q-item-section avatar>
-                  <en-us ref="enUsRef" />
-                </q-item-section>
-                <q-item-section>
-                  {{ enUsRef?.variables.language }}
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-menu>
-        </q-btn>
+        <q-language-select
+          v-model="locale"
+          :language-imports="languageImports"
+        />
       </q-toolbar>
     </q-header>
 
@@ -107,6 +87,7 @@
 import { ref, Ref, watch, inject } from "vue";
 import { useQuasar } from "quasar";
 import { nl, enUs } from "@simsustech/quasar-components/flags";
+import { QLanguageSelect } from "@simsustech/quasar-components";
 import { authenticationRoutes, generalRoutes } from "../router/routes.js";
 const title = "Demo";
 
@@ -122,15 +103,12 @@ const enUsRef = ref<typeof enUs>();
 
 const locale = ref($q.lang.isoName);
 
-const langList = import.meta.glob("../../node_modules/quasar/lang/*.mjs");
-watch(locale, (val) => {
-  try {
-    langList[`../../node_modules/quasar/lang/${val}.mjs`]().then((lang) => {
-      $q.lang.set(lang.default);
-    });
-  } catch (err) {
-    // Requested Quasar Language Pack does not exist,
-    // let's not break the app, so catching error
-  }
-});
+const quasarLang = import.meta.glob("../../node_modules/quasar/lang/*.mjs");
+const languageImports = ref(
+  Object.entries(quasarLang).reduce((acc, [key, value]) => {
+    const langKey = key.split("/").at(-1)?.split(".").at(0);
+    if (langKey) acc[langKey] = value;
+    return acc;
+  }, {} as Record<string, () => Promise<any>>)
+);
 </script>
