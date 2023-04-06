@@ -1,2 +1,5 @@
 export { default as QSubmitButton } from './QSubmitButton.vue'
 export { default as QStyledCard } from './QStyledCard.vue'
+export { default as ResponsiveDialog } from './ResponsiveDialog.vue'
+export { default as ResourcePage } from './ResourcePage.vue'
+export { default as QLanguageSelect } from './QLanguageSelect.vue'

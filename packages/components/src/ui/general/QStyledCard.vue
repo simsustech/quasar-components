@@ -73,5 +73,5 @@ defineExpose({
 <style lang="sass" scoped>
 .card
   width: 100%
-  max-width: 400px
+  max-width: 300px
 </style>
