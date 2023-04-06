@@ -86,8 +86,7 @@ const lang: Language = {
     alreadyRegistered: 'Email adres is al geregistreerd.'
   },
   verification: {
-    slider:
-      'Please drag the slider all the way to the right until it turns green.'
+    slider: 'Sleep a.u.b. het onderstaande bolletje helemaal naar rechts.'
   }
 }
 
