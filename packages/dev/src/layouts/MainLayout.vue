@@ -42,6 +42,16 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
+        <q-item-label header>General</q-item-label>
+        <q-item
+          v-for="route in generalRoutes"
+          clickable
+          :to="'/general/' + route.path"
+        >
+          <q-item-label>
+            {{ route.name }}
+          </q-item-label>
+        </q-item>
         <q-item-label header>Authentication</q-item-label>
         <q-item
           v-for="route in authenticationRoutes"
@@ -97,7 +107,7 @@
 import { ref, Ref, watch, inject } from "vue";
 import { useQuasar } from "quasar";
 import { nl, enUs } from "@simsustech/quasar-components/flags";
-import { authenticationRoutes } from "../router/routes.js";
+import { authenticationRoutes, generalRoutes } from "../router/routes.js";
 const title = "Demo";
 
 const $q = useQuasar();
