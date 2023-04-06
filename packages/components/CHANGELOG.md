@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.2.0
+
+### Minor Changes
+
+- 91eb0e9: Components update
+
 ## 0.1.3
 
 ### Patch Changes
