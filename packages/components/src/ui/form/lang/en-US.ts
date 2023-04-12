@@ -10,7 +10,7 @@ const lang: Language = {
   fields: {
     name: 'Name',
     firstName: 'First name',
-    surname: 'Surname',
+    lastName: 'Surname',
     address: 'Address',
     postalCode: 'Postal code',
     city: 'City',

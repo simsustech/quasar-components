@@ -25,7 +25,7 @@ import { useLang, loadLang } from './lang'
 export type FormItems =
   | 'name'
   | 'firstName'
-  | 'surname'
+  | 'lastName'
   | 'address'
   | 'city'
   | 'postalCode'

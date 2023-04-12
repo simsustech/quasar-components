@@ -8,7 +8,7 @@ export interface Language {
   fields: {
     name: string
     firstName: string
-    surname: string
+    lastName: string
     address: string
     postalCode: string
     city: string
