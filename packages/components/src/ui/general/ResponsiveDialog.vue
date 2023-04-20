@@ -1,5 +1,5 @@
 <template>
-  <q-dialog :model-value="modelValue" :maximized="$q.screen.lt.md">
+  <q-dialog ref="dialogRef" :maximized="$q.screen.lt.md">
     <q-layout
       view="LHh lpR fff"
       container
@@ -37,7 +37,7 @@ export default {
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useQuasar } from 'quasar'
+import { QDialog, useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 import QSubmitButton from './QSubmitButton.vue'
 
@@ -70,14 +70,14 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = (
   emit('submit', {
     done: (success = true) => {
       evt.done()
-      if (success) modelValue.value = false
+      if (success) dialogRef.value?.hide()
     }
   })
 }
-
-const open = () => (modelValue.value = true)
-const close = () => (modelValue.value = false)
-const toggle = () => (modelValue.value = !modelValue.value)
+const dialogRef = ref<QDialog>()
+const open = () => dialogRef.value?.show()
+const close = () => dialogRef.value?.hide()
+const toggle = () => dialogRef.value?.toggle()
 
 const variables = ref({
   // header: lang.value.some.nested.prop
