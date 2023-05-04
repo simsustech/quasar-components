@@ -100,7 +100,7 @@ watch($q.lang, (val) => {
 })
 
 const steps = ['requestOtp', 'changePassword'] as const
-const step = ref<typeof steps[number]>('requestOtp')
+const step = ref<(typeof steps)[number]>('requestOtp')
 const email = ref('')
 const header = computed(() => lang.value.password.changePassword)
 const passwordChanged = computed(() => lang.value.password.passwordChanged)
@@ -148,7 +148,7 @@ const variables = ref({
   steps
 })
 const functions = ref({
-  goToStep: (newStep: typeof steps[number]) => (step.value = newStep)
+  goToStep: (newStep: (typeof steps)[number]) => (step.value = newStep)
 })
 defineExpose({
   variables,
