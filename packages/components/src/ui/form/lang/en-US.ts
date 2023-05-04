@@ -7,6 +7,9 @@ const lang: Language = {
   buttons: {
     close: 'Close'
   },
+  email: {
+    subject: 'Subject'
+  },
   fields: {
     name: 'Name',
     firstName: 'First name',

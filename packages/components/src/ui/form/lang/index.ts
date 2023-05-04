@@ -5,6 +5,9 @@ export interface Language {
   buttons: {
     close: string
   }
+  email: {
+    subject: string
+  }
   fields: {
     name: string
     firstName: string
