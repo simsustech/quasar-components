@@ -1,5 +1,16 @@
 # @simsustech/quasar-components
 
+## 0.3.0
+
+### Minor Changes
+
+- 1bc095c: feat: add EmailInput component
+
+### Patch Changes
+
+- 3961b33: Rename surname to lastName
+- ea7443f: fix(ResponsiveDialog): replace modelValue with methods so that it is compatible with the persistent prop
+
 ## 0.2.0
 
 ### Minor Changes
