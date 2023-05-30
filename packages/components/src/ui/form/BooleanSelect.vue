@@ -49,7 +49,7 @@ const validations = ref<ValidationRule[]>([])
 if (props.required)
   validations.value.push(
     (val: { label: string; value: string }) =>
-      !!val || lang.value.validations.fieldRequired
+      val !== void 0 || lang.value.validations.fieldRequired
   )
 defineEmits(['update:modelValue'])
 </script>
