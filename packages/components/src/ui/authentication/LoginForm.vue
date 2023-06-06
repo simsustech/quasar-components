@@ -49,7 +49,7 @@
     </q-input>
     <q-btn
       v-if="passwordForgotUrl"
-      class="q-pt-none"
+      class="q-pt-none text-primary"
       :label="lang.login.forgotPassword"
       size="sm"
       flat
