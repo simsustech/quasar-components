@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.3.1
+
+### Patch Changes
+
+- 6d98116: fix: fix BooleanSelect input validation
+
 ## 0.3.0
 
 ### Minor Changes
