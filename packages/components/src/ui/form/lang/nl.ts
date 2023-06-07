@@ -24,8 +24,8 @@ const lang: Language = {
   },
   gender: {
     gender: 'Geslacht',
-    male: 'Man',
-    female: 'Vrouw',
+    male: 'Mannelijk',
+    female: 'Vrouwelijk',
     other: 'Anders'
   },
   postalCode: {
