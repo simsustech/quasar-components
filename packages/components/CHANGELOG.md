@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.3.2
+
+### Patch Changes
+
+- cb84832: fix(components): LoginComponent: set text color of password forgot and create account buttons to primary
+
 ## 0.3.1
 
 ### Patch Changes
