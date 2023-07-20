@@ -33,7 +33,7 @@ watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
 
-const genderOptions = [
+const genderOptions = ref([
   {
     label: lang.value.gender.male,
     value: 'male'
@@ -46,7 +46,7 @@ const genderOptions = [
     label: lang.value.gender.other,
     value: 'other'
   }
-]
+])
 
 const validations = ref<ValidationRule[]>([])
 
