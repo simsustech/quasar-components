@@ -33,7 +33,7 @@ watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
 
-const booleanOptions = [
+const booleanOptions = ref([
   {
     label: lang.value.yes,
     value: true
@@ -42,7 +42,7 @@ const booleanOptions = [
     label: lang.value.no,
     value: false
   }
-]
+])
 
 const validations = ref<ValidationRule[]>([])
 
