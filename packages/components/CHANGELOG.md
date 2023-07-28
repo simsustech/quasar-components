@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.3.3
+
+### Patch Changes
+
+- e1538f5: fix(components): make genderOptions reactive; fix(components): make booleanOptions reactive
+
 ## 0.3.2
 
 ### Patch Changes
