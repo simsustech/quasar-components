@@ -4,6 +4,7 @@
     :rules="validations"
     :model-value="modelValue"
     :label="`${label}${required ? '*' : ''}`"
+    placeholder="YYYY/MM/DD"
     mask="date"
     class="q-pr-md"
     @update:model-value="$emit('update:modelValue', $event)"
@@ -61,7 +62,9 @@ watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
 
-const validations = ref<((val: string) => boolean | string)[]>([])
+const validations = ref<((val: string) => boolean | string)[]>([
+  (v) => /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/.test(v)
+])
 
 if (props.required)
   validations.value.push(
