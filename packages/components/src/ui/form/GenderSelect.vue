@@ -28,7 +28,7 @@ const attrs = useAttrs()
 const lang = useLang()
 
 const $q = useQuasar()
-if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
+if (lang.value.isoName !== $q.lang.isoName) await loadLang($q.lang.isoName)
 watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
