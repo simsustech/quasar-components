@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.3.4
+
+### Patch Changes
+
+- 7f5b036: fix(components): await loadLang in GenderSelect
+
 ## 0.3.3
 
 ### Patch Changes
