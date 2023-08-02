@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.3.5
+
+### Patch Changes
+
+- b18d3a5: Update dependencies
+- ff2ee82: fix(components): fix date input validation
+
 ## 0.3.4
 
 ### Patch Changes
