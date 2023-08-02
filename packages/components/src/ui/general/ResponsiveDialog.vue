@@ -44,9 +44,8 @@ import QSubmitButton from './QSubmitButton.vue'
 export interface Props {
   display?: boolean
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 // const attrs = useAttrs();
-const modelValue = ref(false)
 const emit = defineEmits<{
   (
     e: 'submit',

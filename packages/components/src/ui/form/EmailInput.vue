@@ -19,22 +19,19 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, useAttrs, watch } from 'vue'
-import { useQuasar } from 'quasar'
-import { useLang, loadLang } from './lang'
+import { ref } from 'vue'
+import { useLang } from './lang'
 
 export interface Props {
   subject: string
   body: string
 }
-const props = defineProps<Props>()
-const attrs = useAttrs()
+defineProps<Props>()
 const emit = defineEmits<{
   (e: 'update:subject', value: string | number | null): void
   (e: 'update:body', value: string | null): void
 }>()
 
-const $q = useQuasar()
 const lang = useLang()
 
 const variables = ref({

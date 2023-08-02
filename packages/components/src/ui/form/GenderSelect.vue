@@ -29,7 +29,7 @@ const lang = useLang()
 
 const $q = useQuasar()
 if (lang.value.isoName !== $q.lang.isoName) await loadLang($q.lang.isoName)
-watch($q.lang, (val) => {
+watch($q.lang, () => {
   loadLang($q.lang.isoName)
 })
 

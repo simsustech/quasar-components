@@ -52,11 +52,11 @@ const attrs = useAttrs()
 // const langList = import.meta.glob('../../../node_modules/quasar/lang/*.mjs')
 
 const nlRef = ref<typeof nl>()
-const nlCountry = computed(() => nlRef.value?.variables.country)
+// const nlCountry = computed(() => nlRef.value?.variables.country)
 const nlLanguage = computed(() => nlRef.value?.variables.language)
 
 const enUsRef = ref<typeof enUs>()
-const enUsCountry = computed(() => enUsRef.value?.variables.country)
+// const enUsCountry = computed(() => enUsRef.value?.variables.country)
 const enUsLanguage = computed(() => enUsRef.value?.variables.language)
 
 const languageOptions = [

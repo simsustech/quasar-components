@@ -12,7 +12,7 @@
 /**
  * To do: add mask and country prefix
  */
-import { computed, ref, useAttrs } from 'vue'
+import { ref, useAttrs } from 'vue'
 import { QInput } from 'quasar'
 import { useLang } from './lang'
 

@@ -70,7 +70,7 @@ const emit = defineEmits<{
       data,
       done
     }: {
-      data?: any
+      data?: unknown
       done: (success?: boolean) => void
     }
   ): void
@@ -80,7 +80,7 @@ const emit = defineEmits<{
       data,
       done
     }: {
-      data?: any
+      data?: unknown
       done: (success?: boolean) => void
     }
   ): void

@@ -70,44 +70,44 @@ export const Icon = (icon: string) => `
   }}
 `
 
-export const FormItem = (field: string) => `
-import { ref, watch, useAttrs, h } from 'vue'
-import { QItem, QItemLabel, QItemSection, useQuasar } from 'quasar'
-import { useLang, loadLang } from '${
-  new URL(`../src/ui/form/lang/index.ts`, import.meta.url).pathname
-}'
+// export const FormItem = (field: string) => `
+// import { ref, watch, useAttrs, h } from 'vue'
+// import { QItem, QItemLabel, QItemSection, useQuasar } from 'quasar'
+// import { useLang, loadLang } from '${
+//   new URL(`../src/ui/form/lang/index.ts`, import.meta.url).pathname
+// }'
 
-export default {
-  setup(props, context) {
-    const $q = useQuasar()
-    const attrs = useAttrs()
+// export default {
+//   setup(props, context) {
+//     const $q = useQuasar()
+//     const attrs = useAttrs()
 
-    const lang = useLang()
+//     const lang = useLang()
 
-    if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
-    watch($q.lang, (val) => {
-      loadLang($q.lang.isoName)
-    })
+//     if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
+//     watch($q.lang, (val) => {
+//       loadLang($q.lang.isoName)
+//     })
 
-    const variables = ref({})
+//     const variables = ref({})
 
-    const functions = ref({
-      // submit
-    })
+//     const functions = ref({
+//       // submit
+//     })
 
-    context.expose({
-      variables,
-      functions
-    })
+//     context.expose({
+//       variables,
+//       functions
+//     })
 
-    // return the render function
-    return () =>
-      h(QItem, { attrs }, [
-        h(QItemSection, {}, [
-          h(QItemLabel, { overline: true }, 'field'),
-          h(QItemLabel, {}, 'field')
-        ])
-      ])
-  }
-}
-`
+//     // return the render function
+//     return () =>
+//       h(QItem, { attrs }, [
+//         h(QItemSection, {}, [
+//           h(QItemLabel, { overline: true }, 'field'),
+//           h(QItemLabel, {}, 'field')
+//         ])
+//       ])
+//   }
+// }
+// `

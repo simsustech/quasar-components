@@ -45,7 +45,7 @@ export default async function ({
     config(config, { mode }) {
       if (mode === 'development' || buildFromSrc) {
         const alias = Object.entries(exports)
-          .filter(([key, val]) => {
+          .filter(([, val]) => {
             return val.src
           })
           .map(([key, val]) => {
