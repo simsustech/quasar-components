@@ -19,6 +19,7 @@ import { useLang, loadLang } from './lang'
 export type Gender = 'male' | 'female' | 'other' | null
 export interface Props {
   modelValue: Gender | null
+  disableOther?: boolean
   required?: boolean
 }
 const props = defineProps<Props>()
@@ -41,12 +42,15 @@ const genderOptions = ref([
   {
     label: lang.value.gender.female,
     value: 'female'
-  },
-  {
-    label: lang.value.gender.other,
-    value: 'other'
   }
 ])
+
+if (!props.disableOther) {
+  genderOptions.value.push({
+    label: lang.value.gender.other,
+    value: 'other'
+  })
+}
 
 const validations = ref<ValidationRule[]>([])
 
