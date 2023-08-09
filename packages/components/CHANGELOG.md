@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.3.6
+
+### Patch Changes
+
+- 4a79340: feat(components): add disableOther prop to GenderSelect; fix(components): fix null date validation in DateInput
+
 ## 0.3.5
 
 ### Patch Changes
