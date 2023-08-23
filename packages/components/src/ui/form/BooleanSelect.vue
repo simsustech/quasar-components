@@ -17,7 +17,7 @@ import { QSelect, useQuasar, ValidationRule } from 'quasar'
 import { useLang, loadLang } from './lang'
 
 export interface Props {
-  modelValue: boolean
+  modelValue: boolean | null
   label?: string
   required?: boolean
 }
