@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.0
+
+### Minor Changes
+
+- 9eb34b3: feat(components): add DatePicker component
+
 ## 0.3.7
 
 ### Patch Changes
