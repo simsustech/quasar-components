@@ -33,6 +33,11 @@ const lang: Language = {
     validations: {
       invalidPostalCode: 'Invalid postal code'
     }
+  },
+  datePicker: {
+    validations: {
+      unavailableRange: 'The selected period contains unavailable dates.'
+    }
   }
 }
 

@@ -33,6 +33,11 @@ const lang: Language = {
     validations: {
       invalidPostalCode: 'Ongeldige postcode'
     }
+  },
+  datePicker: {
+    validations: {
+      unavailableRange: 'De geselecteerde periode bevat ongeschikbare datums.'
+    }
   }
 }
 

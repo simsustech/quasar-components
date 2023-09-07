@@ -32,6 +32,11 @@ export interface Language {
       invalidPostalCode: string
     }
   }
+  datePicker: {
+    validations: {
+      unavailableRange: string
+    }
+  }
 }
 
 import type { Ref } from 'vue'
