@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.1
+
+### Patch Changes
+
+- a1de056: fix(components): fix DatePicker undefined value
+
 ## 0.4.0
 
 ### Minor Changes
