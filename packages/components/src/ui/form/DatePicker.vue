@@ -36,7 +36,7 @@ const lang = useLang()
 const { periods, range, options: parentOptions } = toRefs(props)
 
 const update = (val: { from: string; to: string } | string) => {
-  if (typeof val !== 'string') {
+  if (val && typeof val !== 'string') {
     const parsedFrom = val.from.replaceAll('/', '-')
     const parsedTo = val.to.replaceAll('/', '-')
     const unavailablePeriods = periods?.value?.filter(
