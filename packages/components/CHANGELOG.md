@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.3.7
+
+### Patch Changes
+
+- 34a81e2: fix: allow null as modelValue for BooleanSelect
+
 ## 0.3.6
 
 ### Patch Changes
