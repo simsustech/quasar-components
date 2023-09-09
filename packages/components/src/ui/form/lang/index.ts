@@ -33,6 +33,7 @@ export interface Language {
     }
   }
   datePicker: {
+    placeholder: string
     validations: {
       unavailableRange: string
     }

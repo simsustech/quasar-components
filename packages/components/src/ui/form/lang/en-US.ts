@@ -35,6 +35,7 @@ const lang: Language = {
     }
   },
   datePicker: {
+    placeholder: 'YYYY/MM/DD',
     validations: {
       unavailableRange: 'The selected period contains unavailable dates.'
     }

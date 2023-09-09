@@ -4,7 +4,7 @@
     :rules="validations"
     :model-value="modelValue"
     :label="`${label}${required ? '*' : ''}`"
-    placeholder="YYYY/MM/DD"
+    :placeholder="lang.datePicker.placeholder"
     mask="date"
     class="q-pr-md"
     @update:model-value="$emit('update:modelValue', $event)"
@@ -14,7 +14,7 @@
         v-if="clearable"
         name="clear"
         class="cursor-pointer"
-        @click="$emit('update:modelValue', '')"
+        @click="$emit('update:modelValue', null)"
       />
       <q-icon name="event" class="cursor-pointer">
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, useAttrs } from 'vue'
+import { ref, watch, useAttrs, toRefs } from 'vue'
 import { QDateProps, QInput, useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
@@ -51,7 +51,9 @@ export interface Props {
   date?: Partial<QDateProps>
 }
 const props = defineProps<Props>()
-
+const emit = defineEmits<{
+  (e: 'update:modelValue', val: string | null): void
+}>()
 const attrs = useAttrs()
 
 const lang = useLang()
@@ -61,6 +63,15 @@ if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
 watch($q.lang, () => {
   loadLang($q.lang.isoName)
 })
+
+const { modelValue } = toRefs(props)
+
+watch(
+  () => modelValue?.value,
+  (newVal) => {
+    if (newVal === '') emit('update:modelValue', null)
+  }
+)
 
 const validations = ref<((val: string) => boolean | string)[]>([
   (v) => {
