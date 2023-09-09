@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.2
+
+### Patch Changes
+
+- 7e6d8ea: fix(components): add DateInput placeholder translation and set null on empty value
+
 ## 0.4.1
 
 ### Patch Changes
