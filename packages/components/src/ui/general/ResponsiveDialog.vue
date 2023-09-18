@@ -3,7 +3,7 @@
     <q-layout
       view="LHh lpR fff"
       container
-      :class="{ 'bg-dark': $q.dark.isActive, 'bg-white': !$q.dark.isActive }"
+      :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
       style="min-width: 85vw"
     >
       <q-header class="bg-primary">
