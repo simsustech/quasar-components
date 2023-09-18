@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.3
+
+### Patch Changes
+
+- 17dbf94: refactor(components): change class attribute of ResponsiveDialog; fix(components): fix BooleanSelect validation
+
 ## 0.4.2
 
 ### Patch Changes
