@@ -17,7 +17,7 @@ const lang: Language = {
     address: 'Adres',
     postalCode: 'Postcode',
     city: 'Woonplaats',
-    telephoneNumber: 'Telefoonnumer'
+    telephoneNumber: 'Telefoonnummer'
   },
   validations: {
     fieldRequired: 'Veld is vereist.'
