@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.4
+
+### Patch Changes
+
+- a14c1d9: fix(components): fix nl telephone number translation
+
 ## 0.4.3
 
 ### Patch Changes
