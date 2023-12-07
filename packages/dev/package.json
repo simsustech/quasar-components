@@ -23,6 +23,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@types/node": "^20.4.5",
     "@vue/server-renderer": "^3.3.10",
     "critters": "^0.0.20",
     "devcert": "^1.2.2",
