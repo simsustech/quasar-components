@@ -2,7 +2,7 @@ import type { Language } from '../lang'
 
 const lang: Language = {
   isoName: 'nl',
-  submit: 'Versturen',
+  submit: 'Opslaan',
   next: 'Volgende',
   back: 'Vorige'
 }
