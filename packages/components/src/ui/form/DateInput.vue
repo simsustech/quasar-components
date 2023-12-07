@@ -7,7 +7,7 @@
     :placeholder="lang.datePicker.placeholder"
     mask="date"
     class="q-pr-md"
-    @update:model-value="$emit('update:modelValue', $event)"
+    @update:model-value="update"
   >
     <template v-slot:append>
       <q-icon
@@ -66,6 +66,9 @@ watch($q.lang, () => {
 
 const { modelValue } = toRefs(props)
 
+const update = (val: string | number | null) => {
+  if (typeof val === 'string') emit('update:modelValue', val)
+}
 watch(
   () => modelValue?.value,
   (newVal) => {
