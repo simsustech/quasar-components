@@ -67,7 +67,7 @@ watch($q.lang, () => {
 const { modelValue } = toRefs(props)
 
 const update = (val: string | number | null) => {
-  if (typeof val === 'string') emit('update:modelValue', val)
+  if (typeof val === 'string' || val === null) emit('update:modelValue', val)
 }
 watch(
   () => modelValue?.value,
