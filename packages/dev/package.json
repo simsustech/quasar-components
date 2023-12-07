@@ -13,21 +13,21 @@
   },
   "author": "simsustech",
   "dependencies": {
-    "@fastify/static": "^6.4.0",
-    "@quasar/extras": "^1.13.1",
-    "@simsustech/quasar-components": "^0.4.0",
-    "fastify": "^4.0.0",
-    "fastify-plugin": "^3.0.1",
-    "quasar": "^2.6.0",
-    "vue": "^3.2.37",
-    "vue-router": "^4.0.12"
+    "@fastify/static": "^6.12.0",
+    "@quasar/extras": "^1.16.9",
+    "@simsustech/quasar-components": "^0.4.4",
+    "fastify": "^4.24.3",
+    "fastify-plugin": "^4.5.1",
+    "quasar": "^2.14.1",
+    "vue": "^3.3.10",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@vue/server-renderer": "^3.2.37",
-    "critters": "^0.0.16",
+    "@vue/server-renderer": "^3.3.10",
+    "critters": "^0.0.20",
     "devcert": "^1.2.2",
-    "typescript": "^4.6.2",
-    "vite": "^3.2.0-beta.0",
-    "vitrify": "^0.11.0"
+    "typescript": "^5.3.3",
+    "vite": "^5.0.6",
+    "vitrify": "^0.14.0"
   }
 }
