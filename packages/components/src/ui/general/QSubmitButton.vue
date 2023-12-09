@@ -1,12 +1,15 @@
 <template>
   <q-btn
     v-bind="attrs"
-    :label="isNextButton ? lang.next : lang.submit"
     :color="color"
     :loading="loading || loadingInternal"
     type="submit"
     @click="submit"
-  />
+  >
+    <slot>
+      {{ isNextButton ? lang.next : lang.submit }}
+    </slot>
+  </q-btn>
 </template>
 
 <script lang="ts">

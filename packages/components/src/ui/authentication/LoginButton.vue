@@ -1,11 +1,9 @@
 <template>
-  <q-btn>
+  <q-submit-button>
     <slot name="icon" />
     <div v-if="withNetwork">{{ lang.login.loginWith }} {{ withNetwork }}</div>
-    <div v-else>
-      {{ lang.login.login }}
-    </div>
-  </q-btn>
+    <div v-else>{{ lang.login.login }}</div>
+  </q-submit-button>
 </template>
 
 <script lang="ts">
@@ -15,42 +13,20 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { useQuasar } from 'quasar'
-import { useLang, loadLang } from './lang'
+import { useLang, loadLang } from './lang/index.js'
+import QSubmitButton from '../general/QSubmitButton.vue'
 
 export interface Props {
   withNetwork?: string
 }
 defineProps<Props>()
-// const attrs = useAttrs();
-// const emit = defineEmits<{
-//   (
-//     e: "asyncEmit",
-//     {
-//       value,
-//       done,
-//     }: {
-//       value: string;
-//       done: () => void;
-//     }
-//   ): void;
-// }>();
+
 const $q = useQuasar()
 const lang = useLang()
 if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
 watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
-})
-
-const variables = ref({
-  // header: lang.value.some.nested.prop
-})
-const functions = ref({
-  // submit
-})
-defineExpose({
-  variables,
-  functions
 })
 </script>
