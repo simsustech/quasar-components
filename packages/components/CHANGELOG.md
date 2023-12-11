@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.6
+
+### Patch Changes
+
+- 255d957: fix(components): make LoginButton extend QSubmitButton
+
 ## 0.4.5
 
 ### Patch Changes
