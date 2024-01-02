@@ -4,7 +4,7 @@
     :color="color"
     :loading="loading || loadingInternal"
     type="submit"
-    @click.once="submit"
+    @click="submit"
   >
     <slot>
       {{ isNextButton ? lang.next : lang.submit }}
@@ -21,7 +21,7 @@ export default {
 
 <script setup lang="ts">
 import { ref, watch, useAttrs } from 'vue'
-import { useQuasar } from 'quasar'
+import { useQuasar, debounce } from 'quasar'
 import { useLang, loadLang } from './lang'
 export interface Props {
   loading?: boolean
@@ -67,12 +67,16 @@ watch($q.lang, (val) => {
 
 let loadingInternal = ref(false)
 
-const submit = () => {
-  if (props.loading === void 0) loadingInternal.value = true
-  const p = new Promise((resolve, reject) => {
-    emit('submit', { done: () => resolve(true) })
-  }).finally(() => {
-    if (props.loading === void 0) loadingInternal.value = false
-  })
-}
+const submit = debounce(
+  () => {
+    if (props.loading === void 0) loadingInternal.value = true
+    const p = new Promise((resolve, reject) => {
+      emit('submit', { done: () => resolve(true) })
+    }).finally(() => {
+      if (props.loading === void 0) loadingInternal.value = false
+    })
+  },
+  1000,
+  true
+)
 </script>
