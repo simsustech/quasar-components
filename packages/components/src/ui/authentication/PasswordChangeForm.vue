@@ -116,7 +116,6 @@ const newPassword = ref('')
 const repeatNewPassword = ref('')
 const showPassword = ref(false)
 const showRepeatPassword = ref(false)
-const header = computed(() => lang.value.password.changePassword)
 
 const formRef = ref<QForm>()
 const validations = computed<
@@ -153,9 +152,7 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = (
   })
 }
 
-const variables = ref({
-  header
-})
+const variables = ref({})
 const functions = ref({
   submit
 })

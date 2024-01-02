@@ -46,6 +46,9 @@ export interface Language {
       fieldRequired: string
       invalidEmail: string
     }
+    messages: {
+      unknownEmail: string
+    }
     request: string
     checkEmail: string
     verificationCode: string

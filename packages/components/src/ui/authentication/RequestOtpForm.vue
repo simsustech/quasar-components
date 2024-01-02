@@ -65,7 +65,6 @@ watch($q.lang, (val) => {
 })
 
 const email = ref('')
-const header = computed(() => lang.value.otp.request)
 
 const formRef = ref<QForm>()
 const validations = computed<
@@ -90,7 +89,7 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = ({
   })
 }
 
-const variables = ref({ header })
+const variables = ref({})
 const functions = ref({ submit })
 defineExpose({
   variables,

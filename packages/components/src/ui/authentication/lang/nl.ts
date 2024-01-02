@@ -32,6 +32,9 @@ const lang: Language = {
       fieldRequired: 'Veld is vereist.',
       invalidEmail: 'Het email adres is ongeldig.'
     },
+    messages: {
+      unknownEmail: 'Email adres is niet geregistreerd.'
+    },
     request: 'Vraag een eenmalig wachtwoord aan.',
     checkEmail:
       'U ontvangt een verificatie code in uw mailbox. Gebruik deze code in de volgende stap.',

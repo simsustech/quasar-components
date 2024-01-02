@@ -38,15 +38,17 @@
 </template>
 
 <script lang="ts">
+import { useLang, loadLang } from './lang'
+
 export default {
-  name: 'PasswordChangeStepper'
+  name: 'PasswordChangeStepper',
+  useLang: useLang
 }
 </script>
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useQuasar, QInputProps } from 'quasar'
-import { useLang, loadLang } from './lang'
 import QSubmitButton from '../general/QSubmitButton.vue'
 import RequestOtpForm from './RequestOtpForm.vue'
 import PasswordChangeForm from './PasswordChangeForm.vue'
@@ -102,20 +104,14 @@ watch($q.lang, (val) => {
 const steps = ['requestOtp', 'changePassword'] as const
 const step = ref<(typeof steps)[number]>('requestOtp')
 const email = ref('')
-const header = computed(() => lang.value.password.changePassword)
-const passwordChanged = computed(() => lang.value.password.passwordChanged)
-const unprocessableRequest = computed(() => lang.value.unprocessableRequest)
-const checkEmail = computed(() => lang.value.otp.checkEmail)
 
 const requestOtpFormRef = ref<typeof RequestOtpForm>()
 const passwordChangeFormRef = ref<typeof PasswordChangeForm>()
 
-const requestOtpHeader = computed(
-  () => requestOtpFormRef.value?.variables.header || ''
-)
-const passwordChangeHeader = computed(
-  () => passwordChangeFormRef.value?.variables.header || ''
-)
+const requestOtpHeader = computed(() => lang.value.otp.request)
+
+const passwordChangeHeader = computed(() => lang.value.password.changePassword)
+
 const requestOtp: InstanceType<typeof RequestOtpForm>['$props']['onSubmit'] = ({
   email: emittedEmail,
   done
@@ -141,10 +137,6 @@ const changePassword: InstanceType<
 }
 
 const variables = ref({
-  header,
-  passwordChanged,
-  unprocessableRequest,
-  checkEmail,
   steps
 })
 const functions = ref({

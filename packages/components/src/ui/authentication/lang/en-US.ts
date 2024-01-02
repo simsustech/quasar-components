@@ -32,6 +32,9 @@ const lang: Language = {
       fieldRequired: 'Field is required.',
       invalidEmail: 'A valid email address is required.'
     },
+    messages: {
+      unknownEmail: 'Email address is not registered.'
+    },
     request: 'Request a one-time password',
     checkEmail:
       'You will receive a verification code in your email. Please use this verification code in the next step.',
