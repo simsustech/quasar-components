@@ -4,7 +4,7 @@
     :color="color"
     :loading="loading || loadingInternal"
     type="submit"
-    @click="submit"
+    @click.once="submit"
   >
     <slot>
       {{ isNextButton ? lang.next : lang.submit }}
