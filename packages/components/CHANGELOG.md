@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.4.7
+
+### Patch Changes
+
+- ebb0c51: fix(components): export useLang in PasswordChangeStepper
+- 98f6393: fix: replace .once modifier with debounce in QSubmitButton
+
 ## 0.4.6
 
 ### Patch Changes
