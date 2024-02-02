@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": "src/"
+    "rootDir": "src/",
+    "skipLibCheck": true
   },
   "extends": "./tsconfig.node.json",
   "include": ["./src/vite-plugin.ts", "./src/virtualModules.ts"]
