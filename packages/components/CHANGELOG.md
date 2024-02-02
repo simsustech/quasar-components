@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.4.8
+
+### Patch Changes
+
+- e86715f: fix: make BooleanItem nullable
+
 ## 0.4.7
 
 ### Patch Changes
