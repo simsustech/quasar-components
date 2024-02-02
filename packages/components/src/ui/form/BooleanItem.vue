@@ -5,7 +5,7 @@
         {{ label }}
       </q-item-label>
       <q-item-label>
-        {{ modelValue ? lang.yes : lang.no }}
+        {{ modelValue === null ? '-' : modelValue ? lang.yes : lang.no }}
       </q-item-label>
     </q-item-section>
   </q-item>
@@ -17,7 +17,7 @@ import { QItem, QItemLabel, QItemSection, useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
 export interface Props {
-  modelValue: boolean
+  modelValue: boolean | null
   label: string
 }
 defineProps<Props>()
