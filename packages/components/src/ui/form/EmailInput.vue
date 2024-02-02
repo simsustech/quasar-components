@@ -13,6 +13,8 @@
 </template>
 
 <script lang="ts">
+import { QInput, QEditor } from 'quasar'
+
 export default {
   name: 'EmailInput'
 }
