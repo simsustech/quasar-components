@@ -15,6 +15,7 @@
       bottom-slots
       :rules="validations['email']"
       lazy-rules
+      autcomplete="email"
     />
     <q-input
       v-if="useUsername"
@@ -26,6 +27,7 @@
       bottom-slots
       :rules="validations['username']"
       lazy-rules
+      autocomplete="username"
     />
     <q-input
       id="password"
@@ -38,6 +40,7 @@
       :rules="validations['password']"
       lazy-rules
       bottom-slots
+      autcomplete="current-password"
     >
       <template #append>
         <q-icon
