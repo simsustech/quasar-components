@@ -36,6 +36,9 @@ const lang: Language = {
   },
   datePicker: {
     placeholder: 'JJJJ/MM/DD',
+    YYYY: 'JJJJ',
+    MM: 'MM',
+    DD: 'DD',
     validations: {
       unavailableRange: 'De geselecteerde periode bevat ongeschikbare datums.'
     }

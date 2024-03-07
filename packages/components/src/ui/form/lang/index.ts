@@ -34,6 +34,9 @@ export interface Language {
   }
   datePicker: {
     placeholder: string
+    YYYY: string
+    MM: string
+    DD: string
     validations: {
       unavailableRange: string
     }
