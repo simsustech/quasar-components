@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import "@simsustech/quasar-components/css";
 import { provide, ref } from "vue";
 import { useQuasar } from "quasar";
 </script>

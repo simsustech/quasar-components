@@ -42,6 +42,16 @@
             {{ route.name }}
           </q-item-label>
         </q-item>
+        <q-item-label header>Form</q-item-label>
+        <q-item
+          v-for="route in formRoutes"
+          clickable
+          :to="'/form/' + route.path"
+        >
+          <q-item-label>
+            {{ route.name }}
+          </q-item-label>
+        </q-item>
       </q-list>
       <q-item-label header>Flags</q-item-label>
       <q-item clickable to="/flags">
@@ -88,7 +98,11 @@ import { ref, Ref, watch, inject } from "vue";
 import { useQuasar } from "quasar";
 import { nl, enUs } from "@simsustech/quasar-components/flags";
 import { QLanguageSelect } from "@simsustech/quasar-components";
-import { authenticationRoutes, generalRoutes } from "../router/routes.js";
+import {
+  authenticationRoutes,
+  generalRoutes,
+  formRoutes,
+} from "../router/routes.js";
 const title = "Demo";
 
 const $q = useQuasar();
@@ -105,10 +119,13 @@ const locale = ref($q.lang.isoName);
 
 const quasarLang = import.meta.glob("../../node_modules/quasar/lang/*.mjs");
 const languageImports = ref(
-  Object.entries(quasarLang).reduce((acc, [key, value]) => {
-    const langKey = key.split("/").at(-1)?.split(".").at(0);
-    if (langKey) acc[langKey] = value;
-    return acc;
-  }, {} as Record<string, () => Promise<any>>)
+  Object.entries(quasarLang).reduce(
+    (acc, [key, value]) => {
+      const langKey = key.split("/").at(-1)?.split(".").at(0);
+      if (langKey) acc[langKey] = value;
+      return acc;
+    },
+    {} as Record<string, () => Promise<any>>
+  )
 );
 </script>

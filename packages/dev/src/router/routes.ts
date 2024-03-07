@@ -3,7 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 
 const authenticationPages = import.meta.glob("../pages/authentication/*.vue");
 const generalPages = import.meta.glob("../pages/general/*.vue");
-
+const formPages = import.meta.glob("../pages/form/*.vue");
 // export const authenticationRoutes = Object.entries(authenticationPages).reduce(
 //   (acc, [key, val]) => {
 //     const name = key.split("/").at(-1)?.split(".").at(0);
@@ -19,19 +19,24 @@ const generalPages = import.meta.glob("../pages/general/*.vue");
 // );
 
 export const getRoutes = (pages: Record<string, () => any>) =>
-  Object.entries(pages).reduce((acc, [key, val]) => {
-    const name = key.split("/").at(-1)?.split(".").at(0);
-    if (name)
-      acc.push({
-        name,
-        path: name.toLowerCase(),
-        component: val,
-      });
-    return acc;
-  }, [] as { name: string; path: string; component: any }[]);
+  Object.entries(pages).reduce(
+    (acc, [key, val]) => {
+      const name = key.split("/").at(-1)?.split(".").at(0);
+      if (name)
+        acc.push({
+          name,
+          path: name.toLowerCase(),
+          component: val,
+        });
+      return acc;
+    },
+    [] as { name: string; path: string; component: any }[]
+  );
 
 export const authenticationRoutes = getRoutes(authenticationPages);
 export const generalRoutes = getRoutes(generalPages);
+export const formRoutes = getRoutes(formPages);
+
 // const testPages = import.meta.glob("../pages/test/*.vue");
 
 // const testRoutes = Object.entries(testPages).reduce((acc, [key, val]) => {
@@ -60,6 +65,11 @@ const routes: RouteRecordRaw[] = [
         path: "authentication",
         component: () => import("../pages/Authentication.vue"),
         children: authenticationRoutes,
+      },
+      {
+        path: "form",
+        component: () => import("../pages/Form.vue"),
+        children: formRoutes,
       },
       {
         path: "flags",

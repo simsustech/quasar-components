@@ -1,13 +1,14 @@
 import type { VitrifyConfig } from "vitrify";
 import { certificateFor } from "devcert";
+import QuasarComponentsPlugin from "@simsustech/quasar-components/vite-plugin";
 export default async function ({ mode, command }): Promise<VitrifyConfig> {
   const config: VitrifyConfig = {
+    plugins: [QuasarComponentsPlugin()],
     vitrify: {
       lang: "nl",
       hooks: {
         // Vitrify hooks
       },
-      globalCss: ["@simsustech/quasar-components/css"],
       sass: {
         variables: {
           $primary: "#000000",
