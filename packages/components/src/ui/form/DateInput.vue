@@ -1,5 +1,5 @@
 <template>
-  <q-field bottom-slots>
+  <q-field :model-value="modelValue" bottom-slots :rules="validations">
     <template #control>
       <component
         :is="QInput"
@@ -202,6 +202,20 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     onKeydown: goToNextElement
   }
 }))
+
+const validations = ref<((val: string) => boolean | string)[]>([
+  (v) => {
+    if (v !== null)
+      // return /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/.test(v)
+      return /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(v)
+    return true
+  }
+])
+
+if (props.required)
+  validations.value.push(
+    (val: string) => !!val || lang.value.validations.fieldRequired
+  )
 </script>
 
 <style>
