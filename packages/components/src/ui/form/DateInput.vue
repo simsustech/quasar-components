@@ -81,13 +81,6 @@ const year = ref<number>()
 const month = ref<number>()
 const day = ref<number>()
 
-watch(
-  () => modelValue?.value,
-  (newVal) => {
-    if (newVal === '') emit('update:modelValue', null)
-  }
-)
-
 const setYear: InstanceType<typeof QInput>['$props']['onUpdate:modelValue'] = (
   val
 ) => {
@@ -135,6 +128,8 @@ watch([year, month, day], () => {
   const date = `${year.value}-${String(month.value).padStart(2, '0')}-${String(day.value).padStart(2, '0')}`
   if (Date.parse(date)) {
     emit('update:modelValue', date)
+  } else {
+    emit('update:modelValue', '')
   }
 })
 
@@ -154,7 +149,7 @@ const formattedDate = computed(() => {
 
 watch(modelValue, (newVal) => {
   if (newVal) setInternalDate(newVal)
-  else {
+  else if (newVal === null) {
     year.value = undefined
     month.value = undefined
     day.value = undefined
