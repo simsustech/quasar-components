@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.5.1
+
+### Patch Changes
+
+- 4d55fc8: feat(DateInput): add stack-label; fix(DateInput): set year to undefined on invalid values
+
 ## 0.5.0
 
 ### Minor Changes
