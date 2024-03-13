@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.5.2
+
+### Patch Changes
+
+- 7799b8f: fix(DateInput): fix style
+
 ## 0.5.1
 
 ### Patch Changes
