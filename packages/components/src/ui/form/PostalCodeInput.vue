@@ -17,7 +17,7 @@ import { useLang } from './lang'
 export type PostalCodeLocales = 'nl'
 
 export interface Props {
-  modelValue: string
+  modelValue?: string
   locale: PostalCodeLocales
   required?: boolean
 }
