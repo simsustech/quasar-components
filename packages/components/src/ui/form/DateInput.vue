@@ -1,5 +1,11 @@
 <template>
-  <q-field :model-value="modelValue" bottom-slots :rules="validations">
+  <q-field
+    :model-value="modelValue"
+    bottom-slots
+    :rules="validations"
+    :label="label"
+    stack-label
+  >
     <template #control>
       <component
         :is="QInput"
@@ -223,5 +229,8 @@ if (props.required)
 .q-field--standard .q-field__bottom,
 .q-field--standard.q-field--dense .q-field__control {
   padding-top: 0;
+}
+.q-field--auto-height.q-field--labeled .q-field__control-container {
+  padding-top: 13px;
 }
 </style>
