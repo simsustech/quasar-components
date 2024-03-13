@@ -9,11 +9,17 @@
     <template #control>
       <component
         :is="QInput"
-        v-for="part in format.split('-')"
+        v-for="(part, index) in format.split('-')"
         :key="part"
         borderless
         v-bind="dateProps[part]"
-      />
+      >
+        <template #after>
+          <a v-if="index < 2" style="padding: 0px; margin: 0px; font-size: 18px"
+            >-</a
+          >
+        </template></component
+      >
     </template>
 
     <template #append>
@@ -179,8 +185,8 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   YYYY: {
     modelValue: year.value,
     placeholder: lang.value.datePicker.YYYY,
-    style: 'max-width: 6ch',
-    suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
+    style: 'max-width: 6.5ch',
+    // suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
     class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-xs' : undefined,
     'onUpdate:modelValue': setYear,
     onKeydown: goToNextElement
@@ -188,8 +194,8 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   MM: {
     modelValue: month.value ? String(month.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.MM,
-    style: 'max-width: 4ch',
-    suffix: '-',
+    style: 'max-width: 4.5ch',
+    // suffix: '-',
     class: 'q-ml-xs',
     'onUpdate:modelValue': setMonth,
     onKeydown: goToNextElement
@@ -197,8 +203,8 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   DD: {
     modelValue: day.value ? String(day.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.DD,
-    style: 'max-width: 4ch',
-    suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
+    style: 'max-width: 4.5ch',
+    // suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
     class: format.value === 'YYYY-MM-DD' ? 'q-ml-xs' : undefined,
     'onUpdate:modelValue': setDay,
     onKeydown: goToNextElement
@@ -233,5 +239,13 @@ if (props.required)
 }
 .q-field--auto-height.q-field--labeled .q-field__control-container {
   padding-top: 13px;
+}
+.q-field--auto-height.q-field--labeled .q-field__native {
+  padding-bottom: 0px;
+}
+.q-field__after {
+  height: 1em;
+  margin-top: 0.5em;
+  margin-left: -8px;
 }
 </style>
