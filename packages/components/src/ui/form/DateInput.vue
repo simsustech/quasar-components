@@ -92,6 +92,7 @@ const setYear: InstanceType<typeof QInput>['$props']['onUpdate:modelValue'] = (
 ) => {
   const nr = Number(val)
   if (nr && nr > 1e3 && nr < 1e4) year.value = nr
+  else year.value = undefined
 }
 
 const setMonth: InstanceType<typeof QInput>['$props']['onUpdate:modelValue'] = (
