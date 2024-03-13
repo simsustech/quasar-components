@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.5.0
+
+### Minor Changes
+
+- 401bf7b: feat: change DateInput to separate input fields for year, month and day
+- fa4989f: feat: add autocomplete attributes to LoginForm
+
 ## 0.4.8
 
 ### Patch Changes
