@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.5.3
+
+### Patch Changes
+
+- a908cb3: fix(PostalCodeInput): make modelValue optional
+
 ## 0.5.2
 
 ### Patch Changes
