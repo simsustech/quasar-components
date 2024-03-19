@@ -15,11 +15,11 @@
         v-bind="dateProps[part]"
       >
         <template #after>
-          <a v-if="index < 2" style="padding: 0px; margin: 0px; font-size: 18px"
+          <a v-if="index < 2" style="margin-left: -0.5em; margin-top: 0.75em"
             >-</a
           >
-        </template></component
-      >
+        </template>
+      </component>
     </template>
 
     <template #append>
@@ -185,7 +185,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   YYYY: {
     modelValue: year.value,
     placeholder: lang.value.datePicker.YYYY,
-    style: 'max-width: 6.5ch',
+    style: 'width: 7ch; margin-top: -2em; margin-bottom: -0.5em',
     // suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
     class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-xs' : undefined,
     'onUpdate:modelValue': setYear,
@@ -194,7 +194,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   MM: {
     modelValue: month.value ? String(month.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.MM,
-    style: 'max-width: 4.5ch',
+    style: 'width: 6ch; margin-top: -2em; margin-bottom: -0.5em',
     // suffix: '-',
     class: 'q-ml-xs',
     'onUpdate:modelValue': setMonth,
@@ -203,7 +203,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   DD: {
     modelValue: day.value ? String(day.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.DD,
-    style: 'max-width: 4.5ch',
+    style: 'width: 6ch; margin-top: -2em; margin-bottom: -0.5em',
     // suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
     class: format.value === 'YYYY-MM-DD' ? 'q-ml-xs' : undefined,
     'onUpdate:modelValue': setDay,
@@ -226,26 +226,4 @@ if (props.required)
   )
 </script>
 
-<style>
-.q-field--auto-height .q-field__control,
-.q-field--auto-height .q-field__native {
-  min-height: 1em;
-}
-.q-field--borderless .q-field__bottom,
-.q-field--borderless.q-field--dense .q-field__control,
-.q-field--standard .q-field__bottom,
-.q-field--standard.q-field--dense .q-field__control {
-  padding-top: 0;
-}
-.q-field--auto-height.q-field--labeled .q-field__control-container {
-  padding-top: 13px;
-}
-.q-field--auto-height.q-field--labeled .q-field__native {
-  padding-bottom: 0px;
-}
-.q-field__after {
-  height: 1em;
-  margin-top: 0.5em;
-  margin-left: -8px;
-}
-</style>
+<style></style>
