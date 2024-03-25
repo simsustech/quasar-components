@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.5.5
+
+### Patch Changes
+
+- 6f8d9b9: feat: export useLang and loadLang
+
 ## 0.5.4
 
 ### Patch Changes
