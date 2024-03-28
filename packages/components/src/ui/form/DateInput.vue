@@ -139,7 +139,7 @@ const setDate: InstanceType<typeof QDate>['$props']['onUpdate:modelValue'] = (
 
 watch([year, month, day], () => {
   const date = `${year.value}-${String(month.value).padStart(2, '0')}-${String(day.value).padStart(2, '0')}`
-  if (Date.parse(date)) {
+  if (year.value && month.value && day.value && !isNaN(Date.parse(date))) {
     emit('update:modelValue', date)
   } else {
     emit('update:modelValue', '')
