@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.5.6
+
+### Patch Changes
+
+- 8cd7bb8: fix(DateInput): do not emit invalid date
+
 ## 0.5.5
 
 ### Patch Changes
