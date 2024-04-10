@@ -26,7 +26,7 @@ const lang: Language = {
   },
   otp: {
     fields: {
-      email: 'Email'
+      email: 'Your (current) email address'
     },
     validations: {
       fieldRequired: 'Field is required.',

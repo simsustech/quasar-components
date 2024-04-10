@@ -26,7 +26,7 @@ const lang: Language = {
   },
   otp: {
     fields: {
-      email: 'Email'
+      email: 'Uw (huidige) email adres'
     },
     validations: {
       fieldRequired: 'Veld is vereist.',
