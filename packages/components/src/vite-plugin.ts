@@ -63,6 +63,9 @@ export default async function ({
         return {
           resolve: {
             alias
+          },
+          optimizeDeps: {
+            exclude: ['@simsustech/quasar-components']
           }
         }
       }
