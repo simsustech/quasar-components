@@ -2,6 +2,7 @@ export interface Language {
   isoName: string
   yes: string
   no: string
+  selectMultiple: string
   buttons: {
     close: string
   }

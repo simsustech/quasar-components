@@ -1,9 +1,10 @@
-import type { Language } from '../lang'
+import type { Language } from './index.js'
 
 const lang: Language = {
   isoName: 'nl',
   yes: 'Ja',
   no: 'Nee',
+  selectMultiple: 'Selecteer één of meerdere',
   buttons: {
     close: 'Sluiten'
   },
