@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.6.0
+
+### Minor Changes
+
+- 2d54c9b: feat(components): add FilteredModelSelect component
+
 ## 0.5.7
 
 ### Patch Changes
