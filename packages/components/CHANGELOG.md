@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.5.7
+
+### Patch Changes
+
+- ba791dc: fix(components): change OTP email label
+
 ## 0.5.6
 
 ### Patch Changes
