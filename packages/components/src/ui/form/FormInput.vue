@@ -15,7 +15,14 @@ import { ref, watch, useAttrs } from 'vue'
 import { QInput, useQuasar, ValidationRule } from 'quasar'
 import { useLang, loadLang } from './lang'
 
-export type FormItems = 'name' | 'firstName' | 'lastName' | 'address' | 'city'
+export type FormItems =
+  | 'name'
+  | 'firstName'
+  | 'lastName'
+  | 'address'
+  | 'city'
+  | 'postalCode'
+  | 'telephoneNumber'
 
 export interface Props {
   modelValue?: string | null
