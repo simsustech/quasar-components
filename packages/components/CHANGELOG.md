@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.7.0
+
+### Minor Changes
+
+- d5eb6bf: feat(components): add QDrawerList component
+
 ## 0.6.0
 
 ### Minor Changes
