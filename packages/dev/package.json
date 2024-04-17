@@ -2,7 +2,7 @@
   "name": "dev",
   "private": true,
   "productName": "App",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "type": "module",
   "description": "Quasar components dev app",
   "scripts": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "@fastify/static": "^7.0.1",
     "@quasar/extras": "^1.16.9",
-    "@simsustech/quasar-components": "^0.6.0",
+    "@simsustech/quasar-components": "^0.7.0",
     "fastify": "^4.26.2",
     "fastify-plugin": "^4.5.1",
     "quasar": "^2.14.6",
