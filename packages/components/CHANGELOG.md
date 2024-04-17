@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.7.1
+
+### Patch Changes
+
+- 3db27ca: fix(components): export QDrawerList
+
 ## 0.7.0
 
 ### Minor Changes
