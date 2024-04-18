@@ -42,7 +42,7 @@ import { nl, enUs } from '../flags/index.js'
 
 export interface Props {
   modelValue: string
-  languageImports: Record<string, () => Promise<QuasarLanguage>>
+  languageImports: Record<string, () => Promise<{ default: QuasarLanguage }>>
 }
 const props = defineProps<Props>()
 const $q = useQuasar()
@@ -75,7 +75,6 @@ watch(modelValue, (langIso: string) => {
     props.languageImports[langIso]().then(
       // langList[`../../../node_modules/quasar/lang/${langIso}.mjs`]().then(
       (lang) => {
-        // @ts-ignore
         $q.lang.set(lang.default)
       }
     )

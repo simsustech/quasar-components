@@ -45,8 +45,8 @@
     "build:vite-plugin": "rimraf tsconfig.build.plugin.tsbuildinfo && tsc -p tsconfig.build.plugin.json",
     "generate:types": "vue-tsc -p tsconfig.types.json",
     "build": "run-s build:plugin build:vite-plugin generate:types",
-    "lint": "eslint --ext .vue --ext .ts src",
-    "lint:fix": "eslint --ext .vue --ext .ts src --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 0"
@@ -72,6 +72,7 @@
     "@vue/server-renderer": "^3.4.23",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-prettier-vue": "^5.0.0",
     "eslint-plugin-vue": "^9.25.0",
     "glob": "^10.3.12",
@@ -80,9 +81,11 @@
     "quasar": "^2.15.2",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.0",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.2.9",
     "vue": "^3.4.23",
+    "vue-eslint-parser": "^9.4.2",
     "vue-router": "^4.3.2",
     "vue-tsc": "^2.0.13"
   }
