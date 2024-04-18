@@ -43,6 +43,11 @@ const lang: Language = {
     validations: {
       unavailableRange: 'De geselecteerde periode bevat ongeschikbare datums.'
     }
+  },
+  currency: {
+    currency: 'Valuta',
+    EUR: 'Euro',
+    USD: 'USD'
   }
 }
 

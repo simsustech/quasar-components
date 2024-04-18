@@ -42,11 +42,16 @@ export interface Language {
       unavailableRange: string
     }
   }
+  currency: {
+    currency: string
+    EUR: string
+    USD: string
+  }
 }
 
 import type { Ref } from 'vue'
 import { ref } from 'vue'
-import en from './en-US'
+import en from './en-US.js'
 export const lang = ref(en)
 
 const locales = import.meta.glob<{ default: Language }>([
