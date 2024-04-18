@@ -1,5 +1,16 @@
 # @simsustech/quasar-components
 
+## 0.8.0
+
+### Minor Changes
+
+- 050612f: Add CurrencySelect and LocaleSelect components
+
+### Patch Changes
+
+- d749926: chore: update package.json
+- cba0aa7: chore: update package.json
+
 ## 0.7.1
 
 ### Patch Changes
