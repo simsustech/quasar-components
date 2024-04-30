@@ -34,6 +34,7 @@ export interface Language {
     }
   }
   datePicker: {
+    date: string
     placeholder: string
     YYYY: string
     MM: string

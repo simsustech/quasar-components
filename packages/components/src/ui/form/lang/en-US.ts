@@ -36,6 +36,7 @@ const lang: Language = {
     }
   },
   datePicker: {
+    date: 'Date',
     placeholder: 'YYYY/MM/DD',
     YYYY: 'YYYY',
     MM: 'MM',

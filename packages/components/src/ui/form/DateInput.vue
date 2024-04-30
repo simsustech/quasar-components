@@ -3,7 +3,7 @@
     :model-value="modelValue"
     bottom-slots
     :rules="validations"
-    :label="label"
+    :label="`${label}${required ? '*' : ''}`"
     stack-label
   >
     <template #control>
