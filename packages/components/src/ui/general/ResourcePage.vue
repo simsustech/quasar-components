@@ -32,10 +32,10 @@
           class="q-mr-sm bg-primary text-white"
           @click="update"
         />
-        <q-toolbar-title shrink>
+        <q-toolbar-title>
           <slot name="header" />
         </q-toolbar-title>
-        <q-space />
+        <slot name="header-side" />
       </q-toolbar>
     </q-page-sticky>
   </q-page>
