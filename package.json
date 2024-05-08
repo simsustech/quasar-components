@@ -32,7 +32,6 @@
     "pre-commit": "pnpm run lint && pnpm run format:check",
     "commit-msg": "pnpm exec commitlint --edit $1"
   },
-  "packageManager": "pnpm@7.9.5",
   "pnpm": {
     "overrides": {
       "@simsustech/quasar-components": "workspace:*"
