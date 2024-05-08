@@ -19,12 +19,8 @@
     @update:model-value="$emit('update:model-value', $event)"
   >
     <template #hint> {{ hint }} </template>
-    <template
-      v-for="(slot, index) of Object.keys($slots)"
-      :key="index"
-      #[slot]="scope"
-    >
-      <slot :scope="scope" :name="slot"></slot>
+    <template v-for="(_, slot) in $slots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope || {}" />
     </template>
   </q-select>
 </template>
