@@ -8,6 +8,7 @@
         class="shadow-2"
         :class="{ 'bg-dark': $q.dark.isActive, 'bg-white': !$q.dark.isActive }"
       >
+        <slot name="fab" />
         <q-btn
           v-if="type === 'create'"
           :disable="disabled"
@@ -21,7 +22,7 @@
           @click="create"
         />
         <q-btn
-          v-else
+          v-else-if="type === 'update'"
           :disable="disabled"
           flat
           style="margin-bottom: -50px; z-index: 5"
@@ -48,7 +49,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch, useSlots } from 'vue'
 import { useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
@@ -56,13 +57,9 @@ export interface Props {
   type?: 'create' | 'update'
   disabled?: boolean
 }
-// const props = defineProps<Props>()
-const props = withDefaults(defineProps<Props>(), {
-  type: 'create',
-  disabled: false
-})
+const slots = useSlots()
+const props = defineProps<Props>()
 
-// const attrs = useAttrs();
 const emit = defineEmits<{
   (
     e: 'create',
@@ -92,7 +89,9 @@ watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
 
-const { disabled } = toRefs(props)
+const { type, disabled } = toRefs(props)
+
+if (!type.value && !slots.fab) type.value = 'create'
 
 const done = () => ''
 const create = (evt: unknown) =>
