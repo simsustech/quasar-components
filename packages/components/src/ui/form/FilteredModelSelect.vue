@@ -43,7 +43,9 @@ import { useLang } from './lang/index.js'
 interface Props {
   modelValue?: number | number[] | null
   labelKey: string
+  labelFunction?: (option: unknown) => string
   valueKey?: string
+  extraFields?: string[]
   filteredOptions: T[]
   required?: boolean
   onFilter?: unknown
@@ -72,13 +74,32 @@ const emit = defineEmits<{
 
 const lang = useLang()
 
-const { modelValue, onFilter, filteredOptions, labelKey, valueKey } =
-  toRefs(props)
+const {
+  modelValue,
+  onFilter,
+  filteredOptions,
+  labelKey,
+  valueKey,
+  labelFunction,
+  extraFields
+} = toRefs(props)
+
 const options = computed(() => {
   if (filteredOptions.value.length) {
     return filteredOptions.value?.map((option) => ({
-      label: option[labelKey.value],
-      value: option[valueKey.value || 'id']
+      label: labelFunction.value
+        ? labelFunction.value(option)
+        : option[labelKey.value],
+      value: option[valueKey.value || 'id'],
+      extraFields: extraFields.value?.reduce(
+        (result, key) => {
+          if (option.hasOwnProperty(key)) {
+            result[key] = option[key]
+          }
+          return result
+        },
+        {} as Record<string, unknown>
+      )
     }))
   }
   return []
