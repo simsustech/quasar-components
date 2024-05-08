@@ -48,6 +48,9 @@ export interface Language {
     EUR: string
     USD: string
   }
+  locale: {
+    locale: string
+  }
 }
 
 import type { Ref } from 'vue'

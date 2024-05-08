@@ -49,6 +49,9 @@ const lang: Language = {
     currency: 'Valuta',
     EUR: 'Euro',
     USD: 'USD'
+  },
+  locale: {
+    locale: 'Land'
   }
 }
 

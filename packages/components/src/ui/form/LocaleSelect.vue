@@ -3,6 +3,7 @@
     v-bind="attrs"
     :options="languageOptions"
     :model-value="modelValue"
+    :label="`${lang.locale.locale}${required ? '*' : ''}`"
     emit-value
     map-options
   >
@@ -42,13 +43,17 @@ import { useAttrs, toRefs } from 'vue'
 import { QSelect } from 'quasar'
 import { nl, enUs } from '../flags/index.js'
 import { useLang as useFlagsLang } from '../flags/lang/index.js'
+import { useLang } from './lang/index.js'
+
 export interface Props {
   modelValue?: string | null
+  required?: boolean
 }
 const props = defineProps<Props>()
 const { modelValue } = toRefs(props)
 const attrs = useAttrs()
 
+const lang = useLang()
 const flagsLang = useFlagsLang()
 const languageOptions = [
   {
