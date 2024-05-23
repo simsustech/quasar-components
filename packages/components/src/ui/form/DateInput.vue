@@ -68,7 +68,7 @@ import { useLang } from './lang'
 export interface Props {
   modelValue: string | null
   format?: 'YYYY-MM-DD' | 'DD-MM-YYYY' | 'MM-DD-YYYY'
-  locale?: QuasarLanguageCodes
+  locale?: QuasarLanguageCodes[number]
   label?: string
   required?: boolean
   clearable?: boolean
