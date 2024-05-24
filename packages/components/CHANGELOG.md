@@ -1,5 +1,14 @@
 # @simsustech/quasar-components
 
+## 0.8.1
+
+### Patch Changes
+
+- 0b24daf: feat: add fab slot to ResourcePage
+- 92a0c62: feat(components): add header-side slot to ResourcePage
+- c750af3: fix: fix DateInput label
+- 572c7e5: feat: add label to LocaleSelect
+
 ## 0.8.0
 
 ### Minor Changes
