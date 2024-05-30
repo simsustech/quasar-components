@@ -1,5 +1,15 @@
 # @simsustech/quasar-components
 
+## 0.9.0
+
+### Minor Changes
+
+- 9fe6cd0: feat: add AccountsTable component
+
+### Patch Changes
+
+- eec2e00: fix(DateInput): fix locale prop
+
 ## 0.8.1
 
 ### Patch Changes
