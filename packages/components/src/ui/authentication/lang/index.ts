@@ -86,6 +86,22 @@ export interface Language {
   verification: {
     slider: string
   }
+  account: {
+    title: string
+    fields: {
+      name: string
+      email: string
+      roles: string
+    }
+    labels: {
+      addRole: string
+      removeRole: string
+    }
+    messages: {
+      addRole: ({ email }: { email: string }) => string
+      removeRole: ({ email }: { email: string }) => string
+    }
+  }
 }
 
 import type { Ref } from 'vue'

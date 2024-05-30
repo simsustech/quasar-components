@@ -90,6 +90,24 @@ const lang: Language = {
   },
   verification: {
     slider: 'Please drag the slider below all the way to the right.'
+  },
+  account: {
+    title: 'Accounts',
+    fields: {
+      name: 'Name',
+      email: 'Email',
+      roles: 'Roles'
+    },
+    labels: {
+      addRole: 'Add role',
+      removeRole: 'Remove role'
+    },
+    messages: {
+      addRole: ({ email }) =>
+        `Select the role which you want to add to ${email}.`,
+      removeRole: ({ email }) =>
+        `Select the role which you want to remove from ${email}.`
+    }
   }
 }
 

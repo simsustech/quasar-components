@@ -90,6 +90,24 @@ const lang: Language = {
   },
   verification: {
     slider: 'Sleep a.u.b. het onderstaande bolletje helemaal naar rechts.'
+  },
+  account: {
+    title: 'Accounts',
+    fields: {
+      name: 'Naam',
+      email: 'Email',
+      roles: 'Rollen'
+    },
+    labels: {
+      addRole: 'Rol toevoegen',
+      removeRole: 'Rol verwijderen'
+    },
+    messages: {
+      addRole: ({ email }) =>
+        `Selecteer de rol die u wilt toevoegen aan ${email}.`,
+      removeRole: ({ email }) =>
+        `Selecteer de rol die u wilt verwijderen van ${email}.`
+    }
   }
 }
 
