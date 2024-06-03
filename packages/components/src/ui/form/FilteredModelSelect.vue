@@ -37,7 +37,7 @@ export default {
   generic="T extends { id: number; [key: string]: unknown }"
 >
 import { QSelect } from 'quasar'
-import { computed, ref, toRefs, useAttrs, watch, onMounted } from 'vue'
+import { computed, ref, toRefs, useAttrs, watch } from 'vue'
 import { useLang } from './lang/index.js'
 
 interface Props {
@@ -132,7 +132,7 @@ const filterFn: QSelect['$props']['onFilter'] = (val, update, abort) => {
 const selectRef = ref<QSelect>()
 
 watch(modelValue, () => {
-  if (!options.value.length)
+  if (!options.value?.find((val) => val.value === modelValue.value))
     emit('filter', {
       ids: selectedIds.value,
       searchPhrase: '',
@@ -140,12 +140,12 @@ watch(modelValue, () => {
     })
 })
 
-onMounted(() => {
-  if (!options.value.length)
-    emit('filter', {
-      ids: selectedIds.value,
-      searchPhrase: '',
-      done: () => {}
-    })
-})
+// onMounted(() => {
+//   if (!options.value?.find((val) => val.value === modelValue.value))
+//     emit('filter', {
+//       ids: selectedIds.value,
+//       searchPhrase: '',
+//       done: () => {}
+//     })
+// })
 </script>
