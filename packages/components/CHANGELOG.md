@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.9.1
+
+### Patch Changes
+
+- 0bb7339: fix(FilteredModelSelect): fix fetching of missing modelValue id
+
 ## 0.9.0
 
 ### Minor Changes
