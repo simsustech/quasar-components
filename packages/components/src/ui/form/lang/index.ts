@@ -51,6 +51,24 @@ export interface Language {
   locale: {
     locale: string
   }
+  cron: {
+    name: string
+    minute: string
+    hour: string
+    dayOfMonth: string
+    month: string
+    dayOfWeek: string
+    every: {
+      minute: string
+      hour: string
+      dayOfMonth: string
+      month: string
+      dayOfWeek: string
+    }
+    validations: {
+      invalidCron: string
+    }
+  }
 }
 
 import type { Ref } from 'vue'

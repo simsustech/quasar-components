@@ -52,6 +52,24 @@ const lang: Language = {
   },
   locale: {
     locale: 'Land'
+  },
+  cron: {
+    name: 'Herhaling',
+    minute: 'Minuut',
+    hour: 'Uur',
+    dayOfMonth: 'Dag van maand',
+    month: 'Maand',
+    dayOfWeek: 'Dag van week',
+    every: {
+      minute: 'Iedere minuut',
+      hour: 'Ieder uur',
+      dayOfMonth: 'Iedere dag',
+      month: 'Iedere maand',
+      dayOfWeek: 'Iedere dag van de week'
+    },
+    validations: {
+      invalidCron: 'Cron regel is ongeldig.'
+    }
   }
 }
 

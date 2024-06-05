@@ -52,6 +52,24 @@ const lang: Language = {
   },
   locale: {
     locale: 'Locale'
+  },
+  cron: {
+    name: 'Repeat',
+    minute: 'Minute',
+    hour: 'Hour',
+    dayOfMonth: 'Day of month',
+    month: 'Month',
+    dayOfWeek: 'Day of week',
+    every: {
+      minute: 'Every minute',
+      hour: 'Every hour',
+      dayOfMonth: 'Every day',
+      month: 'Every month',
+      dayOfWeek: 'Every day of the week'
+    },
+    validations: {
+      invalidCron: 'Cron rule is invalid.'
+    }
   }
 }
 
