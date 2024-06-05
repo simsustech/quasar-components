@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.10.0
+
+### Minor Changes
+
+- a0e1496: feat(components): add CronScheduleInput
+
 ## 0.9.1
 
 ### Patch Changes
