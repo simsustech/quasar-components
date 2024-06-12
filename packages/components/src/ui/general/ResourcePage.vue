@@ -49,7 +49,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs, watch, useSlots } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
@@ -57,7 +57,6 @@ export interface Props {
   type?: 'create' | 'update'
   disabled?: boolean
 }
-const slots = useSlots()
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
@@ -90,8 +89,6 @@ watch($q.lang, (val) => {
 })
 
 const { type, disabled } = toRefs(props)
-
-if (!type.value && !slots.fab) type.value = 'create'
 
 const done = () => ''
 const create = (evt: unknown) =>
