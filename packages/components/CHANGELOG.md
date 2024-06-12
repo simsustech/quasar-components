@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.10.1
+
+### Patch Changes
+
+- 4ef557b: fix(ResourcePage): fix error on empty type
+
 ## 0.10.0
 
 ### Minor Changes
