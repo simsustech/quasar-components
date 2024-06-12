@@ -49,7 +49,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
+import { toRefs, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
@@ -91,27 +91,6 @@ watch($q.lang, (val) => {
 const { type, disabled } = toRefs(props)
 
 const done = () => ''
-const create = (evt: unknown) =>
-  disabled.value
-    ? () => {
-        //
-      }
-    : emit('create', { done })
-const update = (evt: unknown) =>
-  disabled.value
-    ? () => {
-        //
-      }
-    : emit('update', { done })
-
-const variables = ref({
-  // header: lang.value.some.nested.prop
-})
-const functions = ref({
-  // submit
-})
-defineExpose({
-  variables,
-  functions
-})
+const create = (evt: unknown) => emit('create', { done })
+const update = (evt: unknown) => emit('update', { done })
 </script>
