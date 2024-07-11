@@ -7,7 +7,7 @@
     @click="submit"
   >
     <slot>
-      {{ isNextButton ? lang.next : lang.submit }}
+      {{ label }}
     </slot>
   </q-btn>
 </template>
@@ -20,31 +20,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, watch, useAttrs } from 'vue'
+import { ref, watch, useAttrs, computed, toRefs } from 'vue'
 import { useQuasar, debounce } from 'quasar'
 import { useLang, loadLang } from './lang'
 export interface Props {
   loading?: boolean
   useForm?: boolean
+  type?: 'submit' | 'send' | 'next'
   isNextButton?: boolean
   color?: string
 }
-const props = defineProps({
-  loading: {
-    type: Boolean,
-    default: undefined
-  },
-  useForm: {
-    type: Boolean
-  },
-  isNextButton: {
-    type: Boolean
-  },
-  color: {
-    type: String,
-    default: 'primary'
-  }
+const props = withDefaults(defineProps<Props>(), {
+  type: 'submit',
+  color: 'primary'
 })
+
+const { type, isNextButton } = toRefs(props)
+
 const attrs = useAttrs()
 const emit = defineEmits<{
   (
@@ -79,4 +71,13 @@ const submit = debounce(
   1000,
   true
 )
+
+const label = computed(() => {
+  const labels = {
+    submit: lang.value.submit,
+    send: lang.value.send,
+    next: lang.value.next
+  }
+  return isNextButton.value ? lang.value.next : labels[type.value]
+})
 </script>

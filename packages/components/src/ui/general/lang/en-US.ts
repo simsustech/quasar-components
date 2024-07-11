@@ -4,7 +4,8 @@ const lang: Language = {
   isoName: 'en-US',
   submit: 'Submit',
   next: 'Next',
-  back: 'Back'
+  back: 'Back',
+  send: 'Send'
 }
 
 export default lang

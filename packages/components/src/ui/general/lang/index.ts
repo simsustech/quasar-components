@@ -3,6 +3,7 @@ export interface Language {
   submit: string
   next: string
   back: string
+  send: string
 }
 
 import type { Ref } from 'vue'

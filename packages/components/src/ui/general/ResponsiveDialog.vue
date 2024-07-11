@@ -15,6 +15,7 @@
           <q-submit-button
             v-if="!display"
             color="accent"
+            :type="buttonType"
             @submit="submit"
           ></q-submit-button>
         </q-toolbar>
@@ -43,6 +44,7 @@ import QSubmitButton from './QSubmitButton.vue'
 
 export interface Props {
   display?: boolean
+  buttonType?: 'submit' | 'send'
 }
 defineProps<Props>()
 // const attrs = useAttrs();
