@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.10.2
+
+### Patch Changes
+
+- e15c306: feat: add type prop to QSubmitButton
+
 ## 0.10.1
 
 ### Patch Changes
