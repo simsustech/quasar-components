@@ -32,7 +32,8 @@ export interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   type: 'submit',
-  color: 'primary'
+  color: 'primary',
+  loading: undefined
 })
 
 const { type, isNextButton } = toRefs(props)
