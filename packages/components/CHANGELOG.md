@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.10.3
+
+### Patch Changes
+
+- 78e60c4: fix(QSubmitButton): set loading prop default to undefined
+
 ## 0.10.2
 
 ### Patch Changes
