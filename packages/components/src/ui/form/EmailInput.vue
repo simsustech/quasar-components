@@ -8,6 +8,12 @@
   />
   <q-editor
     :model-value="body"
+    :toolbar="[
+      ['left', 'center', 'right', 'justify'],
+      ['bold', 'italic', 'underline', 'strike'],
+      ['undo', 'redo'],
+      ['link']
+    ]"
     @update:model-value="($event) => emit('update:body', $event)"
   />
 </template>
