@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.10.4
+
+### Patch Changes
+
+- c88c7bc: feat(EmailInput): add link to toolbar
+
 ## 0.10.3
 
 ### Patch Changes
