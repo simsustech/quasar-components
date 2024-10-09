@@ -113,7 +113,7 @@ const selectedIds = computed(() => {
   return []
 })
 
-const filterFn: QSelect['$props']['onFilter'] = (val, update, abort) => {
+const filterFn: QSelect['$props']['onFilter'] = (val, update) => {
   if (!onFilter.value) update(() => {})
   emit('filter', {
     ids: selectedIds.value,
