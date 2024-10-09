@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.10.5
+
+### Patch Changes
+
+- 0143ec3: fix(FormInput): add slots
+- 63313fa: fix(components): fix vue generics
+
 ## 0.10.4
 
 ### Patch Changes
