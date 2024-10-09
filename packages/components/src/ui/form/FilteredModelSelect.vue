@@ -19,17 +19,11 @@
     @update:model-value="$emit('update:model-value', $event)"
   >
     <template #hint> {{ hint }} </template>
-    <template v-for="(_, slot) in $slots" v-slot:[slot]="scope">
+    <template v-for="(_, slot) in $slots" #[slot]="scope">
       <slot :name="slot" v-bind="scope || {}" />
     </template>
   </q-select>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'FilteredModelSelect'
-}
-</script>
 
 <script
   setup
@@ -40,7 +34,7 @@ import { QSelect } from 'quasar'
 import { computed, ref, toRefs, useAttrs, watch } from 'vue'
 import { useLang } from './lang/index.js'
 
-interface Props {
+const props = defineProps<{
   modelValue?: number | number[] | null
   labelKey: string
   labelFunction?: (option: unknown) => string
@@ -52,8 +46,7 @@ interface Props {
   multiple?: boolean
   label?: string
   hint?: string
-}
-const props = defineProps<Props>()
+}>()
 const attrs = useAttrs()
 
 const emit = defineEmits<{

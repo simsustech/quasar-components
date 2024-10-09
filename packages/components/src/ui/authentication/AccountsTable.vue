@@ -110,25 +110,24 @@ export interface Account {
   roles: string[]
 }
 
-interface Pagination {
+export interface Pagination {
   limit: number
   offset: number
   sortBy: keyof Account
   descending: boolean
 }
 
-interface Criteria {
+export interface Criteria {
   roles: string[]
 }
-interface Props {
+
+const props = defineProps<{
   modelValue: T[]
   count: number
   pagination: Pagination
   mappedRoles: Record<string, string> // value: label
   columns?: QTableColumn[]
-}
-
-const props = defineProps<Props>()
+}>()
 
 const emit = defineEmits<{
   (e: 'update:pagination', pagination: Pagination): void
