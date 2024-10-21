@@ -15,7 +15,7 @@
         v-bind="dateProps[part]"
       >
         <template #after>
-          <a v-if="index < 2" style="margin-left: -0.5em; margin-top: 0.75em"
+          <a v-if="index < 2" style="margin-left: -0.75em; margin-top: 0.75em"
             >-</a
           >
         </template>
@@ -187,7 +187,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     placeholder: lang.value.datePicker.YYYY,
     style: 'width: 7ch; margin-top: -2em; margin-bottom: -0.5em',
     // suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
-    class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-xs' : undefined,
+    class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-none' : undefined,
     'onUpdate:modelValue': setYear,
     onKeydown: goToNextElement
   },
@@ -196,7 +196,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     placeholder: lang.value.datePicker.MM,
     style: 'width: 6ch; margin-top: -2em; margin-bottom: -0.5em',
     // suffix: '-',
-    class: 'q-ml-xs',
+    class: 'q-ml-none',
     'onUpdate:modelValue': setMonth,
     onKeydown: goToNextElement
   },
@@ -205,7 +205,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     placeholder: lang.value.datePicker.DD,
     style: 'width: 6ch; margin-top: -2em; margin-bottom: -0.5em',
     // suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
-    class: format.value === 'YYYY-MM-DD' ? 'q-ml-xs' : undefined,
+    class: format.value === 'YYYY-MM-DD' ? 'q-ml-none' : undefined,
     'onUpdate:modelValue': setDay,
     onKeydown: goToNextElement
   }
