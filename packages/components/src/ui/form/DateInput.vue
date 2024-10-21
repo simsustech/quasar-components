@@ -185,7 +185,11 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   YYYY: {
     modelValue: year.value,
     placeholder: lang.value.datePicker.YYYY,
-    style: 'width: 7ch; margin-top: -2em; margin-bottom: -0.5em',
+    style: {
+      width: format.value === 'YYYY-MM-DD' ? '8ch' : '6ch',
+      'margin-top': '-2em',
+      'margin-bottom': '-0.5em'
+    },
     // suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
     class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-none' : undefined,
     'onUpdate:modelValue': setYear,
@@ -194,7 +198,11 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   MM: {
     modelValue: month.value ? String(month.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.MM,
-    style: 'width: 6ch; margin-top: -2em; margin-bottom: -0.5em',
+    style: {
+      width: '6ch',
+      'margin-top': '-2em',
+      'margin-bottom': '-0.5em'
+    },
     // suffix: '-',
     class: 'q-ml-none',
     'onUpdate:modelValue': setMonth,
@@ -203,7 +211,11 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
   DD: {
     modelValue: day.value ? String(day.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.DD,
-    style: 'width: 6ch; margin-top: -2em; margin-bottom: -0.5em',
+    style: {
+      width: format.value === 'DD-MM-YYYY' ? '6ch' : '4ch',
+      'margin-top': '-2em',
+      'margin-bottom': '-0.5em'
+    },
     // suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
     class: format.value === 'YYYY-MM-DD' ? 'q-ml-none' : undefined,
     'onUpdate:modelValue': setDay,
