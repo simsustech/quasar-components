@@ -1,5 +1,15 @@
 # @simsustech/quasar-components
 
+## 0.11.0
+
+### Minor Changes
+
+- 7340d62: feat: add iso3166 flags and country codes
+
+### Patch Changes
+
+- 259240e: fix(DateInput): fix input width
+
 ## 0.10.6
 
 ### Patch Changes
