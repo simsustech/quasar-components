@@ -7,11 +7,30 @@
     map-options
   >
     <template #selected>
-      <en-us v-if="modelValue === 'en-US'" />
-      <nl v-if="modelValue === 'nl'" />
+      <div v-if="modelValue">
+        <component
+          :is="flags[modelValue.slice(-2).toLowerCase() as keyof typeof flags]"
+        />
+      </div>
     </template>
     <template #option="scope">
-      <q-item v-if="scope.opt.value === 'en-US'" v-bind="scope.itemProps">
+      <q-item v-bind="scope.itemProps">
+        <q-item-section avatar>
+          <component
+            :is="
+              flags[
+                scope.opt.value.slice(-2).toLowerCase() as keyof typeof flags
+              ]
+            "
+          />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            {{ scope.opt.label }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <!-- <q-item v-if="scope.opt.value === 'en-US'" v-bind="scope.itemProps">
         <q-item-section avatar>
           <en-us ref="enUsRef" />
         </q-item-section>
@@ -30,56 +49,70 @@
             {{ nlLanguage }}
           </q-item-label>
         </q-item-section>
-      </q-item>
+      </q-item> -->
     </template>
   </q-select>
 </template>
 
 <script setup lang="ts">
-import { ref, useAttrs, computed, toRefs, watch } from 'vue'
+import { useAttrs, computed, watch } from 'vue'
 import { useQuasar, QSelect, QuasarLanguage } from 'quasar'
-import { nl, enUs } from '../flags/index.js'
+import * as flags from '../flags/index.js'
+import { useLang as useFlagsLang } from '../flags/lang/index.js'
 
 export interface Props {
   modelValue: string
   languageImports: Record<string, () => Promise<{ default: QuasarLanguage }>>
+  allowedCodes?: [keyof ReturnType<typeof useFlagsLang>['value']['languages']]
 }
-const props = defineProps<Props>()
+const {
+  modelValue,
+  allowedCodes = ['en-US', 'nl'],
+  languageImports
+} = defineProps<Props>()
 const $q = useQuasar()
-const { modelValue } = toRefs(props)
 const attrs = useAttrs()
+const flagsLang = useFlagsLang()
 
-// const langList = import.meta.glob('../../../node_modules/quasar/lang/*.mjs')
-
-const nlRef = ref<typeof nl>()
-// const nlCountry = computed(() => nlRef.value?.variables.country)
-const nlLanguage = computed(() => nlRef.value?.variables.language)
-
-const enUsRef = ref<typeof enUs>()
-// const enUsCountry = computed(() => enUsRef.value?.variables.country)
-const enUsLanguage = computed(() => enUsRef.value?.variables.language)
-
-const languageOptions = [
-  {
-    label: enUsLanguage.value,
-    value: 'en-US'
-  },
-  {
-    label: nlLanguage.value,
-    value: 'nl'
+const languageOptions = computed(() => {
+  const options = []
+  for (let lang of Object.keys(flagsLang.value.languages) as Array<
+    keyof (typeof flagsLang.value)['languages']
+  >) {
+    if (!allowedCodes.length || allowedCodes.includes(lang)) {
+      options.push({
+        label: flagsLang.value.languages[lang],
+        value: lang
+      })
+    }
   }
-]
-
-watch(modelValue, (langIso: string) => {
-  try {
-    props.languageImports[langIso]().then(
-      // langList[`../../../node_modules/quasar/lang/${langIso}.mjs`]().then(
-      (lang) => {
-        $q.lang.set(lang.default)
-      }
-    )
-  } catch (e) {
-    console.error(e)
-  }
+  return options
 })
+
+// const languageOptions = [
+//   {
+//     label: enUsLanguage.value,
+//     value: 'en-US'
+//   },
+//   {
+//     label: nlLanguage.value,
+//     value: 'nl'
+//   }
+// ]
+
+watch(
+  () => modelValue,
+  (langIso: string) => {
+    try {
+      languageImports[langIso]().then(
+        // langList[`../../../node_modules/quasar/lang/${langIso}.mjs`]().then(
+        (lang) => {
+          $q.lang.set(lang.default)
+        }
+      )
+    } catch (e) {
+      console.error(e)
+    }
+  }
+)
 </script>

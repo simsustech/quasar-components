@@ -8,29 +8,31 @@
     map-options
   >
     <template #selected>
-      <div v-if="modelValue === 'en-US'">
-        <en-us /> {{ flagsLang.languages['en-US'] }}
+      <div v-if="modelValue">
+        <component
+          :is="flags[modelValue.slice(-2).toLowerCase() as keyof typeof flags]"
+        />
+        {{
+          flagsLang.languages[
+            modelValue as keyof (typeof flagsLang)['languages']
+          ]
+        }}
       </div>
-      <div v-if="modelValue === 'nl'"><nl /> {{ flagsLang.languages.nl }}</div>
     </template>
     <template #option="scope">
-      <q-item v-if="scope.opt.value === 'en-US'" v-bind="scope.itemProps">
+      <q-item v-bind="scope.itemProps">
         <q-item-section avatar>
-          <en-us />
+          <component
+            :is="
+              flags[
+                scope.opt.value.slice(-2).toLowerCase() as keyof typeof flags
+              ]
+            "
+          />
         </q-item-section>
         <q-item-section>
           <q-item-label>
-            {{ flagsLang.languages['en-US'] }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item v-if="scope.opt.value === 'nl'" v-bind="scope.itemProps">
-        <q-item-section avatar>
-          <nl />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>
-            {{ flagsLang.languages.nl }}
+            {{ scope.opt.label }}
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -39,30 +41,39 @@
 </template>
 
 <script setup lang="ts">
-import { useAttrs, toRefs } from 'vue'
+import { useAttrs, computed } from 'vue'
 import { QSelect } from 'quasar'
-import { nl, enUs } from '../flags/index.js'
+import * as flags from '../flags/index.js'
 import { useLang as useFlagsLang } from '../flags/lang/index.js'
 import { useLang } from './lang/index.js'
 
 export interface Props {
   modelValue?: string | null
   required?: boolean
+  allowedCodes?: [keyof ReturnType<typeof useFlagsLang>['value']['languages']]
 }
-const props = defineProps<Props>()
-const { modelValue } = toRefs(props)
+const {
+  modelValue,
+  required,
+  allowedCodes = ['en-US', 'nl']
+} = defineProps<Props>()
 const attrs = useAttrs()
 
 const lang = useLang()
 const flagsLang = useFlagsLang()
-const languageOptions = [
-  {
-    label: flagsLang.value.languages['en-US'],
-    value: 'en-US'
-  },
-  {
-    label: flagsLang.value.languages.nl,
-    value: 'nl'
+
+const languageOptions = computed(() => {
+  const options = []
+  for (let lang of Object.keys(flagsLang.value.languages) as Array<
+    keyof (typeof flagsLang.value)['languages']
+  >) {
+    if (!allowedCodes?.length || allowedCodes.includes(lang)) {
+      options.push({
+        label: flagsLang.value.languages[lang],
+        value: lang
+      })
+    }
   }
-]
+  return options
+})
 </script>
