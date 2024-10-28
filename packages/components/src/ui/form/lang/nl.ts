@@ -51,7 +51,7 @@ const lang: Language = {
     USD: 'USD'
   },
   locale: {
-    locale: 'Land'
+    locale: 'Regio'
   },
   cron: {
     name: 'Herhaling',
