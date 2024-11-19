@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.1
+
+### Patch Changes
+
+- 11d936a: fix(DateInput): add pattern attribute for numbers only input
+
 ## 0.11.0
 
 ### Minor Changes
