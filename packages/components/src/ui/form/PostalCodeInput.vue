@@ -1,7 +1,7 @@
 <template>
   <q-input
     v-bind="attrs"
-    :mask="masks[locale]"
+    :mask="computedMask"
     :rules="computedValidations"
     :model-value="modelValue"
     :label="`${lang.postalCode.postalCode}${required ? '*' : ''}`"
@@ -10,27 +10,30 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue'
+import { computed, ref, toRefs, useAttrs } from 'vue'
 import { QInput } from 'quasar'
 import { useLang } from './lang'
 
-export type PostalCodeLocales = 'nl'
+export type PostalCodeCountries = 'NL'
 
 export interface Props {
   modelValue?: string
-  locale: PostalCodeLocales
+  country?: PostalCodeCountries
   required?: boolean
 }
 const props = defineProps<Props>()
 const lang = useLang()
 const attrs = useAttrs()
+
+const { country } = toRefs(props)
+
 const masks = ref({
-  nl: '#### AA'
+  NL: '#### AA'
 })
 defineEmits(['update:modelValue'])
 
 const validations = ref({
-  nl: [
+  NL: [
     (val: string) =>
       !val || // Do not check an empty string
       /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i.test(val) ||
@@ -38,8 +41,16 @@ const validations = ref({
   ]
 })
 
+const computedMask = computed(() => {
+  if (country.value && masks.value[country.value])
+    return masks.value[country.value]
+  return undefined
+})
+
 const computedValidations = computed(() => {
-  const val = validations.value[props.locale]
+  const val = []
+  if (country.value && validations.value[country.value])
+    val.push(...validations.value[country.value])
   if (props.required)
     val.push((val: string) => !!val || lang.value.validations.fieldRequired)
   return val
