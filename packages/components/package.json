@@ -33,7 +33,7 @@
       "src": "./src/ui/form/index.ts"
     },
     "./css": {
-      "import": "./dist/style.css"
+      "import": "./dist/quasar-components.css"
     },
     "./vite-plugin": {
       "types": "./dist/types/vite-plugin.d.ts",
