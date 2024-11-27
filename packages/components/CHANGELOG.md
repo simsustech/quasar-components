@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.2
+
+### Patch Changes
+
+- 56d905c: feat(PostalCodeInput): use optional country prop instead of locale
+
 ## 0.11.1
 
 ### Patch Changes
