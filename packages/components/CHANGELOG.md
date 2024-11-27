@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.3
+
+### Patch Changes
+
+- 35ee659: fix: fix css export
+
 ## 0.11.2
 
 ### Patch Changes
