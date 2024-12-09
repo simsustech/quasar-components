@@ -3,6 +3,7 @@ export interface Language {
   yes: string
   no: string
   selectMultiple: string
+  noResultsAvailable: string
   buttons: {
     close: string
   }

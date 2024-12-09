@@ -5,6 +5,7 @@ const lang: Language = {
   yes: 'Ja',
   no: 'Nee',
   selectMultiple: 'Selecteer één of meerdere',
+  noResultsAvailable: 'Geen resultaten beschikbaar.',
   buttons: {
     close: 'Sluiten'
   },
