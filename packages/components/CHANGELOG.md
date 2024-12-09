@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.4
+
+### Patch Changes
+
+- 1df3ea7: feat(FilteredModelSelect): add no-option template
+
 ## 0.11.3
 
 ### Patch Changes
