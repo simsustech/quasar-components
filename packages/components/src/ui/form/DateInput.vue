@@ -13,7 +13,7 @@
         :key="part"
         borderless
         v-bind="dateProps[part]"
-        pattern="[0-9]*"
+        inputmode="numeric"
       >
         <template #after>
           <a v-if="index < 2" style="margin-left: -0.75em; margin-top: 0.75em"
