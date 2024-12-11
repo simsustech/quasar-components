@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.5
+
+### Patch Changes
+
+- b09044f: fix(DateInput): add inputmode numeric
+
 ## 0.11.4
 
 ### Patch Changes
