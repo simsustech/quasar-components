@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.6
+
+### Patch Changes
+
+- 16ce5f9: feat(ResourcePage): replace fab by regular buttons
+
 ## 0.11.5
 
 ### Patch Changes
