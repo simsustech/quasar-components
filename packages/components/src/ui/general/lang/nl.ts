@@ -5,7 +5,9 @@ const lang: Language = {
   submit: 'Opslaan',
   next: 'Volgende',
   back: 'Vorige',
-  send: 'Versturen'
+  send: 'Versturen',
+  add: 'Toevoegen',
+  edit: 'Aanpassen'
 }
 
 export default lang

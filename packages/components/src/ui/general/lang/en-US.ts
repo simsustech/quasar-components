@@ -5,7 +5,9 @@ const lang: Language = {
   submit: 'Submit',
   next: 'Next',
   back: 'Back',
-  send: 'Send'
+  send: 'Send',
+  add: 'Add',
+  edit: 'Edit'
 }
 
 export default lang

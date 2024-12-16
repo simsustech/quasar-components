@@ -4,6 +4,8 @@ export interface Language {
   next: string
   back: string
   send: string
+  add: string
+  edit: string
 }
 
 import type { Ref } from 'vue'

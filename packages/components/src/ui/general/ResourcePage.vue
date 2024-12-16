@@ -8,34 +8,56 @@
         class="shadow-2"
         :class="{ 'bg-dark': $q.dark.isActive, 'bg-white': !$q.dark.isActive }"
       >
-        <slot name="fab" />
-        <q-btn
-          v-if="type === 'create'"
-          :disable="disabled"
-          flat
-          style="margin-bottom: -50px; z-index: 5"
-          round
-          size="lg"
-          dense
-          icon="add"
-          class="q-mr-sm bg-primary text-white"
-          @click="create"
-        />
-        <q-btn
-          v-else-if="type === 'update'"
-          :disable="disabled"
-          flat
-          style="margin-bottom: -50px; z-index: 5"
-          round
-          size="lg"
-          dense
-          icon="edit"
-          class="q-mr-sm bg-primary text-white"
-          @click="update"
-        />
-        <q-toolbar-title>
+        <div v-if="topBarFab">
+          <slot name="fab" />
+          <q-btn
+            v-if="type === 'create'"
+            :disable="disabled"
+            flat
+            style="margin-bottom: -50px; z-index: 5"
+            round
+            size="lg"
+            dense
+            icon="add"
+            class="q-mr-sm bg-primary text-white"
+            @click="create"
+          />
+          <q-btn
+            v-else-if="type === 'update'"
+            :disable="disabled"
+            flat
+            style="margin-bottom: -50px; z-index: 5"
+            round
+            size="lg"
+            dense
+            icon="edit"
+            class="q-mr-sm bg-primary text-white"
+            @click="update"
+          />
+        </div>
+        <q-toolbar-title :shrink="topBarShrink">
           <slot name="header" />
         </q-toolbar-title>
+        <div v-if="!topBarFab">
+          <slot name="top-bar-buttons" />
+          <q-btn
+            v-if="type === 'create'"
+            :disable="disabled"
+            :label="lang.add"
+            icon="add"
+            outline
+            @click="create"
+          />
+          <q-btn
+            v-else-if="type === 'update'"
+            :disable="disabled"
+            :label="lang.edit"
+            icon="edit"
+            outline
+            @click="update"
+          />
+        </div>
+        <q-space horizontal />
         <slot name="header-side" />
       </q-toolbar>
     </q-page-sticky>
@@ -56,8 +78,15 @@ import { useLang, loadLang } from './lang'
 export interface Props {
   type?: 'create' | 'update'
   disabled?: boolean
+  topBarFab?: boolean
+  topBarShrink?: boolean
 }
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  type: undefined,
+  disabled: false,
+  topBarFab: false,
+  topBarShrink: true
+})
 
 const emit = defineEmits<{
   (
