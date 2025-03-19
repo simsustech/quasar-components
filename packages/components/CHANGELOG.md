@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.11.7
+
+### Patch Changes
+
+- 5822b58: fix(components): add word-wrap to FormItem
+- 0a500e8: feat(components): add closeIcon prop to ResponsiveDialog
+
 ## 0.11.6
 
 ### Patch Changes
