@@ -7,7 +7,11 @@
       <q-item-label overline>
         {{ label ? label : field ? lang.fields[field] : '' }}
       </q-item-label>
-      <q-item-label>
+      <q-item-label
+        :style="{
+          'word-wrap': 'anywhere'
+        }"
+      >
         {{ modelValue || '-' }}
       </q-item-label>
     </q-item-section>
