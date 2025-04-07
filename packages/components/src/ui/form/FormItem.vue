@@ -7,11 +7,7 @@
       <q-item-label overline>
         {{ label ? label : field ? lang.fields[field] : '' }}
       </q-item-label>
-      <q-item-label
-        :style="{
-          'word-wrap': 'anywhere'
-        }"
-      >
+      <q-item-label class="break-all">
         {{ modelValue || '-' }}
       </q-item-label>
     </q-item-section>
@@ -52,3 +48,9 @@ watch($q.lang, () => {
   loadLang($q.lang.isoName)
 })
 </script>
+
+<style>
+.break-all {
+  word-break: break-all;
+}
+</style>
