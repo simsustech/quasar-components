@@ -21,8 +21,8 @@
         </q-toolbar>
       </q-header>
 
-      <q-page-container style="padding-bottom: -50px">
-        <q-page class="q-pb-xl">
+      <q-page-container style="margin-bottom: 50px">
+        <q-page :padding="padding" class="q-pb-xl">
           <slot></slot>
         </q-page>
       </q-page-container>
@@ -46,6 +46,7 @@ export interface Props {
   display?: boolean
   buttonType?: 'submit' | 'send'
   closeIcon?: string
+  padding?: boolean
 }
 withDefaults(defineProps<Props>(), { buttonType: 'submit', closeIcon: 'close' })
 // const attrs = useAttrs();
