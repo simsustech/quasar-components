@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.11.8
+
+### Patch Changes
+
+- cdb109c: feat(ResponsiveDialog): add padding prop to ResponsiveDialog
+- 41749a7: fix(FormItem): add break-all class
+
 ## 0.11.7
 
 ### Patch Changes
