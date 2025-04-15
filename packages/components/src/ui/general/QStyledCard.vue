@@ -1,5 +1,5 @@
 <template>
-  <q-card ref="qCardRef" class="card">
+  <q-card ref="qCardRef">
     <slot name="image" />
 
     <q-card-section>
@@ -36,19 +36,7 @@ export interface Props {
   actions?: QCardActionsProps
 }
 defineProps<Props>()
-// const attrs = useAttrs();
-// const emit = defineEmits<{
-//   (
-//     e: "asyncEmit",
-//     {
-//       value,
-//       done,
-//     }: {
-//       value: string;
-//       done: () => void;
-//     }
-//   ): void;
-// }>();
+
 const $q = useQuasar()
 const lang = useLang()
 if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
@@ -70,8 +58,4 @@ defineExpose({
 })
 </script>
 
-<style lang="sass" scoped>
-.card
-  width: 100%
-  max-width: 300px
-</style>
+<style lang="sass" scoped></style>
