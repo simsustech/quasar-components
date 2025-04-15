@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.9
+
+### Patch Changes
+
+- 365945e: feat(QStyledCard): remove max-width
+
 ## 0.11.8
 
 ### Patch Changes
