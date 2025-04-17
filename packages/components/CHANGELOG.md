@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.11.10
+
+### Patch Changes
+
+- e934bb1: feat(components): add QLanguageSelectBtn
+- c5bc275: feat(components): add icon props
+
 ## 0.11.9
 
 ### Patch Changes
