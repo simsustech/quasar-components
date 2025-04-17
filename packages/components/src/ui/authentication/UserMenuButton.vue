@@ -1,5 +1,5 @@
 <template>
-  <q-btn icon="person">
+  <q-btn :icon="personIcon">
     <q-menu>
       <q-list>
         <q-item :to="userRoute">
@@ -21,15 +21,19 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 import type { RouteLocationRaw } from 'vue-router'
 
 export interface Props {
   userRoute: RouteLocationRaw
+  icons?: {
+    person: string
+  }
 }
-defineProps<Props>()
+const props = defineProps<Props>()
+const { icons } = toRefs(props)
 // const attrs = useAttrs();
 const emit = defineEmits<{
   (e: 'signOut'): void
@@ -40,6 +44,8 @@ if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
 watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
+
+const personIcon = icons.value?.person ?? 'person'
 
 const variables = ref({
   // header: lang.value.some.nested.prop

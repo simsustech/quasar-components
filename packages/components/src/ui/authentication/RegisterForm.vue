@@ -50,7 +50,7 @@
     >
       <template #append>
         <q-icon
-          :name="showPassword ? 'visibility' : 'visibility_off'"
+          :name="showPassword ? icons.visibility : icons.visibilityOff"
           class="cursor-pointer"
           @click="showPassword = !showPassword"
         />
@@ -68,7 +68,7 @@
     >
       <template #append>
         <q-icon
-          :name="showPassword ? 'visibility' : 'visibility_off'"
+          :name="showPassword ? icons.visibility : icons.visibilityOff"
           class="cursor-pointer"
           @click="showPassword = !showPassword"
         />
@@ -115,12 +115,20 @@ export interface Props {
     | 'autofocus'
     | ('label' & { style?: Partial<CSSStyleDeclaration> })
   >
+  icons?: {
+    visibility: string
+    visibilityOff: string
+  }
 }
 const props = withDefaults(defineProps<Props>(), {
   minimumPasswordLength: 8,
   extraFields: undefined,
   form: undefined,
-  input: undefined
+  input: undefined,
+  icons: () => ({
+    visibility: 'visibility',
+    visibilityOff: 'visibility_off'
+  })
 })
 // const attrs = useAttrs();
 const emit = defineEmits<{

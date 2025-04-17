@@ -2,7 +2,7 @@
   <q-list>
     <q-item v-for="scope in scopes" :key="scope.name">
       <q-item-section avatar>
-        <q-icon color="green" name="check" />
+        <q-icon color="green" :name="checkIcon" />
       </q-item-section>
       <q-item-section>
         {{ scope.name }}
@@ -10,7 +10,7 @@
     </q-item>
     <q-item v-for="claim in claims" :key="claim.name">
       <q-item-section avatar>
-        <q-icon color="green" name="check" />
+        <q-icon color="green" :name="checkIcon" />
       </q-item-section>
       <q-item-section>
         {{ claim.name }}
@@ -18,7 +18,7 @@
     </q-item>
     <q-item v-for="resourceScope in resourceScopes" :key="resourceScope.name">
       <q-item-section avatar>
-        <q-icon color="green" name="check" />
+        <q-icon color="green" :name="checkIcon" />
       </q-item-section>
       <q-item-section>
         {{ resourceScope.name }}
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { useLang, loadLang } from './lang'
 
@@ -48,21 +48,14 @@ export interface Props {
   resourceScopes?: {
     name: string
   }[]
+  icons?: {
+    check: string
+  }
 }
-defineProps<Props>()
-// const attrs = useAttrs();
-// const emit = defineEmits<{
-//   (
-//     e: "asyncEmit",
-//     {
-//       value,
-//       done,
-//     }: {
-//       value: string;
-//       done: () => void;
-//     }
-//   ): void;
-// }>();
+const props = defineProps<Props>()
+
+const { icons } = toRefs(props)
+
 const $q = useQuasar()
 const lang = useLang()
 if (lang.value.isoName !== $q.lang.isoName) loadLang($q.lang.isoName)
@@ -73,6 +66,8 @@ watch($q.lang, (val) => {
 const message = computed(() => lang.value.consent.message)
 const allow = computed(() => lang.value.consent.allow)
 const deny = computed(() => lang.value.consent.deny)
+
+const checkIcon = icons.value?.check ?? 'check'
 
 const variables = ref({
   message,

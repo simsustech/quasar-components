@@ -17,17 +17,17 @@
       </q-tr>
     </template>
     <template #top-right>
-      <q-btn icon="search" flat>
+      <q-btn :icon="searchIcon" flat>
         <q-menu>
           <div class="q-pa-sm">
             <q-input v-model="name" :label="lang.account.fields.name">
               <template #append>
                 <q-icon
                   v-if="name"
-                  name="cancel"
-                  @click="name = ''"
                   class="q-field__focusable-action"
                   role="button"
+                  :name="cancelIcon"
+                  @click="name = ''"
                 />
               </template>
             </q-input>
@@ -35,10 +35,10 @@
               <template #append>
                 <q-icon
                   v-if="email"
-                  name="cancel"
-                  @click="email = ''"
                   class="q-field__focusable-action"
                   role="button"
+                  :name="cancelIcon"
+                  @click="email = ''"
                 />
               </template>
             </q-input>
@@ -55,10 +55,10 @@
               <template #append>
                 <q-icon
                   v-if="roles.length"
-                  name="cancel"
-                  @click="roles = []"
                   class="q-field__focusable-action"
                   role="button"
+                  :name="cancelIcon"
+                  @click="roles = []"
                 />
               </template>
             </q-select>
@@ -72,7 +72,7 @@
           {{ col.value }}
         </q-td>
         <q-td auto-width>
-          <q-btn size="sm" round flat icon="more_vert">
+          <q-btn size="sm" round flat :icon="moreVertIcon">
             <q-menu>
               <q-list>
                 <q-item clickable @click="openAddRoleDialog(props.row)">
@@ -127,6 +127,11 @@ const props = defineProps<{
   pagination: Pagination
   mappedRoles: Record<string, string> // value: label
   columns?: QTableColumn[]
+  icons?: {
+    search: string
+    cancel: string
+    moreVert: string
+  }
 }>()
 
 const emit = defineEmits<{
@@ -136,7 +141,7 @@ const emit = defineEmits<{
   (e: 'removeRole', { id, role }: { id: number; role: string }): void
 }>()
 
-const { modelValue, count, mappedRoles, columns } = toRefs(props)
+const { modelValue, count, mappedRoles, columns, icons } = toRefs(props)
 
 // const { useQuery } = await createUseTrpc()
 const lang = useLang()
@@ -275,4 +280,8 @@ const openRemoveRoleDialog = (account: Account) => {
     emit('removeRole', { id: account.id, role })
   })
 }
+
+const searchIcon = icons.value?.search ?? 'search'
+const cancelIcon = icons.value?.cancel ?? 'cancel'
+const moreVertIcon = icons.value?.moreVert ?? 'more_vert'
 </script>

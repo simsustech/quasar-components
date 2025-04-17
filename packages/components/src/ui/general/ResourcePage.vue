@@ -18,7 +18,7 @@
             round
             size="lg"
             dense
-            icon="add"
+            :icon="icons.add"
             class="q-mr-sm bg-primary text-white"
             @click="create"
           />
@@ -30,7 +30,7 @@
             round
             size="lg"
             dense
-            icon="edit"
+            :icon="icons.edit"
             class="q-mr-sm bg-primary text-white"
             @click="update"
           />
@@ -44,7 +44,7 @@
             v-if="type === 'create'"
             :disable="disabled"
             :label="lang.add"
-            icon="add"
+            :icon="icons.add"
             outline
             @click="create"
           />
@@ -52,7 +52,7 @@
             v-else-if="type === 'update'"
             :disable="disabled"
             :label="lang.edit"
-            icon="edit"
+            :icon="icons.edit"
             outline
             @click="update"
           />
@@ -80,12 +80,20 @@ export interface Props {
   disabled?: boolean
   topBarFab?: boolean
   topBarShrink?: boolean
+  icons?: {
+    add: string
+    edit: string
+  }
 }
 const props = withDefaults(defineProps<Props>(), {
   type: undefined,
   disabled: false,
   topBarFab: false,
-  topBarShrink: true
+  topBarShrink: true,
+  icons: () => ({
+    add: 'add',
+    edit: 'edit'
+  })
 })
 
 const emit = defineEmits<{

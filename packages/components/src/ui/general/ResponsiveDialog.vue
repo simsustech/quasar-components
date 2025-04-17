@@ -8,7 +8,7 @@
     >
       <q-header class="bg-primary">
         <q-toolbar>
-          <q-btn :icon="closeIcon" flat round dense @click="close" />
+          <q-btn :icon="icons.close" flat round dense @click="close" />
           <q-toolbar-title>
             <slot name="title" />
           </q-toolbar-title>
@@ -45,10 +45,17 @@ import QSubmitButton from './QSubmitButton.vue'
 export interface Props {
   display?: boolean
   buttonType?: 'submit' | 'send'
-  closeIcon?: string
   padding?: boolean
+  icons?: {
+    close: string
+  }
 }
-withDefaults(defineProps<Props>(), { buttonType: 'submit', closeIcon: 'close' })
+withDefaults(defineProps<Props>(), {
+  buttonType: 'submit',
+  icons: () => ({
+    close: 'close'
+  })
+})
 // const attrs = useAttrs();
 const emit = defineEmits<{
   (

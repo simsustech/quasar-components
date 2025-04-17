@@ -3,6 +3,7 @@
     v-bind="attrs"
     :options="languageOptions"
     :model-value="modelValue"
+    borderless
     emit-value
     map-options
   >

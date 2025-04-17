@@ -44,7 +44,7 @@
     >
       <template #append>
         <q-icon
-          :name="showPassword ? 'visibility' : 'visibility_off'"
+          :name="showPassword ? visibilityIcon : visibilityOffIcon"
           class="cursor-pointer"
           @click="showPassword = !showPassword"
         />
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, toRefs } from 'vue'
 import { useQuasar, QFormProps, QForm, QInputProps } from 'quasar'
 import { useLang, loadLang } from './lang'
 import isEmail from 'validator/es/lib/isEmail'
@@ -92,8 +92,14 @@ export interface Props {
     | 'autofocus'
     | ('label' & { style?: Partial<CSSStyleDeclaration> })
   >
+  icons?: {
+    visibility: string
+    visibilifyOff: string
+  }
 }
-defineProps<Props>()
+const props = defineProps<Props>()
+const { icons } = toRefs(props)
+
 // const attrs = useAttrs();
 const emit = defineEmits<{
   (
@@ -153,6 +159,9 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = (
     } else evt.done()
   })
 }
+
+const visibilityIcon = icons.value?.visibility ?? 'visibility'
+const visibilityOffIcon = icons.value?.visibilifyOff ?? 'visibility_off'
 
 const variables = ref({
   header,

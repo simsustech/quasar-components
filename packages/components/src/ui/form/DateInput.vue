@@ -26,11 +26,11 @@
     <template #append>
       <q-icon
         v-if="clearable"
-        name="clear"
+        :name="icons.clear"
         class="cursor-pointer"
         @click="emit('update:modelValue', null)"
       />
-      <q-icon name="event" class="cursor-pointer">
+      <q-icon :name="icons.event" class="cursor-pointer">
         <q-tooltip v-if="formattedDate">
           {{ formattedDate }}
         </q-tooltip>
@@ -74,12 +74,20 @@ export interface Props {
   required?: boolean
   clearable?: boolean
   date?: Partial<QDateProps>
+  icons?: {
+    event: string
+    clear: string
+  }
 }
 const props = withDefaults(defineProps<Props>(), {
   format: 'YYYY-MM-DD',
   locale: 'en-US',
   label: '',
-  date: () => ({})
+  date: () => ({}),
+  icons: () => ({
+    event: 'event',
+    clear: 'clear'
+  })
 })
 const emit = defineEmits<{
   (e: 'update:modelValue', val: string | null): void
