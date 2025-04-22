@@ -1,5 +1,5 @@
 <template>
-  <q-btn>
+  <q-btn flat>
     <div v-if="modelValue">
       <component
         :is="flags[modelValue.slice(-2).toLowerCase() as keyof typeof flags]"

@@ -7,20 +7,26 @@
     stack-label
   >
     <template #control>
-      <component
-        :is="QInput"
-        v-for="(part, index) in format.split('-')"
-        :key="part"
-        borderless
-        v-bind="dateProps[part]"
-        inputmode="numeric"
-      >
-        <template #after>
-          <a v-if="index < 2" style="margin-left: -0.75em; margin-top: 0.75em"
-            >-</a
-          >
-        </template>
-      </component>
+      <div class="row">
+        <component
+          :is="QInput"
+          v-for="(part, index) in format.split('-')"
+          :key="part"
+          class="col-auto"
+          borderless
+          :filled="false"
+          :outlined="false"
+          :standout="false"
+          :rounded="false"
+          v-bind="dateProps[part]"
+          inputmode="numeric"
+          dense
+        >
+          <template #after>
+            <a v-if="index < 2" style="margin-top: 1em; width: 1ch">-</a>
+          </template>
+        </component>
+      </div>
     </template>
 
     <template #append>
@@ -195,12 +201,15 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     modelValue: year.value,
     placeholder: lang.value.datePicker.YYYY,
     style: {
-      width: format.value === 'YYYY-MM-DD' ? '8ch' : '6ch',
-      'margin-top': '-2em',
-      'margin-bottom': '-0.5em'
+      'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch',
+      'margin-top': '-1.75em',
+      'margin-bottom': '-0.5em',
+      background: 'transparent',
+      border: 0
     },
     // suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
     class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-none' : undefined,
+    inputClass: 'text-center',
     'onUpdate:modelValue': setYear,
     onKeydown: goToNextElement
   },
@@ -208,12 +217,15 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     modelValue: month.value ? String(month.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.MM,
     style: {
-      width: '6ch',
-      'margin-top': '-2em',
-      'margin-bottom': '-0.5em'
+      'max-width': '7ch',
+      'margin-top': '-1.75em',
+      'margin-bottom': '-0.5em',
+      background: 'transparent',
+      border: 0
     },
     // suffix: '-',
     class: 'q-ml-none',
+    inputClass: 'text-center',
     'onUpdate:modelValue': setMonth,
     onKeydown: goToNextElement
   },
@@ -221,12 +233,15 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     modelValue: day.value ? String(day.value).padStart(2, '0') : '',
     placeholder: lang.value.datePicker.DD,
     style: {
-      width: format.value === 'DD-MM-YYYY' ? '6ch' : '4ch',
-      'margin-top': '-2em',
-      'margin-bottom': '-0.5em'
+      'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch',
+      'margin-top': '-1.75em',
+      'margin-bottom': '-0.5em',
+      background: 'transparent',
+      border: 0
     },
     // suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
     class: format.value === 'YYYY-MM-DD' ? 'q-ml-none' : undefined,
+    inputClass: 'text-center',
     'onUpdate:modelValue': setDay,
     onKeydown: goToNextElement
   }

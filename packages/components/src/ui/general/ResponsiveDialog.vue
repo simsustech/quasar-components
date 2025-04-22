@@ -3,18 +3,28 @@
     <q-layout
       view="LHh lpR fff"
       container
-      :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+      class="bg-light-surface dark:bg-dark-surface"
       style="min-width: 85vw"
     >
-      <q-header class="bg-primary">
+      <q-header
+        class="bg-light-surface-container-high dark:bg-dark-surface-container-high"
+      >
         <q-toolbar>
-          <q-btn :icon="icons.close" flat round dense @click="close" />
+          <q-btn
+            :icon="icons.close"
+            class="text-light-on-surface dark:text-dark-on-surface"
+            flat
+            round
+            dense
+            @click="close"
+          />
           <q-toolbar-title>
             <slot name="title" />
           </q-toolbar-title>
           <q-submit-button
             v-if="!display"
-            color="accent"
+            flat
+            class="text-light-primary dark:text-dark-primary"
             :type="buttonType"
             @submit="submit"
           ></q-submit-button>
