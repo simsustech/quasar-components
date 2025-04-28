@@ -54,7 +54,8 @@ export default defineConfig(async ({ command, mode }) => ({
         general: new URL('./src/ui/general/index.ts', import.meta.url).pathname,
         flags: new URL('./src/ui/flags/index.ts', import.meta.url).pathname,
         icons: new URL('./src/ui/icons/index.ts', import.meta.url).pathname,
-        form: new URL('./src/ui/form/index.ts', import.meta.url).pathname
+        form: new URL('./src/ui/form/index.ts', import.meta.url).pathname,
+        md3: new URL('./src/ui/md3/index.ts', import.meta.url).pathname
       },
       output: {
         // entryFileNames: '[name].js',

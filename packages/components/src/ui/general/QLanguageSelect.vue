@@ -3,15 +3,27 @@
     v-bind="attrs"
     :options="languageOptions"
     :model-value="modelValue"
+    :filled="false"
     borderless
     emit-value
     map-options
   >
-    <template #selected>
-      <div v-if="modelValue">
-        <component
-          :is="flags[modelValue.slice(-2).toLowerCase() as keyof typeof flags]"
-        />
+    <template #selected-item="scope">
+      <div v-if="scope.opt">
+        <q-item>
+          <q-item-section avatar>
+            <component
+              :is="
+                flags[
+                  scope.opt.value.slice(-2).toLowerCase() as keyof typeof flags
+                ]
+              "
+            />
+          </q-item-section>
+          <q-item-section label>
+            {{ scope.opt.label }}
+          </q-item-section>
+        </q-item>
       </div>
     </template>
     <template #option="scope">
