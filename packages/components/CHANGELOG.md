@@ -1,5 +1,13 @@
 # @simsustech/quasar-components
 
+## 0.11.11
+
+### Patch Changes
+
+- b684799: fix(components): fix LocaleSelect and QLanguageSelectButton
+- 3de15ab: feat(components): add LogoutForm and LogoutButton
+- 8a559fd: fix(components): add QField slots to DateInput
+
 ## 0.11.10
 
 ### Patch Changes
