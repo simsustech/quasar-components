@@ -108,6 +108,10 @@ const lang: Language = {
       removeRole: ({ email }) =>
         `Selecteer de rol die u wilt verwijderen van ${email}.`
     }
+  },
+  logout: {
+    confirmation: 'Weet u zeker dat u wilt uitloggen?',
+    logout: 'Log uit'
   }
 }
 

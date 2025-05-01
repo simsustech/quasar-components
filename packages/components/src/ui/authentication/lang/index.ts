@@ -102,6 +102,10 @@ export interface Language {
       removeRole: ({ email }: { email: string }) => string
     }
   }
+  logout: {
+    confirmation: string
+    logout: string
+  }
 }
 
 import type { Ref } from 'vue'
