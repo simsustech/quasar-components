@@ -1,5 +1,5 @@
 <template>
-  <q-card ref="qCardRef">
+  <q-card ref="qCardRef" style="max-width: 300px">
     <slot name="image" />
 
     <q-card-section>
@@ -58,4 +58,4 @@ defineExpose({
 })
 </script>
 
-<style lang="sass" scoped></style>
+<style scoped></style>
