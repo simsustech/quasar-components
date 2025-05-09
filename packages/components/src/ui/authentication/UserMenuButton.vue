@@ -1,5 +1,5 @@
 <template>
-  <q-btn :icon="personIcon">
+  <q-btn :icon="personIcon" round>
     <q-menu>
       <q-list>
         <q-item :to="userRoute">
