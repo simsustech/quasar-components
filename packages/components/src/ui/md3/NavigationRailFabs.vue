@@ -3,7 +3,12 @@
     <q-btn
       v-if="busEmits.add && type === 'add'"
       id="fabAdd"
-      class="gt-sm"
+      :class="{
+        'gt-sm': true,
+        animated: !!seekAttention,
+        'animated-tada': !!seekAttention,
+        'animated-infinite': !!seekAttention
+      }"
       fab
       :icon="addIcon"
       @click="bus.emit(busEmits.add)"
@@ -11,7 +16,12 @@
     <q-btn
       v-if="busEmits.edit && type === 'edit'"
       id="fabEdit"
-      class="gt-sm"
+      :class="{
+        'gt-sm': true,
+        animated: !!seekAttention,
+        'animated-tada': !!seekAttention,
+        'animated-infinite': !!seekAttention
+      }"
       fab
       :icon="editIcon"
       @click="bus.emit(busEmits.edit)"
@@ -20,14 +30,24 @@
   <q-page-sticky v-if="showSticky" position="bottom-right" :offset="[18, 18]">
     <q-btn
       v-if="busEmits.add && type === 'add'"
-      class="lt-md"
+      :class="{
+        'lt-md': true,
+        animated: !!seekAttention,
+        'animated-tada': !!seekAttention,
+        'animated-infinite': !!seekAttention
+      }"
       fab
       :icon="addIcon"
       @click="bus.emit(busEmits.add)"
     />
     <q-btn
       v-if="busEmits.edit && type === 'edit'"
-      class="lt-md"
+      :class="{
+        'lt-md': true,
+        animated: !!seekAttention,
+        'animated-tada': !!seekAttention,
+        'animated-infinite': !!seekAttention
+      }"
       fab
       :icon="editIcon"
       @click="bus.emit(busEmits.edit)"
@@ -42,6 +62,7 @@ import { inject, toRefs } from 'vue'
 interface Props {
   type?: 'add' | 'edit'
   showSticky?: boolean
+  seekAttention?: boolean
   busEmits: {
     add?: string
     edit?: string
