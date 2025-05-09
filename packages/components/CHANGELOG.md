@@ -1,5 +1,13 @@
 # @simsustech/quasar-components
 
+## 0.11.12
+
+### Patch Changes
+
+- 911f1ce: feat(components): make UserMenuButton round
+- 08f4c9d: feat(components): add seekAttention prop to NavigationRailFabs
+- 76e1484: fix(components): fix Md3Layout onMounted set mini state
+
 ## 0.11.11
 
 ### Patch Changes
