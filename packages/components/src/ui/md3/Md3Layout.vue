@@ -134,7 +134,6 @@ const debouncedToggleMiniState = debounce(toggleMiniState, 500)
 onClickOutside(drawerRef, () => toggleMiniState(true))
 
 onMounted(() => {
-  console.log($q.screen)
   if ($q.screen.gt.sm) {
     toggleMiniState(true)
   }
