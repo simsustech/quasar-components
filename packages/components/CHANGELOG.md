@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.13
+
+### Patch Changes
+
+- 221c1b4: chore: update dependencies
+
 ## 0.11.12
 
 ### Patch Changes
