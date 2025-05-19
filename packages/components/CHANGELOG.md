@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.14
+
+### Patch Changes
+
+- 7bc307d: fix(components): fix localeSelect selectedItems slot
+
 ## 0.11.13
 
 ### Patch Changes
