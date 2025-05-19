@@ -4,20 +4,13 @@
     :options="languageOptions"
     :model-value="modelValue"
     :filled="false"
-    borderless
     emit-value
     map-options
   >
     <template #selected-item="scope">
       <div v-if="scope.opt">
-        <q-item>
-          <q-item-section avatar>
-            <q-icon :name="scope.opt.icon" />
-          </q-item-section>
-          <q-item-section label>
-            {{ scope.opt.label }}
-          </q-item-section>
-        </q-item>
+        <q-icon :name="scope.opt.icon" />
+        {{ scope.opt.label }}
       </div>
     </template>
     <template #option="scope">
