@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.15
+
+### Patch Changes
+
+- 138a828: fix(components): fix CronScheduleInput style
+
 ## 0.11.14
 
 ### Patch Changes
