@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.16
+
+### Patch Changes
+
+- c890140: feat(components): add isItem prop to LocaleSelect
+
 ## 0.11.15
 
 ### Patch Changes
