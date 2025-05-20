@@ -7,113 +7,131 @@
     borderless
   >
     <template #control>
-      <q-select
-        v-if="showHour"
-        v-model="hour"
-        :options="hourOptions"
-        :hint="lang.cron.hour"
-        bottom-slots
-        :style="{
-          width: '10ch',
-          'margin-top': '-2em',
-          'margin-bottom': '-0.5em'
-        }"
-        map-options
-        emit-value
-        multiple
-      >
-        <template #selected>
-          {{ hour.length ? hour.join(',') : lang.cron.every.hour }}
-        </template>
-      </q-select>
-      <q-select
-        v-if="showMinute"
-        v-model="minute"
-        :options="minuteOptions"
-        :hint="lang.cron.minute"
-        bottom-slots
-        :style="{
-          width: '10ch',
-          'margin-top': '-2em',
-          'margin-bottom': '-0.5em'
-        }"
-        map-options
-        emit-value
-        multiple
-      >
-        <template #selected>
-          {{ minute.length ? minute.join(',') : lang.cron.every.minute }}
-        </template>
-      </q-select>
-      <q-select
-        v-model="dayOfMonth"
-        :options="dayOfMonthOptions"
-        :hint="lang.cron.dayOfMonth"
-        bottom-slots
-        :style="{
-          width: '10ch',
-          'margin-top': '-2em',
-          'margin-bottom': '-0.5em'
-        }"
-        map-options
-        emit-value
-        multiple
-      >
-        <template #selected>
-          {{
-            dayOfMonth.length
-              ? dayOfMonth.join(',')
-              : lang.cron.every.dayOfMonth
-          }}
-        </template>
-      </q-select>
-      <q-select
-        v-model="month"
-        :options="monthOptions"
-        :hint="lang.cron.month"
-        :placeholder="lang.cron.month"
-        bottom-slots
-        :style="{
-          width: '16ch',
-          'margin-top': '-2em',
-          'margin-bottom': '-0.5em'
-        }"
-        map-options
-        emit-value
-        multiple
-      >
-        <template #selected>
-          {{
-            month.length
-              ? month
-                  .map((val) => $q.lang.date.months[Number(val) - 1])
-                  .join(',')
-              : lang.cron.every.month
-          }}
-        </template>
-      </q-select>
-      <q-select
-        v-if="showDayOfWeek"
-        v-model="dayOfWeek"
-        :options="dayOfWeekOptions"
-        :placeholder="lang.cron.dayOfWeek"
-        :style="{
-          width: '16ch',
-          'margin-top': '-2em',
-          'margin-bottom': '-0.5em'
-        }"
-        map-options
-        emit-value
-        multiple
-      >
-        <template #selected>
-          {{
-            dayOfWeek.length
-              ? dayOfWeek.map((val) => $q.lang.date.days[Number(val)]).join(',')
-              : lang.cron.every.dayOfWeek
-          }}
-        </template>
-      </q-select>
+      <div class="row">
+        <q-select
+          v-if="showHour"
+          v-model="hour"
+          class="col-auto"
+          :options="hourOptions"
+          :hint="lang.cron.hour"
+          bottom-slots
+          borderless
+          :filled="false"
+          :outlined="false"
+          :standout="false"
+          :rounded="false"
+          :style="smallStyle"
+          map-options
+          emit-value
+          multiple
+        >
+          <template #selected>
+            {{ hour.length ? hour.join(',') : lang.cron.every.hour }}
+          </template>
+        </q-select>
+        <q-select
+          v-if="showMinute"
+          v-model="minute"
+          class="col-auto"
+          :options="minuteOptions"
+          :hint="lang.cron.minute"
+          bottom-slots
+          borderless
+          :filled="false"
+          :outlined="false"
+          :standout="false"
+          :rounded="false"
+          :style="smallStyle"
+          map-options
+          emit-value
+          multiple
+        >
+          <template #selected>
+            {{ minute.length ? minute.join(',') : lang.cron.every.minute }}
+          </template>
+        </q-select>
+        <q-select
+          v-model="dayOfMonth"
+          class="col-auto"
+          :options="dayOfMonthOptions"
+          :hint="lang.cron.dayOfMonth"
+          bottom-slots
+          borderless
+          :filled="false"
+          :outlined="false"
+          :standout="false"
+          :rounded="false"
+          :style="smallStyle"
+          map-options
+          emit-value
+          multiple
+        >
+          <template #selected>
+            {{
+              dayOfMonth.length
+                ? dayOfMonth.join(',')
+                : lang.cron.every.dayOfMonth
+            }}
+          </template>
+        </q-select>
+        <q-select
+          v-model="month"
+          class="col-auto"
+          :options="monthOptions"
+          :hint="lang.cron.month"
+          :placeholder="lang.cron.month"
+          bottom-slots
+          borderless
+          :filled="false"
+          :outlined="false"
+          :standout="false"
+          :rounded="false"
+          :style="largeStyle"
+          map-options
+          emit-value
+          multiple
+        >
+          <template #selected>
+            {{
+              month.length
+                ? month
+                    .map((val) => $q.lang.date.months[Number(val) - 1])
+                    .join(',')
+                : lang.cron.every.month
+            }}
+          </template>
+        </q-select>
+      </div>
+      <div v-if="showDayOfWeek" class="row">
+        <q-select
+          v-if="showDayOfWeek"
+          v-model="dayOfWeek"
+          class="col-auto"
+          :options="dayOfWeekOptions"
+          :placeholder="lang.cron.dayOfWeek"
+          :hint="lang.cron.dayOfWeek"
+          :style="dayOfWeekStyle"
+          bottom-slots
+          borderless
+          :filled="false"
+          :outlined="false"
+          :standout="false"
+          :rounded="false"
+          map-options
+          emit-value
+          multiple
+        >
+          <template #selected>
+            {{
+              dayOfWeek.length
+                ? dayOfWeek
+                    .map((val) => $q.lang.date.days[Number(val)])
+                    .join(',')
+                : lang.cron.every.dayOfWeek
+            }}
+          </template>
+        </q-select>
+      </div>
     </template>
   </q-field>
 </template>
@@ -163,7 +181,7 @@ const monthOptions = ref([
   }))
 ])
 const dayOfWeekOptions = ref(
-  [...Array(31).keys()].map((day) => ({
+  [...Array(7).keys()].map((day) => ({
     label: $q.lang.date.days[day],
     value: String(day)
   }))
@@ -193,6 +211,25 @@ function setInternalCron(cronString: string) {
     month.value = newMonth.split(',').filter((val) => val !== '*')
     dayOfWeek.value = newDayOfWeek.split(',').filter((val) => val !== '*')
   }
+}
+
+const smallStyle = {
+  'margin-top': '-1.75em',
+  'margin-bottom': '-0.5em',
+  background: 'transparent',
+  border: 0
+}
+
+const largeStyle = {
+  'margin-bottom': '-0.5em',
+  background: 'transparent',
+  border: 0
+}
+
+const dayOfWeekStyle = {
+  'margin-bottom': '-0.5em',
+  background: 'transparent',
+  border: 0
 }
 
 watch(modelValue, (newVal) => {
