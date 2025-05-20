@@ -8,7 +8,17 @@
     map-options
   >
     <template #selected-item="scope">
-      <div v-if="scope.opt">
+      <q-item v-if="scope.opt && isItem">
+        <q-item-section avatar>
+          <q-icon :name="scope.opt.icon" />
+        </q-item-section>
+        <q-item-section>
+          <q-item-label>
+            {{ scope.opt.label }}
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <div v-else-if="scope.opt">
         <q-icon :name="scope.opt.icon" />
         {{ scope.opt.label }}
       </div>
@@ -39,6 +49,7 @@ export interface Props {
     icon: string
     isoName: keyof Language['languages']
   }[]
+  isItem?: boolean
 }
 const props = defineProps<Props>()
 const { modelValue, locales } = toRefs(props)
