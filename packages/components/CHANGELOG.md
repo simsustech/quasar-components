@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.11.17
+
+### Patch Changes
+
+- c4a67e8: fix(components): fix DateInput margins
+- f10af4e: fix(components): fix CronScheduleInput margins
+
 ## 0.11.16
 
 ### Patch Changes
