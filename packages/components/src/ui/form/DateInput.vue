@@ -206,7 +206,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     placeholder: lang.value.datePicker.YYYY,
     style: {
       'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch',
-      'margin-top': '-1.75em',
+      'margin-top': '-1.7em',
       'margin-bottom': '-0.5em',
       background: 'transparent',
       border: 0
@@ -222,7 +222,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     placeholder: lang.value.datePicker.MM,
     style: {
       'max-width': '7ch',
-      'margin-top': '-1.75em',
+      'margin-top': '-1.7em',
       'margin-bottom': '-0.5em',
       background: 'transparent',
       border: 0
@@ -238,7 +238,7 @@ const dateProps = computed<Record<string, QInputProps>>(() => ({
     placeholder: lang.value.datePicker.DD,
     style: {
       'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch',
-      'margin-top': '-1.75em',
+      'margin-top': '-1.7em',
       'margin-bottom': '-0.5em',
       background: 'transparent',
       border: 0
