@@ -86,7 +86,7 @@
           :outlined="false"
           :standout="false"
           :rounded="false"
-          :style="largeStyle"
+          :style="smallStyle"
           map-options
           emit-value
           multiple
@@ -214,13 +214,7 @@ function setInternalCron(cronString: string) {
 }
 
 const smallStyle = {
-  'margin-top': '-1.75em',
-  'margin-bottom': '-0.5em',
-  background: 'transparent',
-  border: 0
-}
-
-const largeStyle = {
+  'margin-top': '-1.7em',
   'margin-bottom': '-0.5em',
   background: 'transparent',
   border: 0
