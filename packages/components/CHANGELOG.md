@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.18
+
+### Patch Changes
+
+- 4012069: fix(components): fix Md3Layout fab button slot min height
+
 ## 0.11.17
 
 ### Patch Changes
