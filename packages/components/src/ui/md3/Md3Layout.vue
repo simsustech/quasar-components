@@ -47,11 +47,9 @@
               @click="toggleLeftDrawer()"
             >
             </q-btn>
-            <div id="fabs" class="q-mb-md">
+            <div id="fabs" class="q-mb-md min-h-56px">
               <slot name="fabs" :show-sticky="false" />
             </div>
-
-            <div id="spacing" class="gt-md min-h-32px" />
 
             <slot name="drawer-mini-navigation" />
           </div>
