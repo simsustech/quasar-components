@@ -17,7 +17,7 @@
       </q-tr>
     </template>
     <template #top-right>
-      <q-btn :icon="searchIcon" flat>
+      <q-btn :icon="searchIcon">
         <q-menu>
           <div class="q-pa-sm">
             <q-input v-model="name" :label="lang.account.fields.name">
