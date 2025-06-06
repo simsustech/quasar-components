@@ -1,5 +1,13 @@
 # @simsustech/quasar-components
 
+## 0.11.19
+
+### Patch Changes
+
+- 989f4c0: feat(components): add data-testid to AccountsTable search button
+- b109c88: fix(components): remove flat from AccountsTable search button
+- 3253b20: chore: update dependencies
+
 ## 0.11.18
 
 ### Patch Changes
