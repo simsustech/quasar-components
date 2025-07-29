@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.20
+
+### Patch Changes
+
+- 3c91d3e: fix(components): fix icons in PasswordChangeStepper
+
 ## 0.11.19
 
 ### Patch Changes
