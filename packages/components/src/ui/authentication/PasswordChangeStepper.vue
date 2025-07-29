@@ -15,6 +15,7 @@
         :form="{ id: 'passwordChangeForm' }"
         :email="email"
         :input="input"
+        :icons="icons"
         @submit="changePassword"
       >
       </password-change-form>
@@ -65,8 +66,18 @@ export interface Props {
     | 'autofocus'
     | ('label' & { style?: Partial<CSSStyleDeclaration> })
   >
+  icons?: {
+    visibility: string
+    visibilityOff: string
+  }
 }
-defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+  input: undefined,
+  icons: () => ({
+    visibility: 'visibility',
+    visibilityOff: 'visibility_off'
+  })
+})
 // const attrs = useAttrs();
 const emit = defineEmits<{
   (
