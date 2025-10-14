@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.21
+
+### Patch Changes
+
+- 6dc180e: fix(components): use lower QDrawer width for small screens in Md3Layout
+
 ## 0.11.20
 
 ### Patch Changes
