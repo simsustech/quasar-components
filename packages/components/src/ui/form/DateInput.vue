@@ -161,7 +161,7 @@ watch([year, month, day], () => {
   if (year.value && month.value && day.value && !isNaN(Date.parse(date))) {
     emit('update:modelValue', date)
   } else {
-    emit('update:modelValue', '')
+    emit('update:modelValue', null)
   }
 })
 
