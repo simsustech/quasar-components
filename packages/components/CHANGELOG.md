@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.22
+
+### Patch Changes
+
+- 9ef33d4: fix(components): set DateInput modelValue to null on clear
+
 ## 0.11.21
 
 ### Patch Changes
