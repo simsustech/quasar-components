@@ -5,6 +5,7 @@
     :rules="validations"
     :label="`${label}${required ? '*' : ''}`"
     stack-label
+    lazy-rules
   >
     <template #control>
       <div class="row">
@@ -160,7 +161,7 @@ watch([year, month, day], () => {
   const date = `${year.value}-${String(month.value).padStart(2, '0')}-${String(day.value).padStart(2, '0')}`
   if (year.value && month.value && day.value && !isNaN(Date.parse(date))) {
     emit('update:modelValue', date)
-  } else {
+  } else if (modelValue.value !== null) {
     emit('update:modelValue', null)
   }
 })
