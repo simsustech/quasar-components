@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.23
+
+### Patch Changes
+
+- 85d1703: fix(components): DateInput use lazy-rules
+
 ## 0.11.22
 
 ### Patch Changes
