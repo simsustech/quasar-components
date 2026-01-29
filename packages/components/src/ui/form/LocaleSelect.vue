@@ -6,6 +6,7 @@
     :filled="false"
     emit-value
     map-options
+    @input="emit('update:modelValue', $event.target.value)"
   >
     <template #selected-item="scope">
       <q-item v-if="scope.opt && isItem">
@@ -52,6 +53,7 @@ export interface Props {
   isItem?: boolean
 }
 const props = defineProps<Props>()
+const emit = defineEmits(['update:modelValue'])
 const { modelValue, locales } = toRefs(props)
 
 const lang = useLang()

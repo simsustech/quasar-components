@@ -2,7 +2,7 @@
   <locale-select
     :model-value="modelValue"
     :locales="locales"
-    @update:model-value="(val) => $emit('update:model-value', val)"
+    @update:model-value="(val) => emit('update:modelValue', val)"
   />
 </template>
 
@@ -24,6 +24,8 @@ export interface Props {
   }[]
 }
 const props = defineProps<Props>()
+const emit = defineEmits(['update:modelValue'])
+
 const { modelValue, languageImports, locales } = toRefs(props)
 
 const $q = useQuasar()
