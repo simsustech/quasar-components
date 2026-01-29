@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.11.24
+
+### Patch Changes
+
+- f271caf: chore: update dependencies
+- 206b679: fix: use fileURLToPath instead of pathname
+
 ## 0.11.23
 
 ### Patch Changes
