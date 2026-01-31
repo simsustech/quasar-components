@@ -6,7 +6,7 @@
     :filled="false"
     emit-value
     map-options
-    @input="emit('update:modelValue', $event.target.value)"
+    @update:model-value="(val: string) => emit('update:modelValue', val)"
   >
     <template #selected-item="scope">
       <q-item v-if="scope.opt && isItem">
