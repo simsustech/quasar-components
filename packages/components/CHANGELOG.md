@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.11.25
+
+### Patch Changes
+
+- 82b94b4: fix(LocaleSelect): fix update model value
+
 ## 0.11.24
 
 ### Patch Changes
