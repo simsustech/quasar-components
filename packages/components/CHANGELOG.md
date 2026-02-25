@@ -1,5 +1,12 @@
 # @simsustech/quasar-components
 
+## 0.11.26
+
+### Patch Changes
+
+- 16439cd: feat(components): add disable prop to NavigationRailFabs
+- 89c6493: feat(ResponsiveDialog): use css variables for colors
+
 ## 0.11.25
 
 ### Patch Changes
