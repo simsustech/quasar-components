@@ -13,4 +13,12 @@ export { default as CurrencySelect } from './CurrencySelect.vue'
 export { default as LocaleSelect } from './LocaleSelect.vue'
 export { default as FilteredModelSelect } from './FilteredModelSelect.vue'
 export { default as CronScheduleInput } from './CronScheduleInput.vue'
-export { useLang, loadLang } from './lang/index.js'
+export { default as CountrySelect } from './CountrySelect.vue'
+
+export {
+  useLang,
+  loadLang,
+  type Locales,
+  type ISO3166,
+  type ISO639
+} from './lang/index.js'

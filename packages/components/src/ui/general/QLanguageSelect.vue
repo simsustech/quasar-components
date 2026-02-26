@@ -2,27 +2,28 @@
   <locale-select
     :model-value="modelValue"
     :locales="locales"
-    @update:model-value="(val) => emit('update:modelValue', val)"
+    @update:model-value="(val) => updateModelValue(val)"
   />
 </template>
 
 <script setup lang="ts">
-import { watch, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { useQuasar, QuasarLanguage } from 'quasar'
 import LocaleSelect from '../form/LocaleSelect.vue'
-import type { Language as FormLanguage } from '../form/lang/index.js'
+import type { ISO639, Locales } from '../form/lang/index.js'
 
 export interface Props {
-  modelValue: keyof FormLanguage['countries']
+  modelValue: Locales
   languageImports: Record<
-    keyof FormLanguage['countries'],
+    ISO639 | Locales,
     () => Promise<{ default: QuasarLanguage }>
   >
   locales: {
     icon: string
-    isoName: keyof FormLanguage['languages']
+    bcp47: Locales
   }[]
 }
+
 const props = defineProps<Props>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -30,16 +31,19 @@ const { modelValue, languageImports, locales } = toRefs(props)
 
 const $q = useQuasar()
 
-watch(modelValue, (langIso) => {
-  try {
-    languageImports.value[langIso]().then(
-      // langList[`../../../node_modules/quasar/lang/${langIso}.mjs`]().then(
-      (lang) => {
+const updateModelValue: InstanceType<
+  typeof LocaleSelect
+>['$props']['onUpdate:modelValue'] = (v: Locales) => {
+  const iso639 = v.split('-').at(0) as ISO639
+  for (const i of [iso639, v]) {
+    try {
+      languageImports.value[i]().then((lang) => {
         $q.lang.set(lang.default)
-      }
-    )
-  } catch (e) {
-    console.error(e)
+      })
+    } catch {
+      //
+    }
   }
-})
+  emit('update:modelValue', v)
+}
 </script>

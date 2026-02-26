@@ -1,7 +1,7 @@
 <template>
   <q-select
     v-bind="attrs"
-    :options="localeOptions"
+    :options="countryOptions"
     :model-value="modelValue"
     :filled="false"
     emit-value
@@ -42,45 +42,38 @@
 <script setup lang="ts">
 import { useAttrs, computed, toRefs, ref } from 'vue'
 import { QSelect } from 'quasar'
-import { type Language, type Locales, useLang } from './lang/index.js'
+import { ISO3166, useLang } from './lang/index.js'
 
 export interface Props {
-  modelValue: Locales
-  locales: {
+  modelValue: ISO3166
+  countries: {
     icon: string
-    bcp47: Locales
+    iso3166: ISO3166
   }[]
   isItem?: boolean
 }
 const props = defineProps<Props>()
 const emit = defineEmits(['update:modelValue'])
-const { modelValue, locales } = toRefs(props)
+const { modelValue, countries } = toRefs(props)
 
 const lang = useLang()
 const attrs = useAttrs()
 
-const localeOptions = computed(() => {
-  const options = locales.value.map((locale) => ({
-    label: getLanguageLabel(locale.bcp47),
-    value: locale.bcp47,
-    icon: locale.icon
+const countryOptions = computed(() => {
+  const options = countries.value.map((country) => ({
+    label: lang.value.countries[country.iso3166],
+    value: country.iso3166,
+    icon: country.icon
   }))
 
   return options
 })
 
-const getCountryLabel = (v: keyof Language['bcp47']) =>
-  lang.value.bcp47[v]?.country
-
-const getLanguageLabel = (v: keyof Language['bcp47']) =>
-  lang.value.bcp47[v]?.language
-
 const variables = ref({
   //
 })
 const functions = ref({
-  getCountryLabel,
-  getLanguageLabel
+  //
 })
 
 defineExpose({
