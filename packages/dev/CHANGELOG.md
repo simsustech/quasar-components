@@ -1,5 +1,12 @@
 # dev
 
+## 1.0.15
+
+### Patch Changes
+
+- Updated dependencies [5f271e8]
+  - @simsustech/quasar-components@0.12.0
+
 ## 1.0.14
 
 ### Patch Changes
