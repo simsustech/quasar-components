@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.0
+
+### Minor Changes
+
+- 5f271e8: feat(components): use iso639, iso3166 and bcp47 for locales and add CountrySelect
+
 ## 0.11.26
 
 ### Patch Changes
