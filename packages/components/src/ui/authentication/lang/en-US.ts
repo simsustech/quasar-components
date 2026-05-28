@@ -80,7 +80,7 @@ const lang: Language = {
     validations: {
       fieldRequired: 'Field is required',
       invalidEmail: 'A valid email address is required.',
-      notAlphaNumeric: 'Veld mag geen speciale tekens bevatten.'
+      notAlphaNumeric: 'Field can not contain special characters.'
     },
     register: 'Register',
     forgotPassword: 'Forgot your password?',
