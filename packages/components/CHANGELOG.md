@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.1
+
+### Patch Changes
+
+- 6987645: feat(LoginForm): add defaultCredentials prop
+
 ## 0.12.0
 
 ### Minor Changes
