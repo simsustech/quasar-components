@@ -11,6 +11,7 @@
       }"
       fab
       :icon="addIcon"
+      :disable="disable"
       @click="bus.emit(busEmits.add)"
     />
     <q-btn
@@ -24,6 +25,7 @@
       }"
       fab
       :icon="editIcon"
+      :disable="disable"
       @click="bus.emit(busEmits.edit)"
     />
   </div>
@@ -38,6 +40,7 @@
       }"
       fab
       :icon="addIcon"
+      :disable="disable"
       @click="bus.emit(busEmits.add)"
     />
     <q-btn
@@ -50,6 +53,7 @@
       }"
       fab
       :icon="editIcon"
+      :disable="disable"
       @click="bus.emit(busEmits.edit)"
     />
   </q-page-sticky>
@@ -63,6 +67,7 @@ interface Props {
   type?: 'add' | 'edit'
   showSticky?: boolean
   seekAttention?: boolean
+  disable?: boolean
   busEmits: {
     add?: string
     edit?: string

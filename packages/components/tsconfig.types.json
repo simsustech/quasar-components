@@ -11,7 +11,8 @@
     "emitDeclarationOnly": true,
     "declarationDir": "./dist/types",
     "isolatedModules": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "rootDir": "./"
   },
   "include": ["./src"]
 }

@@ -12,6 +12,7 @@
     "declaration": true,
     "lib": ["esnext", "dom"],
     "types": ["vite/client"],
+    "rootDir": "./",
     "outDir": "./dist"
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],

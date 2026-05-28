@@ -1,5 +1,55 @@
 # @simsustech/quasar-components
 
+## 0.12.0
+
+### Minor Changes
+
+- 5f271e8: feat(components): use iso639, iso3166 and bcp47 for locales and add CountrySelect
+
+## 0.11.26
+
+### Patch Changes
+
+- 16439cd: feat(components): add disable prop to NavigationRailFabs
+- 89c6493: feat(ResponsiveDialog): use css variables for colors
+
+## 0.11.25
+
+### Patch Changes
+
+- 82b94b4: fix(LocaleSelect): fix update model value
+
+## 0.11.24
+
+### Patch Changes
+
+- f271caf: chore: update dependencies
+- 206b679: fix: use fileURLToPath instead of pathname
+
+## 0.11.23
+
+### Patch Changes
+
+- 85d1703: fix(components): DateInput use lazy-rules
+
+## 0.11.22
+
+### Patch Changes
+
+- 9ef33d4: fix(components): set DateInput modelValue to null on clear
+
+## 0.11.21
+
+### Patch Changes
+
+- 6dc180e: fix(components): use lower QDrawer width for small screens in Md3Layout
+
+## 0.11.20
+
+### Patch Changes
+
+- 3c91d3e: fix(components): fix icons in PasswordChangeStepper
+
 ## 0.11.19
 
 ### Patch Changes

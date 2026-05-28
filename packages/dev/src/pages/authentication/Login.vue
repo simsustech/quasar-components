@@ -26,29 +26,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { LoginForm } from "@simsustech/quasar-components/authentication";
-import { QStyledCard, QSubmitButton } from "@simsustech/quasar-components";
-import { QCardActionsProps } from "quasar";
+import { ref, computed } from 'vue'
+import { LoginForm } from '@simsustech/quasar-components/authentication'
+import { QStyledCard, QSubmitButton } from '@simsustech/quasar-components'
+import { QCardActionsProps } from 'quasar'
 
 const actionsProps = ref<QCardActionsProps>({
-  align: "between",
-});
-const registerUrl = ref("register");
-const loginFormRef = ref<typeof LoginForm>();
-const header = computed(() => loginFormRef.value?.variables.header);
+  align: 'between'
+})
+const registerUrl = ref('register')
+const loginFormRef = ref<typeof LoginForm>()
+const header = computed(() => loginFormRef.value?.variables.header)
 const createAccount = computed(
   () => loginFormRef.value?.variables.createAccount
-);
+)
 
-const login: InstanceType<typeof LoginForm>["$props"]["onSubmit"] = ({
+const login: InstanceType<typeof LoginForm>['$props']['onSubmit'] = ({
   email,
   password,
-  done,
+  done
 }) => {
   setTimeout(() => {
-    console.log(`Email: ${email}, password: ${password}`);
-    done();
-  }, 3000);
-};
+    console.log(`Email: ${email}, password: ${password}`)
+    done()
+  }, 3000)
+}
 </script>

@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { ResponsiveModal } from "@simsustech/quasar-components";
+import { ref } from 'vue'
+import { ResponsiveModal } from '@simsustech/quasar-components'
 
-const opened = ref(false);
-const toggle = () => (opened.value = !opened.value);
+const opened = ref(false)
+const toggle = () => (opened.value = !opened.value)
 </script>

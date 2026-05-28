@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { DateInput } from "@simsustech/quasar-components/form";
-import { ref } from "vue";
+import { DateInput } from '@simsustech/quasar-components/form'
+import { ref } from 'vue'
 
-const date = ref("");
-const dateInputRef = ref();
+const date = ref('')
+const dateInputRef = ref()
 </script>

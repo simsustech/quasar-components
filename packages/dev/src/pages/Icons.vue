@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { microsoft } from "@simsustech/quasar-components/icons";
-import { LoginButton } from "@simsustech/quasar-components/authentication";
-const microsoftRef = ref<typeof microsoft>();
-const loginWithMicrosoft = () => console.log("Login with Microsoft");
+import { ref, computed } from 'vue'
+import { microsoft } from '@simsustech/quasar-components/icons'
+import { LoginButton } from '@simsustech/quasar-components/authentication'
+const microsoftRef = ref<typeof microsoft>()
+const loginWithMicrosoft = () => console.log('Login with Microsoft')
 </script>

@@ -2,6 +2,7 @@ import type { Plugin } from 'vite'
 import { promises } from 'fs'
 import { Icon, FlagIcon } from './virtualModules.js'
 const { readFile } = promises
+import { fileURLToPath } from 'node:url'
 
 export default async function ({
   buildFromSrc
@@ -10,7 +11,7 @@ export default async function ({
 } = {}): Promise<Plugin> {
   const pkgJson = JSON.parse(
     await readFile(
-      new URL('../package.json', import.meta.url).pathname,
+      fileURLToPath(new URL('../package.json', import.meta.url)),
       'utf-8'
     )
   )

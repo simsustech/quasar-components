@@ -23,19 +23,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { EmailChangeForm } from "@simsustech/quasar-components/authentication";
-import { QSubmitButton } from "@simsustech/quasar-components";
+import { onMounted, ref } from 'vue'
+import { EmailChangeForm } from '@simsustech/quasar-components/authentication'
+import { QSubmitButton } from '@simsustech/quasar-components'
 
-const form = ref<typeof EmailChangeForm>();
-const submit: InstanceType<typeof EmailChangeForm>["$props"]["onSubmit"] = (
+const form = ref<typeof EmailChangeForm>()
+const submit: InstanceType<typeof EmailChangeForm>['$props']['onSubmit'] = (
   evt
 ) => {
-  console.log(evt);
-  setTimeout(() => evt.done(), 3000);
-};
+  console.log(evt)
+  setTimeout(() => evt.done(), 3000)
+}
 
 onMounted(() => {
-  console.log(form.value);
-});
+  console.log(form.value)
+})
 </script>

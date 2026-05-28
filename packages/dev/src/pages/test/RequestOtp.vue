@@ -19,22 +19,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { QSubmitButton } from "@simsustech/quasar-components";
-import { RequestOtpForm } from "@simsustech/quasar-components/authentication";
+import { ref } from 'vue'
+import { QSubmitButton } from '@simsustech/quasar-components'
+import { RequestOtpForm } from '@simsustech/quasar-components/authentication'
 
-const cardProps: InstanceType<typeof RequestOtpForm>["$props"]["card"] = {
-  style: "max-width: 400px",
-};
+const cardProps: InstanceType<typeof RequestOtpForm>['$props']['card'] = {
+  style: 'max-width: 400px'
+}
 
-const form = ref<typeof RequestOtpForm>();
-const submit: InstanceType<typeof RequestOtpForm>["$props"]["onSubmit"] = ({
+const form = ref<typeof RequestOtpForm>()
+const submit: InstanceType<typeof RequestOtpForm>['$props']['onSubmit'] = ({
   email,
-  done,
+  done
 }) => {
   setTimeout(() => {
-    console.log(email);
-    done();
-  }, 3000);
-};
+    console.log(email)
+    done()
+  }, 3000)
+}
 </script>

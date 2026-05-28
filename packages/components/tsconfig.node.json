@@ -4,7 +4,8 @@
     "module": "esnext",
     "moduleResolution": "Bundler",
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "rootDir": "./"
   },
   "include": ["vite.config.ts", "src/virtualModules.ts"]
 }

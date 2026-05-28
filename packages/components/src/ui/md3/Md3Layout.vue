@@ -20,7 +20,7 @@
       <q-drawer
         ref="drawerRef"
         :model-value="leftDrawerOpen"
-        :width="360"
+        :width="drawerWidth"
         :mini-width="80"
         :mini="miniState"
         show-if-above
@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { debounce, useQuasar } from 'quasar'
 
 import { QDrawer } from 'quasar'
@@ -88,6 +88,10 @@ const $q = useQuasar()
 const drawerRef = ref<QDrawer>()
 const leftDrawerOpen = ref(false)
 const miniState = ref(false)
+
+const drawerWidth = computed(() => {
+  return $q.screen.lt.sm ? 300 : 360
+})
 
 // Small screen: toggle leftDrawerOpen, large screen: toggle miniState
 // Prevent unresponsiveness with screen changes and drawer opened

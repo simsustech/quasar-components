@@ -94,38 +94,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, watch, inject } from "vue";
-import { useQuasar } from "quasar";
-import { nl, enUs } from "@simsustech/quasar-components/flags";
-import { QLanguageSelect } from "@simsustech/quasar-components";
+import { ref, Ref, watch, inject } from 'vue'
+import { useQuasar } from 'quasar'
+import { nl, enUs } from '@simsustech/quasar-components/flags'
+import { QLanguageSelect } from '@simsustech/quasar-components'
 import {
   authenticationRoutes,
   generalRoutes,
-  formRoutes,
-} from "../router/routes.js";
-const title = "Demo";
+  formRoutes
+} from '../router/routes.js'
+const title = 'Demo'
 
-const $q = useQuasar();
-const leftDrawerOpen = ref(false);
+const $q = useQuasar()
+const leftDrawerOpen = ref(false)
 
 const toggleLeftDrawer = () => {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-};
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
 
-const nlRef = ref<typeof nl>();
-const enUsRef = ref<typeof enUs>();
+const nlRef = ref<typeof nl>()
+const enUsRef = ref<typeof enUs>()
 
-const locale = ref($q.lang.isoName);
+const locale = ref($q.lang.isoName)
 
-const quasarLang = import.meta.glob("../../node_modules/quasar/lang/*.mjs");
+const quasarLang = import.meta.glob('../../node_modules/quasar/lang/*.mjs')
 const languageImports = ref(
   Object.entries(quasarLang).reduce(
     (acc, [key, value]) => {
-      const langKey = key.split("/").at(-1)?.split(".").at(0);
-      if (langKey) acc[langKey] = value;
-      return acc;
+      const langKey = key.split('/').at(-1)?.split('.').at(0)
+      if (langKey) acc[langKey] = value
+      return acc
     },
     {} as Record<string, () => Promise<any>>
   )
-);
+)
 </script>

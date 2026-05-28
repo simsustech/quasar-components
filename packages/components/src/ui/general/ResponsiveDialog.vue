@@ -3,16 +3,16 @@
     <q-layout
       view="LHh lpR fff"
       container
-      class="bg-light-surface dark:bg-dark-surface"
+      class="bg-$light-surface dark:bg-$dark-surface"
       style="min-width: 85vw"
     >
       <q-header
-        class="bg-light-surface-container-high dark:bg-dark-surface-container-high"
+        class="bg-$light-surface-container-high dark:bg-$dark-surface-container-high"
       >
         <q-toolbar>
           <q-btn
             :icon="icons.close"
-            class="text-light-on-surface dark:text-dark-on-surface"
+            class="text-$light-on-surface dark:text-$dark-on-surface"
             flat
             round
             dense
@@ -24,7 +24,7 @@
           <q-submit-button
             v-if="!display"
             flat
-            class="text-light-primary dark:text-dark-primary"
+            class="text-$light-primary dark:text-$dark-primary"
             :type="buttonType"
             @submit="submit"
           ></q-submit-button>

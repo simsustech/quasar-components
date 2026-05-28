@@ -1,17 +1,16 @@
 {
   "name": "dev",
+  "version": "1.0.15",
   "private": true,
-  "productName": "App",
-  "version": "1.0.14",
-  "type": "module",
   "description": "Quasar components dev app",
+  "author": "simsustech",
+  "type": "module",
   "scripts": {
     "dev": "vitrify dev",
     "build": "vitrify build",
     "build:ssr": "vitrify build -m ssr",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "simsustech",
   "dependencies": {
     "@fastify/static": "^9.1.3",
     "@quasar/extras": "^1.18.0",
@@ -30,5 +29,6 @@
     "typescript": "^6.0.3",
     "vite": "^8.0.14",
     "vitrify": "^0.26.6"
-  }
+  },
+  "productName": "App"
 }
