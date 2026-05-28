@@ -96,9 +96,14 @@ export interface Props {
     visibility: string
     visibilifyOff: string
   }
+  defaultCredentials?: {
+    username?: string
+    email: string
+    password: string
+  }
 }
 const props = defineProps<Props>()
-const { icons } = toRefs(props)
+const { icons, defaultCredentials } = toRefs(props)
 
 // const attrs = useAttrs();
 const emit = defineEmits<{
@@ -124,9 +129,9 @@ watch($q.lang, (val) => {
   loadLang($q.lang.isoName)
 })
 
-const email = ref('')
-const password = ref('')
-const username = ref('')
+const email = ref(defaultCredentials.value?.email ?? '')
+const password = ref(defaultCredentials.value?.password ?? '')
+const username = ref(defaultCredentials.value?.username ?? '')
 const showPassword = ref(false)
 const header = computed(() => lang.value.login.login)
 const createAccount = computed(() => lang.value.login.createAccount)
