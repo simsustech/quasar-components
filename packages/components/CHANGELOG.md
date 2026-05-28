@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.2
+
+### Patch Changes
+
+- f2f5aaa: feat: add german (de) translations
+
 ## 0.12.1
 
 ### Patch Changes
