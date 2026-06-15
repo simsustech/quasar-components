@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.3
+
+### Patch Changes
+
+- ff2fc3b: fix(components): fix Md3Layout rendering
+
 ## 0.12.2
 
 ### Patch Changes
