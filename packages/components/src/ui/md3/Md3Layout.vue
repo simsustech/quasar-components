@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <div v-show="ready">
+    <div v-if="ready">
       <q-header>
         <q-toolbar>
           <q-btn
