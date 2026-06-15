@@ -1,71 +1,69 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <div v-if="ready">
-      <q-header>
-        <q-toolbar>
+  <q-layout v-if="ready" view="lHh Lpr lFf">
+    <q-header>
+      <q-toolbar>
+        <q-btn
+          v-if="!miniState"
+          flat
+          dense
+          round
+          aria-label="Menu"
+          icon="i-mdi-menu"
+          @click="toggleLeftDrawer()"
+        >
+        </q-btn>
+        <slot name="header-toolbar" />
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer
+      ref="drawerRef"
+      :model-value="leftDrawerOpen"
+      :width="drawerWidth"
+      :mini-width="80"
+      :mini="miniState"
+      show-if-above
+      bordered
+      @hide="onDrawerHide"
+      @update:model-value="toggleLeftDrawer"
+      @mouseleave="debouncedToggleMiniState(true)"
+    >
+      <template #mini>
+        <div
+          :class="{
+            column: true,
+            'items-center': miniState,
+            'pr-0': true
+          }"
+        >
           <q-btn
-            v-if="!miniState"
             flat
             dense
             round
             aria-label="Menu"
             icon="i-mdi-menu"
+            class="q-mb-md"
             @click="toggleLeftDrawer()"
           >
           </q-btn>
-          <slot name="header-toolbar" />
-        </q-toolbar>
-      </q-header>
-
-      <q-drawer
-        ref="drawerRef"
-        :model-value="leftDrawerOpen"
-        :width="drawerWidth"
-        :mini-width="80"
-        :mini="miniState"
-        show-if-above
-        bordered
-        @hide="onDrawerHide"
-        @update:model-value="toggleLeftDrawer"
-        @mouseleave="debouncedToggleMiniState(true)"
-      >
-        <template #mini>
-          <div
-            :class="{
-              column: true,
-              'items-center': miniState,
-              'pr-0': true
-            }"
-          >
-            <q-btn
-              flat
-              dense
-              round
-              aria-label="Menu"
-              icon="i-mdi-menu"
-              class="q-mb-md"
-              @click="toggleLeftDrawer()"
-            >
-            </q-btn>
-            <div id="fabs" class="q-mb-md min-h-56px">
-              <slot name="fabs" :show-sticky="false" />
-            </div>
-
-            <slot name="drawer-mini-navigation" />
+          <div id="fabs" class="q-mb-md min-h-56px">
+            <slot name="fabs" :show-sticky="false" />
           </div>
-        </template>
-        <slot name="drawer" />
-      </q-drawer>
 
-      <q-footer class="h-80px lt-md">
-        <slot name="footer" />
-      </q-footer>
+          <slot name="drawer-mini-navigation" />
+        </div>
+      </template>
+      <slot name="drawer" />
+    </q-drawer>
 
-      <q-page-container>
-        <router-view />
-        <slot name="fabs" :show-sticky="true" />
-      </q-page-container>
-    </div>
+    <q-footer class="h-80px lt-md">
+      <slot name="footer" />
+    </q-footer>
+
+    <q-page-container>
+      <router-view />
+      <slot name="fabs" :show-sticky="true" />
+    </q-page-container>
   </q-layout>
 </template>
 
