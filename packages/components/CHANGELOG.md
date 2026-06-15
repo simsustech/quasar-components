@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.4
+
+### Patch Changes
+
+- a21d944: fix(components): move ready check to QLayout in Md3Layout
+
 ## 0.12.3
 
 ### Patch Changes
