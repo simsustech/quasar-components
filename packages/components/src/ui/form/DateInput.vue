@@ -6,27 +6,34 @@
     :label="`${label}${required ? '*' : ''}`"
     stack-label
     lazy-rules
+    class="date-input-field"
   >
     <template #control>
-      <div class="row">
-        <component
-          :is="QInput"
-          v-for="(part, index) in format.split('-')"
-          :key="part"
-          class="col-auto"
-          borderless
-          :filled="false"
-          :outlined="false"
-          :standout="false"
-          :rounded="false"
-          v-bind="dateProps[part]"
-          inputmode="numeric"
-          dense
+      <div class="row items-center date-input-row no-wrap" style="height: 100%">
+        <div
+          v-for="(part, index) in parts"
+          :key="part.key"
+          class="row no-wrap items-center"
+          style="gap: 0"
         >
-          <template #after>
-            <a v-if="index < 2" style="margin-top: 1em; width: 1ch">-</a>
-          </template>
-        </component>
+          <input
+            :value="part.value"
+            :placeholder="part.placeholder"
+            class="q-field__native text-center"
+            :class="part.inputClass"
+            :style="part.style"
+            inputmode="numeric"
+            :maxlength="part.maxLength"
+            @input="onInput($event, part.key)"
+            @keydown="onKeydown($event, index)"
+          />
+          <span
+            v-if="index < parts.length - 1"
+            class="q-field__marginal"
+            style="flex: initial; width: 1ch; padding: 0; margin: 0"
+            >-</span
+          >
+        </div>
       </div>
     </template>
 
@@ -68,13 +75,7 @@
 
 <script setup lang="ts">
 import { ref, watch, toRefs, computed } from 'vue'
-import {
-  QDate,
-  QDateProps,
-  QInput,
-  QInputProps,
-  QuasarLanguageCodes
-} from 'quasar'
+import { QDate, QDateProps, QuasarLanguageCodes } from 'quasar'
 import { useLang } from './lang'
 
 export interface Props {
@@ -103,68 +104,99 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   (e: 'update:modelValue', val: string | null): void
 }>()
-// const attrs = useAttrs()
 
 const lang = useLang()
 
 const { modelValue, format, locale } = toRefs(props)
 
-const year = ref<number>()
-const month = ref<number>()
-const day = ref<number>()
+const year = ref('')
+const month = ref('')
+const day = ref('')
 
-const setYear: InstanceType<typeof QInput>['$props']['onUpdate:modelValue'] = (
-  val
-) => {
-  const nr = Number(val)
-  if (nr && nr > 1e3 && nr < 1e4) year.value = nr
-  else year.value = undefined
+interface PartInfo {
+  value: string
+  placeholder: string
+  style: Record<string, string>
+  inputClass: string
+  maxLength: number
 }
 
-const setMonth: InstanceType<typeof QInput>['$props']['onUpdate:modelValue'] = (
-  val
-) => {
-  const nr = Number(val)
-  if (nr && nr > 0 && nr < 13) month.value = nr
-  else month.value = undefined
-}
-
-const setDay: InstanceType<typeof QInput>['$props']['onUpdate:modelValue'] = (
-  val
-) => {
-  const nr = Number(val)
-  if (nr && nr > 0 && nr < 32) day.value = nr
-  else day.value = undefined
-}
-
-const setInternalDate = (
-  dateString?: string | null,
-  separator: '-' | '/' = '-'
-) => {
-  if (dateString) {
-    const [yearPart, monthPart, dayPart] = dateString.split(separator)
-    if (yearPart && monthPart && dayPart) {
-      year.value = Number(yearPart)
-      month.value = Number(monthPart)
-      day.value = Number(dayPart)
+const parts = computed(() => {
+  const keys = format.value.split('-')
+  const map: Record<string, PartInfo> = {
+    YYYY: {
+      value: year.value,
+      placeholder: lang.value.datePicker.YYYY,
+      style: { 'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch' },
+      inputClass: 'text-center',
+      maxLength: 4
+    },
+    MM: {
+      value: month.value,
+      placeholder: lang.value.datePicker.MM,
+      style: { 'max-width': '7ch' },
+      inputClass: 'text-center',
+      maxLength: 2
+    },
+    DD: {
+      value: day.value,
+      placeholder: lang.value.datePicker.DD,
+      style: { 'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch' },
+      inputClass: 'text-center',
+      maxLength: 2
     }
   }
+  return keys.map((k) => ({ key: k, ...map[k] }))
+})
+
+const onInput = (e: Event, key: string) => {
+  const raw = (e.target as HTMLInputElement).value
+  if (key === 'YYYY') year.value = clamp(raw, 4)
+  else if (key === 'MM') month.value = clamp(raw, 2, 12)
+  else if (key === 'DD') day.value = clamp(raw, 2, 31)
 }
 
-const setDate: InstanceType<typeof QDate>['$props']['onUpdate:modelValue'] = (
-  value
-) => {
-  setInternalDate(value, '/')
+const onKeydown = (e: KeyboardEvent, _index: number) => {
+  if (['Minus', 'Slash'].includes(e.code)) {
+    e.preventDefault()
+    const parent = (e.currentTarget as HTMLElement).parentElement
+    const all = parent?.querySelectorAll('.q-field__native')
+    const currentIdx = Array.from(all || []).indexOf(
+      e.currentTarget as HTMLElement
+    )
+    const next = all?.[currentIdx + 1] as HTMLElement | undefined
+    next?.focus()
+  }
 }
 
-watch([year, month, day], () => {
-  const date = `${year.value}-${String(month.value).padStart(2, '0')}-${String(day.value).padStart(2, '0')}`
-  if (year.value && month.value && day.value && !isNaN(Date.parse(date))) {
-    emit('update:modelValue', date)
-  } else if (modelValue.value !== null) {
+const clamp = (val: string, maxLen: number, maxVal?: number): string => {
+  const digits = val.replace(/\D/g, '').slice(0, maxLen)
+  if (maxVal !== undefined && digits.length === maxLen) {
+    const n = parseInt(digits, 10)
+    if (n > maxVal) return String(maxVal)
+  }
+  return digits
+}
+
+watch(year, () => emitDate())
+watch(month, () => emitDate())
+watch(day, () => emitDate())
+
+function emitDate() {
+  const y = year.value
+  const m = month.value
+  const d = day.value
+  if (y.length === 4 && m.length === 2 && d.length === 2) {
+    const date = `${y}-${m}-${d}`
+    if (!isNaN(Date.parse(date))) {
+      emit('update:modelValue', date)
+      return
+    }
+  }
+  if (modelValue.value !== null) {
     emit('update:modelValue', null)
   }
-})
+}
 
 const formattedDate = computed(() => {
   if (modelValue.value)
@@ -180,82 +212,39 @@ const formattedDate = computed(() => {
   return ''
 })
 
-watch(modelValue, (newVal) => {
-  if (newVal) setInternalDate(newVal)
-  else if (newVal === null) {
-    year.value = undefined
-    month.value = undefined
-    day.value = undefined
-  }
-})
-setInternalDate(modelValue.value)
-
-const goToNextElement = (e: KeyboardEvent) => {
-  if (['Minus', 'Slash'].includes(e.code)) {
-    e.preventDefault()
-    const next = (e.currentTarget as HTMLElement).parentElement?.parentElement
-      ?.parentElement?.parentElement?.nextElementSibling
-    if (next) {
-      ;(next as HTMLElement).focus()
+function setInternalDate(
+  dateString?: string | null,
+  separator: '-' | '/' = '-'
+) {
+  if (dateString) {
+    const [yearPart, monthPart, dayPart] = dateString.split(separator)
+    if (yearPart && monthPart && dayPart) {
+      year.value = String(yearPart)
+      month.value = String(monthPart).padStart(2, '0')
+      day.value = String(dayPart).padStart(2, '0')
     }
   }
 }
 
-const dateProps = computed<Record<string, QInputProps>>(() => ({
-  YYYY: {
-    modelValue: year.value,
-    placeholder: lang.value.datePicker.YYYY,
-    style: {
-      'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch',
-      'margin-top': '-1.7em',
-      'margin-bottom': '-0.5em',
-      background: 'transparent',
-      border: 0
-    },
-    // suffix: format.value === 'YYYY-MM-DD' ? '-' : undefined,
-    class: format.value !== 'YYYY-MM-DD' ? 'q-mb-none q-ml-none' : undefined,
-    inputClass: 'text-center',
-    'onUpdate:modelValue': setYear,
-    onKeydown: goToNextElement
-  },
-  MM: {
-    modelValue: month.value ? String(month.value).padStart(2, '0') : '',
-    placeholder: lang.value.datePicker.MM,
-    style: {
-      'max-width': '7ch',
-      'margin-top': '-1.7em',
-      'margin-bottom': '-0.5em',
-      background: 'transparent',
-      border: 0
-    },
-    // suffix: '-',
-    class: 'q-ml-none',
-    inputClass: 'text-center',
-    'onUpdate:modelValue': setMonth,
-    onKeydown: goToNextElement
-  },
-  DD: {
-    modelValue: day.value ? String(day.value).padStart(2, '0') : '',
-    placeholder: lang.value.datePicker.DD,
-    style: {
-      'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch',
-      'margin-top': '-1.7em',
-      'margin-bottom': '-0.5em',
-      background: 'transparent',
-      border: 0
-    },
-    // suffix: format.value === 'DD-MM-YYYY' ? '-' : undefined,
-    class: format.value === 'YYYY-MM-DD' ? 'q-ml-none' : undefined,
-    inputClass: 'text-center',
-    'onUpdate:modelValue': setDay,
-    onKeydown: goToNextElement
+const setDate: InstanceType<typeof QDate>['$props']['onUpdate:modelValue'] = (
+  value
+) => {
+  setInternalDate(value, '/')
+}
+
+watch(modelValue, (newVal) => {
+  if (newVal) setInternalDate(newVal)
+  else if (newVal === null) {
+    year.value = ''
+    month.value = ''
+    day.value = ''
   }
-}))
+})
+setInternalDate(modelValue.value)
 
 const validations = ref<((val: string) => boolean | string)[]>([
   (v) => {
     if (v !== null)
-      // return /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/.test(v)
       return /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(v)
     return true
   }
@@ -267,4 +256,24 @@ if (props.required)
   )
 </script>
 
-<style></style>
+<style>
+/* The outer QField gets q-field--labeled which leaks padding into
+   descendant .q-field__native elements. The auto-height override
+   fixes padding-top but not padding-bottom. */
+.date-input-field.q-field--auto-height.q-field--labeled .q-field__native {
+  padding-bottom: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Remove the standard underline (creates whitespace beneath) */
+.date-input-field.q-field--standard
+  > .q-field__inner
+  > .q-field__control::before {
+  border-bottom: none !important;
+}
+.date-input-field.q-field--standard
+  > .q-field__inner
+  > .q-field__control::after {
+  display: none !important;
+}
+</style>
