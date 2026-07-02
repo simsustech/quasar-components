@@ -7,7 +7,11 @@
         'gt-sm': true,
         animated: !!seekAttention,
         'animated-tada': !!seekAttention,
-        'animated-infinite': !!seekAttention
+        'animated-infinite': !!seekAttention,
+        '!bg-$light-primary-container': true,
+        'dark:!bg-$dark-primary-container': true,
+        'text-$on-light-primary-container': true,
+        'dark:text-$on-dark-primary-container': true
       }"
       fab
       :icon="addIcon"
@@ -21,7 +25,11 @@
         'gt-sm': true,
         animated: !!seekAttention,
         'animated-tada': !!seekAttention,
-        'animated-infinite': !!seekAttention
+        'animated-infinite': !!seekAttention,
+        '!bg-$light-primary-container': true,
+        'dark:!bg-$dark-primary-container': true,
+        'text-$on-light-primary-container': true,
+        'dark:text-$on-dark-primary-container': true
       }"
       fab
       :icon="editIcon"
