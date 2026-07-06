@@ -5,9 +5,10 @@
     :label="`${label}${required ? '*' : ''}`"
     stack-label
     borderless
+    class="cron-input-field"
   >
     <template #control>
-      <div class="row">
+      <div class="row cron-input-row items-center">
         <q-select
           v-if="showHour"
           v-model="hour"
@@ -102,7 +103,7 @@
           </template>
         </q-select>
       </div>
-      <div v-if="showDayOfWeek" class="row">
+      <div v-if="showDayOfWeek" class="row cron-input-row items-center">
         <q-select
           v-if="showDayOfWeek"
           v-model="dayOfWeek"
@@ -214,14 +215,11 @@ function setInternalCron(cronString: string) {
 }
 
 const smallStyle = {
-  'margin-top': '-1.7em',
-  'margin-bottom': '-0.5em',
   background: 'transparent',
   border: 0
 }
 
 const dayOfWeekStyle = {
-  'margin-bottom': '-0.5em',
   background: 'transparent',
   border: 0
 }
@@ -234,3 +232,23 @@ watch(modelValue, (newVal) => {
 })
 setInternalCron(modelValue.value)
 </script>
+
+<style>
+/* Stop padding leak from outer q-field--labeled into inner QSelects */
+.cron-input-field.q-field--labeled .cron-input-row .q-field__native,
+.cron-input-field.q-field--labeled .cron-input-row .q-field__input {
+  padding-bottom: 0 !important;
+}
+
+/* Inner control-container — neutralize cascaded padding-top */
+.cron-input-field.q-field--auto-height.q-field--labeled
+  .cron-input-row
+  .q-field__control-container {
+  padding-top: 0 !important;
+}
+
+/* Inner controls — remove horizontal padding */
+.cron-input-field .cron-input-row .q-field__control {
+  padding-inline: 0 !important;
+}
+</style>
