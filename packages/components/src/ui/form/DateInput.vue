@@ -129,38 +129,48 @@ const parts = computed(() => {
       placeholder: lang.value.datePicker.YYYY,
       style: { 'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch' },
       inputClass: 'text-center',
-      maxLength: 4
+      maxLength: 10
     },
     MM: {
       value: month.value,
       placeholder: lang.value.datePicker.MM,
       style: { 'max-width': '7ch' },
       inputClass: 'text-center',
-      maxLength: 2
+      maxLength: 10
     },
     DD: {
       value: day.value,
       placeholder: lang.value.datePicker.DD,
       style: { 'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch' },
       inputClass: 'text-center',
-      maxLength: 2
+      maxLength: 10
     }
   }
   return keys.map((k) => ({ key: k, ...map[k] }))
 })
 
 const onInput = (e: Event, key: string) => {
-  const raw = (e.target as HTMLInputElement).value
-  if (key === 'YYYY') year.value = clamp(raw, 4)
-  else if (key === 'MM') month.value = clamp(raw, 2, 12)
-  else if (key === 'DD') day.value = clamp(raw, 2, 31)
+  const input = e.target as HTMLInputElement
+  const raw = input.value
+  let clamped: string
+  if (key === 'YYYY') clamped = clamp(raw, 4)
+  else if (key === 'MM') clamped = clamp(raw, 2, 12)
+  else if (key === 'DD') clamped = clamp(raw, 2, 31)
+  else clamped = raw
+  // Directly set DOM value so it's visible immediately — Vue's :value
+  // binding is async and `pressSequentially` types faster than it resolves.
+  // Without this, the browser shows the raw non-digit-mixed value between renders.
+  if (input.value !== clamped) input.value = clamped
+  if (key === 'YYYY') year.value = clamped
+  else if (key === 'MM') month.value = clamped
+  else if (key === 'DD') day.value = clamped
 }
 
 const onKeydown = (e: KeyboardEvent, _index: number) => {
   if (['Minus', 'Slash'].includes(e.code)) {
     e.preventDefault()
-    const parent = (e.currentTarget as HTMLElement).parentElement
-    const all = parent?.querySelectorAll('.q-field__native')
+    const row = (e.currentTarget as HTMLElement).closest('.date-input-row')
+    const all = row?.querySelectorAll('.q-field__native')
     const currentIdx = Array.from(all || []).indexOf(
       e.currentTarget as HTMLElement
     )
@@ -193,8 +203,11 @@ function emitDate() {
       return
     }
   }
-  if (modelValue.value !== null) {
-    emit('update:modelValue', null)
+  // Emit partial date so validation rules still catch invalid input,
+  // but watch(modelValue) doesn't clear the refs (it only clears on null).
+  const partial = `${y.padEnd(4, '_')}-${m.padEnd(2, '_')}-${d.padEnd(2, '_')}`
+  if (partial !== modelValue.value) {
+    emit('update:modelValue', partial)
   }
 }
 
@@ -233,12 +246,15 @@ const setDate: InstanceType<typeof QDate>['$props']['onUpdate:modelValue'] = (
 }
 
 watch(modelValue, (newVal) => {
-  if (newVal) setInternalDate(newVal)
-  else if (newVal === null) {
+  if (newVal && !newVal.includes('_')) {
+    // Proper date string (no _ padding from partial emits)
+    setInternalDate(newVal)
+  } else if (newVal === null) {
     year.value = ''
     month.value = ''
     day.value = ''
   }
+  // Partial dates contain _ — refs are already correct from onInput
 })
 setInternalDate(modelValue.value)
 
