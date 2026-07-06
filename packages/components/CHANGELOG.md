@@ -1,5 +1,29 @@
 # @simsustech/quasar-components
 
+## 0.12.5
+
+### Patch Changes
+
+- d6f5de7: fix(components): fix NavigationRailFabs
+- 0ec347b: fix(CronScheduleInput): remove negative-margin hack, use items-center
+
+  Same pattern as DateInput: the old margin-top: -1.7em hack broke with
+  unocss-preset-quasar updates. Replaced with:
+
+  - items-center for proper vertical alignment
+  - CSS overrides for padding leaks from q-field--labeled
+  - Neutralized cascaded padding-top on inner control-containers
+  - Removed horizontal padding on inner controls
+
+- fix(DateInput): prevent DD/MM/YYYY fields from overlapping QField stack label
+
+  Nesting QInput inside the outer QField's #control slot created a
+  QField-inside-QField structure that caused padding leaks from the
+  preset's q-field--labeled descendant selectors and broke with the
+  unocss-preset-quasar update. Refactored to use plain `<input>`
+  elements instead of nested QInput, removing the old negative-margin
+  hack (-1.7em) that caused the overlap.
+
 ## 0.12.4
 
 ### Patch Changes
