@@ -33,10 +33,5 @@
   "simple-git-hooks": {
     "pre-commit": "pnpm run lint && pnpm run format:check",
     "commit-msg": "pnpm exec commitlint --edit $1"
-  },
-  "pnpm": {
-    "overrides": {
-      "@simsustech/quasar-components": "workspace:*"
-    }
   }
 }
