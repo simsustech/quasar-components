@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.6
+
+### Patch Changes
+
+- fix(components): fix DateInput input width
+
 ## 0.12.5
 
 ### Patch Changes
