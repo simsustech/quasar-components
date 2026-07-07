@@ -3,7 +3,6 @@
     v-bind="attrs"
     :options="localeOptions"
     :model-value="modelValue"
-    :filled="false"
     emit-value
     map-options
     @update:model-value="(val: string) => emit('update:modelValue', val)"
