@@ -2,4 +2,4 @@
 "@simsustech/quasar-components": patch
 ---
 
-fix(components): fix NavigationRailFabs
+fix(components): fix DateInput input width

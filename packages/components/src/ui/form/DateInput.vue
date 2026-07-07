@@ -127,21 +127,27 @@ const parts = computed(() => {
     YYYY: {
       value: year.value,
       placeholder: lang.value.datePicker.YYYY,
-      style: { 'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch' },
+      style: {
+        'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch',
+        'padding-bottom': '0'
+      },
       inputClass: 'text-center',
       maxLength: 10
     },
     MM: {
       value: month.value,
       placeholder: lang.value.datePicker.MM,
-      style: { 'max-width': '7ch' },
+      style: { 'max-width': '7ch', 'padding-bottom': '0' },
       inputClass: 'text-center',
       maxLength: 10
     },
     DD: {
       value: day.value,
       placeholder: lang.value.datePicker.DD,
-      style: { 'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch' },
+      style: {
+        'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch',
+        'padding-bottom': '0'
+      },
       inputClass: 'text-center',
       maxLength: 10
     }
@@ -291,5 +297,8 @@ if (props.required)
   > .q-field__inner
   > .q-field__control::after {
   display: none !important;
+}
+.date-input-row {
+  max-width: fit-content;
 }
 </style>
