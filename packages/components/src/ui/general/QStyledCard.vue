@@ -1,5 +1,5 @@
 <template>
-  <q-card ref="qCardRef" style="max-width: 300px">
+  <q-card ref="qCardRef" style="max-width: 300px; padding: 2px">
     <slot name="image" />
 
     <q-card-section>
