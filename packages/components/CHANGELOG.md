@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.7
+
+### Patch Changes
+
+- ba02bc2: feat(components): decrease QStyledCard padding
+
 ## 0.12.6
 
 ### Patch Changes
