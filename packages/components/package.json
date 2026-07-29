@@ -9,6 +9,11 @@
     "type": "git",
     "url": "https://github.com/simsustech/quasar-components"
   },
+  "files": [
+    "dist",
+    "src",
+    "!dist/**/*.test.js"
+  ],
   "type": "module",
   "types": "./dist/types/ui/index.d.ts",
   "exports": {
