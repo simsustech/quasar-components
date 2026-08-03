@@ -12,7 +12,7 @@
     "declarationDir": "./dist/types",
     "isolatedModules": true,
     "types": ["vite/client"],
-    "rootDir": "./"
+    "rootDir": "./src"
   },
   "include": ["./src"]
 }
