@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.9
+
+### Patch Changes
+
+- cafcfd0: fix: emit declaration types to dist/types/ui instead of dist/types/src/ui
+
 ## 0.12.8
 
 ### Patch Changes
