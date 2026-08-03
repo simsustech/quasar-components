@@ -76,6 +76,7 @@ const getLanguageLabel = (v: keyof Language['bcp47']) =>
 
 const variables = ref({
   //
+
 })
 const functions = ref({
   getCountryLabel,
