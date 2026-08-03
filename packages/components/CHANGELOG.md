@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.8
+
+### Patch Changes
+
+- fa74c7c: fix: fix package.json
+
 ## 0.12.7
 
 ### Patch Changes
