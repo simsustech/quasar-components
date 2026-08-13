@@ -51,7 +51,7 @@
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
           <q-date
             v-bind="date"
-            :model-value="modelValue?.replaceAll('-', '/')"
+            :model-value="modelValue?.replaceAll('-', '/') ?? null"
             @update:model-value="setDate"
           >
             <div class="row items-center justify-end">
@@ -208,6 +208,13 @@ function emitDate() {
       emit('update:modelValue', date)
       return
     }
+  }
+  // After clear, refs are all empty — emit null so modelValue is actually
+  // cleared (the required rule then reports "Field is required." instead
+  // of a stale partial failing the format rule silently).
+  if (!y && !m && !d) {
+    if (modelValue.value !== null) emit('update:modelValue', null)
+    return
   }
   // Emit partial date so validation rules still catch invalid input,
   // but watch(modelValue) doesn't clear the refs (it only clears on null).

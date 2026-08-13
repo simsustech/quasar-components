@@ -47,6 +47,7 @@ minimumReleaseAgeExclude:
   - oxfmt@0.62.0
   - oxlint@1.77.0
   - quasar@2.23.5
+  - vitrify@0.27.0
 
 overrides:
   '@simsustech/quasar-components': 'workspace:*'

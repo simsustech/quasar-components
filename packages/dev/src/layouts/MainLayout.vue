@@ -16,6 +16,7 @@
         <q-language-select
           v-model="locale"
           :language-imports="languageImports"
+          :locales="languageLocales"
         />
       </q-toolbar>
     </q-header>
@@ -117,7 +118,18 @@ const enUsRef = ref<typeof enUs>()
 
 const locale = ref($q.lang.isoName)
 
-const quasarLang = import.meta.glob('../../node_modules/quasar/lang/*.mjs')
+const languageLocales = ref([
+  {
+    icon: 'i-flagpack-nl',
+    bcp47: 'nl'
+  },
+  {
+    icon: 'i-flagpack-us',
+    bcp47: 'en-US'
+  }
+])
+
+const quasarLang = import.meta.glob('../../node_modules/quasar/lang/*.js')
 const languageImports = ref(
   Object.entries(quasarLang).reduce(
     (acc, [key, value]) => {
