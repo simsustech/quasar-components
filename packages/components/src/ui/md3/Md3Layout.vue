@@ -3,7 +3,7 @@
     <q-header>
       <q-toolbar>
         <q-btn
-          v-if="!miniState"
+          v-if="!miniState && !$q.screen.gt.sm"
           flat
           dense
           round
@@ -22,11 +22,11 @@
       :width="drawerWidth"
       :mini-width="80"
       :mini="miniState"
+      mini-to-overlay
       show-if-above
-      bordered
+      :bordered="miniState"
       @hide="onDrawerHide"
       @update:model-value="toggleLeftDrawer"
-      @mouseleave="debouncedToggleMiniState(true)"
     >
       <template #mini>
         <div
@@ -53,8 +53,35 @@
           <slot name="drawer-mini-navigation" />
         </div>
       </template>
-      <slot name="drawer" />
+      <div class="column fit no-wrap">
+        <div class="row items-center q-px-md q-py-md">
+          <q-btn
+            flat
+            round
+            dense
+            aria-label="Close"
+            icon="i-mdi-close"
+            @click="toggleLeftDrawer(false)"
+          >
+          </q-btn>
+        </div>
+        <div class="col overflow-hidden">
+          <slot name="drawer" />
+        </div>
+      </div>
     </q-drawer>
+
+    <div
+      v-if="showScrim"
+      aria-hidden="true"
+      style="
+        position: fixed;
+        inset: 0;
+        z-index: 2500;
+        background-color: rgba(0, 0, 0, 0.32);
+      "
+      @click="toggleLeftDrawer(false)"
+    />
 
     <q-footer class="h-80px lt-md">
       <slot name="footer" />
@@ -69,7 +96,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
-import { debounce, useQuasar } from 'quasar'
+import { useQuasar } from 'quasar'
 
 import { QDrawer } from 'quasar'
 import { onClickOutside } from '@vueuse/core'
@@ -91,6 +118,11 @@ const drawerWidth = computed(() => {
   return $q.screen.lt.sm ? 300 : 360
 })
 
+// MD3: when the rail is expanded on desktop, the drawer is a modal overlay
+// covering the content — show a scrim behind it (Quasar only renders its own
+// backdrop below the breakpoint)
+const showScrim = computed(() => $q.screen.gt.sm && !miniState.value)
+
 // Small screen: toggle leftDrawerOpen, large screen: toggle miniState
 // Prevent unresponsiveness with screen changes and drawer opened
 watch(
@@ -106,13 +138,21 @@ watch(
 )
 
 const toggleLeftDrawer = (val?: boolean) => {
-  leftDrawerOpen.value = val ?? $q.screen.gt.sm
-  if (!import.meta.env.SSR && $q.screen.gt.sm) {
-    leftDrawerOpen.value = val ?? $q.screen.gt.sm
-    miniState.value = !miniState.value
-  } else {
+  if (!$q.screen.gt.sm) {
+    // Mobile: the drawer is a modal overlay; toggle it open/closed
     leftDrawerOpen.value = val ?? !leftDrawerOpen.value
     miniState.value = false
+    return
+  }
+  // Desktop: the rail is always shown; the menu/close button toggles
+  // between the collapsed rail and the expanded modal drawer
+  leftDrawerOpen.value = true
+  if (val === true) {
+    miniState.value = false
+  } else if (val === false) {
+    miniState.value = true
+  } else {
+    miniState.value = !miniState.value
   }
 }
 
@@ -129,8 +169,6 @@ const onDrawerHide = () => {
     leftDrawerOpen.value = true
   }
 }
-const debouncedToggleMiniState = debounce(toggleMiniState, 500)
-
 onClickOutside(drawerRef, () => toggleMiniState(true))
 
 onMounted(() => {
