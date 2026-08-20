@@ -3,7 +3,6 @@
     v-bind="attrs"
     :options="countryOptions"
     :model-value="modelValue"
-    :filled="false"
     emit-value
     map-options
     @update:model-value="(val: string) => emit('update:modelValue', val)"
@@ -71,11 +70,9 @@ const countryOptions = computed(() => {
 
 const variables = ref({
   //
-
 })
 const functions = ref({
   //
-
 })
 
 defineExpose({
