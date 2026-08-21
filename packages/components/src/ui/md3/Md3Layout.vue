@@ -54,7 +54,9 @@
         </div>
       </template>
       <div class="column fit no-wrap">
-        <div class="row items-center no-wrap flex-none q-px-sm min-h-48px">
+        <div
+          class="row items-center no-wrap flex-none overflow-hidden min-w-0 q-px-sm min-h-48px"
+        >
           <q-btn
             flat
             dense
