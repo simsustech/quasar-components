@@ -54,18 +54,19 @@
         </div>
       </template>
       <div class="column fit no-wrap">
-        <div class="row items-center q-px-md q-py-md">
+        <div class="row items-center no-wrap flex-none q-px-sm min-h-48px">
           <q-btn
             flat
-            round
             dense
+            round
+            size="sm"
             aria-label="Close"
-            icon="i-mdi-close"
+            icon="i-mdi-menu-close"
             @click="toggleLeftDrawer(false)"
-          >
-          </q-btn>
+          />
+          <slot name="drawer-header" />
         </div>
-        <div class="col overflow-hidden">
+        <div class="col overflow-hidden min-h-0">
           <slot name="drawer" />
         </div>
       </div>
@@ -177,3 +178,11 @@ onMounted(() => {
   }
 })
 </script>
+<style>
+/* Quasar adds q-drawer--top-padding when a QHeader exists, but in overlay
+   mode the drawer floats on top of the header — the padding pushes the close
+   icon down ~188px. Override to keep the close icon at the very top. */
+.q-drawer--on-top.q-drawer--top-padding .q-drawer__content {
+  padding-top: 0 !important;
+}
+</style>
