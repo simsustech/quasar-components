@@ -42,7 +42,7 @@
             round
             aria-label="Menu"
             icon="i-mdi-menu"
-            class="q-mb-md"
+            class="q-mb-md q-mt-xs"
             @click="toggleLeftDrawer()"
           >
           </q-btn>
