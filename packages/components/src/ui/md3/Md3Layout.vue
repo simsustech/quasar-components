@@ -36,16 +36,16 @@
             'pr-0': true
           }"
         >
-          <q-btn
-            flat
-            dense
-            round
-            aria-label="Menu"
-            icon="i-mdi-menu"
-            class="q-mb-md q-mt-xs"
-            @click="toggleLeftDrawer()"
-          >
-          </q-btn>
+          <div class="h-50px flex items-center justify-center">
+            <q-btn
+              flat
+              dense
+              round
+              aria-label="Menu"
+              icon="i-mdi-menu"
+              @click="toggleLeftDrawer()"
+            />
+          </div>
           <div id="fabs" class="q-mb-md min-h-56px">
             <slot name="fabs" :show-sticky="false" />
           </div>
