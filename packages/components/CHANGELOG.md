@@ -1,5 +1,13 @@
 # @simsustech/quasar-components
 
+## 0.12.10
+
+### Patch Changes
+
+- 499473a: fix(DateInput): clearing all parts (clear button or manual delete) emits null instead of a stale ____-__-__ partial — required fields then report "Field is required.", and the calendar popup on a cleared field no longer passes an invalid undefined modelValue to QDate
+- feat(NavigationRailFabs): expose a `rounded` prop (default false) and forward it
+  to the edit and add FABs, so consumers can opt into Quasar's rounded fab styling.
+
 ## 0.12.9
 
 ### Patch Changes
