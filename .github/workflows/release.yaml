@@ -12,6 +12,14 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     if: github.repository == 'simsustech/quasar-components'
+    # changesets/action needs to push the release tag and open the release PR.
+    # Without this block the job inherits the repository's default GITHUB_TOKEN
+    # scope; if that is read-only, the npm publish succeeds but the tag push is
+    # rejected — leaving a published version with no tag and therefore no
+    # GitHub Release (as happened with 0.12.10).
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
