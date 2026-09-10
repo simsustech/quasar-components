@@ -49,11 +49,9 @@ const personIcon = icons.value?.person ?? 'person'
 
 const variables = ref({
   // header: lang.value.some.nested.prop
-
 })
 const functions = ref({
   // submit
-
 })
 defineExpose({
   variables,

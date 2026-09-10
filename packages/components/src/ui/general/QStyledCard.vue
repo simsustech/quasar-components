@@ -48,11 +48,9 @@ const qCardRef = ref<QCard>()
 
 const variables = ref({
   // header: lang.value.some.nested.prop
-
 })
 const functions = ref({
   // submit
-
 })
 defineExpose({
   variables,

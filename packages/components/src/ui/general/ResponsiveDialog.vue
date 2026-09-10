@@ -101,7 +101,6 @@ const toggle = () => dialogRef.value?.toggle()
 
 const variables = ref({
   // header: lang.value.some.nested.prop
-
 })
 const functions = ref({
   open,

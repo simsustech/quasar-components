@@ -34,6 +34,7 @@
       fab
       :icon="editIcon"
       :disable="disable"
+      :rounded="rounded"
       @click="bus.emit(busEmits.edit)"
     />
   </div>
@@ -49,6 +50,7 @@
       fab
       :icon="addIcon"
       :disable="disable"
+      :rounded="rounded"
       @click="bus.emit(busEmits.add)"
     />
     <q-btn
@@ -76,6 +78,7 @@ interface Props {
   showSticky?: boolean
   seekAttention?: boolean
   disable?: boolean
+  rounded?: boolean
   busEmits: {
     add?: string
     edit?: string
@@ -87,7 +90,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const { type, icons } = toRefs(props)
+const { type, icons, rounded = false } = toRefs(props)
 
 if (!type.value) type.value = 'add'
 

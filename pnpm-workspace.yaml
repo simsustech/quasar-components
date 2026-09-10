@@ -46,8 +46,11 @@ minimumReleaseAgeExclude:
   - fastify@5.11.2
   - oxfmt@0.62.0
   - oxlint@1.77.0
-  - quasar@2.23.5
+  - quasar@2.23.5 || 2.29.0
   - vitrify@0.27.0
+  - vite@8.2.2
+  - vue-router@5.3.1
 
 overrides:
   '@simsustech/quasar-components': 'workspace:*'
+  'typescript': '6.0.3'
