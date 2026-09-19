@@ -121,11 +121,11 @@ const selectedIds = computed(() => {
 })
 
 const filterFn: QSelect['$props']['onFilter'] = (val, update) => {
-  if (!onFilter.value) update(() => {})
+  update(() => {})
   emit('filter', {
     ids: selectedIds.value,
     searchPhrase: (val || '').toLowerCase(),
-    done: () => update(() => {})
+    done: () => {}
   })
 }
 
