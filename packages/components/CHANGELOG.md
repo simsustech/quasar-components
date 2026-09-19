@@ -1,5 +1,11 @@
 # @simsustech/quasar-components
 
+## 0.12.11
+
+### Patch Changes
+
+- ea6c45b: Fix FilteredModelSelect popup not opening on mobile Chrome/PWA by calling `update()` synchronously in `filterFn` instead of inside the async `done` callback.
+
 ## 0.12.10
 
 ### Patch Changes
