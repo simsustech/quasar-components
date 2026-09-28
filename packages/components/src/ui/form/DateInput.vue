@@ -9,7 +9,10 @@
     class="date-input-field"
   >
     <template #control>
-      <div class="row items-center date-input-row no-wrap" style="height: 100%">
+      <div
+        class="row items-center date-input-row no-wrap"
+        style="height: 100%; max-width: fit-content"
+      >
         <div
           v-for="(part, index) in parts"
           :key="part.key"
@@ -29,8 +32,18 @@
           />
           <span
             v-if="index < parts.length - 1"
-            class="q-field__marginal"
-            style="flex: initial; width: 1ch; padding: 0; margin: 0"
+            class="date-input-separator"
+            style="
+              flex: initial;
+              width: 1ch;
+              padding: 0;
+              margin: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+              font-size: inherit;
+            "
             >-</span
           >
         </div>
@@ -128,7 +141,13 @@ const parts = computed(() => {
       value: year.value,
       placeholder: lang.value.datePicker.YYYY,
       style: {
-        'max-width': format.value === 'YYYY-MM-DD' ? '8ch' : '7ch',
+        // 4 digits (4ch) + a hair of padding. Inline rather than in the
+        // stylesheet, so the cap holds for consumers that never import
+        // quasar-components.css. Not 5ch: petboarding renders this in
+        // Roboto 16px where 1ch = 9px, so 5ch = 45px and its gate asserts
+        // <= 40px. 4.25ch = 38.25px clears the 37px "YYYY" placeholder and
+        // lands under the gate in both fonts (38px @ ch=9, 34px @ ch=8).
+        'max-width': '4.25ch',
         'padding-bottom': '0'
       },
       inputClass: 'text-center',
@@ -137,7 +156,8 @@ const parts = computed(() => {
     MM: {
       value: month.value,
       placeholder: lang.value.datePicker.MM,
-      style: { 'max-width': '7ch', 'padding-bottom': '0' },
+      // 2 digits (2ch) + padding; 27px at ch=9, 24px at ch=8.
+      style: { 'max-width': '3ch', 'padding-bottom': '0' },
       inputClass: 'text-center',
       maxLength: 10
     },
@@ -145,7 +165,7 @@ const parts = computed(() => {
       value: day.value,
       placeholder: lang.value.datePicker.DD,
       style: {
-        'max-width': format.value === 'DD-MM-YYYY' ? '7ch' : '4ch',
+        'max-width': '3ch',
         'padding-bottom': '0'
       },
       inputClass: 'text-center',
