@@ -4,6 +4,7 @@ const lang: Language = {
   isoName: 'nl',
   myAccount: 'Account',
   signOut: 'Uitloggen',
+  moreOptions: 'Meer opties',
   unprocessableRequest: 'De server kon de aanvraag niet verwerken.',
   consent: {
     message: (name: string) => `${name} vraagt toegang tot uw data.`,

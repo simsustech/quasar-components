@@ -22,6 +22,7 @@
           <input
             :value="part.value"
             :placeholder="part.placeholder"
+            :aria-label="part.placeholder"
             class="q-field__native text-center"
             :class="part.inputClass"
             :style="part.style"

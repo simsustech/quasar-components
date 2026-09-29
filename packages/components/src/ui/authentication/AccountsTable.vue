@@ -72,7 +72,13 @@
           {{ col.value }}
         </q-td>
         <q-td auto-width>
-          <q-btn size="sm" round flat :icon="moreVertIcon">
+          <q-btn
+            size="sm"
+            round
+            flat
+            :icon="moreVertIcon"
+            :aria-label="`${lang.moreOptions} — ${props.row.name ?? props.row.email}`"
+          >
             <q-menu>
               <q-list>
                 <q-item clickable @click="openAddRoleDialog(props.row)">

@@ -4,6 +4,7 @@ const lang: Language = {
   isoName: 'de',
   myAccount: 'Konto',
   signOut: 'Abmelden',
+  moreOptions: 'Weitere Optionen',
   unprocessableRequest: 'Der Server konnte die Anfrage nicht verarbeiten.',
   consent: {
     message: (name: string) => `${name} fordert Zugriff auf Ihre Daten an.`,

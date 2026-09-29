@@ -74,15 +74,31 @@
       </div>
     </q-drawer>
 
+    <!--
+      Drawer scrim. QDrawer renders its own backdrop only when
+      `belowBreakpoint` (see `ui/src/components/drawer/QDrawer.js` — the backdrop
+      is pushed inside `if (belowBreakpoint.value)`), and its `overlay` prop only
+      feeds `offset`, not the backdrop branch. Above the breakpoint, with the
+      drawer expanded over the content, Quasar renders nothing to dim or dismiss
+      behind it — that gap is this element.
+
+      It wears Quasar's own `q-drawer__backdrop` class rather than restating a
+      z-index: that class carries the drawer's backdrop tier (the preset emits it
+      at 1499 !important inside ADR 0007's scale: floating content 1400, then side
+      panel 1500 with its backdrop 1499, then marginals 2000, then menus and dialogs
+      6000), so the scrim stands exactly where the backdrop it replaces would and
+      follows the scale if the scale moves. The previous hardcoded 2500 sat above
+      the drawer's own 1500, so the expanded drawer was *under* its own scrim and
+      none of its items took clicks.
+
+      Position and background stay inline: the scrim has to cover the viewport and
+      dim regardless of which style entry is active.
+    -->
     <div
       v-if="showScrim"
+      class="fullscreen q-drawer__backdrop"
       aria-hidden="true"
-      style="
-        position: fixed;
-        inset: 0;
-        z-index: 2500;
-        background-color: rgba(0, 0, 0, 0.32);
-      "
+      style="position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.32)"
       @click="toggleLeftDrawer(false)"
     />
 
@@ -91,6 +107,9 @@
     </q-footer>
 
     <q-page-container>
+      <!-- One h1 per routed page: the app fills this with the mapped route
+           title (visually hidden unless a page renders its own). -->
+      <slot name="heading" />
       <router-view />
       <slot name="fabs" :show-sticky="true" />
     </q-page-container>

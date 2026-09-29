@@ -3,6 +3,7 @@ export interface Language {
   unprocessableRequest: string
   myAccount: string
   signOut: string
+  moreOptions: string
   consent: {
     message: (name: string) => string
     deny: string

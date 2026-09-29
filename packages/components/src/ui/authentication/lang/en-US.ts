@@ -4,6 +4,7 @@ const lang: Language = {
   isoName: 'en-US',
   myAccount: 'Account',
   signOut: 'Sign out',
+  moreOptions: 'More options',
   unprocessableRequest: 'The server was unable to process the request.',
   consent: {
     message: (name: string) => `${name} is requesting access to your data.`,
