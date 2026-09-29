@@ -67,38 +67,38 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "@vueuse/core": "^14.4.0",
+    "@vueuse/core": "^15.0.0",
     "validator": "^13.15.35"
   },
   "devDependencies": {
     "@iconify-json/flagpack": "^1.2.8",
-    "@types/node": "^26.4.1",
+    "@types/node": "^26.6.3",
     "@types/validator": "^13.15.10",
-    "@types/ws": "^8.18.1",
-    "@typescript-eslint/eslint-plugin": "^8.69.0",
-    "@typescript-eslint/parser": "^8.69.0",
-    "@vitejs/plugin-vue": "^6.0.8",
-    "@vue/server-renderer": "^3.5.42",
-    "eslint": "^10.9.1",
+    "@types/ws": "^8.18.2",
+    "@typescript-eslint/eslint-plugin": "^8.71.0",
+    "@typescript-eslint/parser": "^8.71.0",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "@vue/server-renderer": "^3.5.43",
+    "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-prettier-vue": "^5.0.0",
-    "eslint-plugin-vue": "^10.10.0",
+    "eslint-plugin-vue": "^10.11.1",
     "glob": "^13.0.6",
     "local-pkg": "^1.2.1",
-    "prettier": "^3.9.6",
-    "quasar": "^2.29.0",
+    "prettier": "^3.9.9",
+    "quasar": "^2.33.2",
     "rimraf": "^6.1.3",
     "typescript": "7.0.2",
-    "typescript-eslint": "^8.69.0",
+    "typescript-eslint": "^8.71.0",
     "unplugin-vue-components": "^32.1.0",
-    "vite": "^8.2.2",
-    "vue": "^3.5.42",
+    "vite": "^8.3.1",
+    "vue": "^3.5.43",
     "vue-eslint-parser": "^10.4.1",
     "vue-router": "^5.3.1",
     "vue-tsc": "^3.3.11"
   },
   "peerDependencies": {
-    "quasar": "^2.29.0"
+    "quasar": "^2.33.2"
   }
 }
