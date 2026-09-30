@@ -111,8 +111,12 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
   date: () => ({}),
   icons: () => ({
-    event: 'event',
-    clear: 'clear'
+    // iconify names, not the @quasar/extras material strings these defaulted to
+    // (`event`, `clear`). Without a material icon set loaded, q-icon renders the
+    // raw name as text — so consumers that did not pass `icons` showed the word
+    // "event" where the date picker's calendar glyph belongs.
+    event: 'i-mdi-calendar',
+    clear: 'i-mdi-close'
   })
 })
 const emit = defineEmits<{

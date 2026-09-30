@@ -3,6 +3,7 @@
     <q-btn
       v-if="busEmits.add && type === 'add'"
       id="fabAdd"
+      :aria-label="addLabel"
       :class="{
         'gt-sm': true,
         animated: !!seekAttention,
@@ -10,8 +11,8 @@
         'animated-infinite': !!seekAttention,
         '!bg-$light-primary-container': true,
         'dark:!bg-$dark-primary-container': true,
-        'text-$on-light-primary-container': true,
-        'dark:text-$on-dark-primary-container': true
+        'text-$light-on-primary-container': true,
+        'dark:text-$dark-on-primary-container': true
       }"
       fab
       :icon="addIcon"
@@ -28,8 +29,8 @@
         'animated-infinite': !!seekAttention,
         '!bg-$light-primary-container': true,
         'dark:!bg-$dark-primary-container': true,
-        'text-$on-light-primary-container': true,
-        'dark:text-$on-dark-primary-container': true
+        'text-$light-on-primary-container': true,
+        'dark:text-$dark-on-primary-container': true
       }"
       fab
       :icon="editIcon"
@@ -74,6 +75,7 @@ import { EventBus } from 'quasar'
 import { inject, toRefs } from 'vue'
 
 interface Props {
+  addLabel?: string
   type?: 'add' | 'edit'
   showSticky?: boolean
   seekAttention?: boolean

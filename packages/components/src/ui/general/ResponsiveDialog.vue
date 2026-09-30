@@ -1,5 +1,9 @@
 <template>
-  <q-dialog ref="dialogRef" :maximized="$q.screen.lt.md">
+  <q-dialog
+    ref="dialogRef"
+    :maximized="$q.screen.lt.md"
+    :aria-labelledby="titleId"
+  >
     <q-layout
       view="LHh lpR fff"
       container
@@ -18,8 +22,10 @@
             dense
             @click="close"
           />
-          <q-toolbar-title>
-            <slot name="title" />
+          <q-toolbar-title :id="titleId">
+            <!-- The call site's string; a caller needing richer markup can
+                 still fill the slot as before. -->
+            <slot name="title">{{ title }}</slot>
           </q-toolbar-title>
           <q-submit-button
             v-if="!display"
@@ -41,6 +47,10 @@
 </template>
 
 <script lang="ts">
+// Module scope, not per instance: several dialogs can be mounted at once, and
+// each needs its own title id for aria-labelledby to resolve correctly.
+let dialogInstances = 0
+
 export default {
   name: 'ResponsiveDialog'
 }
@@ -56,6 +66,9 @@ export interface Props {
   display?: boolean
   buttonType?: 'submit' | 'send'
   padding?: boolean
+  // Names the dialog for assistive tech (role="dialog" + aria-modal alone
+  // announce as an unnamed dialog). Call sites should pass a string.
+  title?: string
   icons?: {
     close: string
   }
@@ -95,6 +108,7 @@ const submit: InstanceType<typeof QSubmitButton>['$props']['onSubmit'] = (
   })
 }
 const dialogRef = ref<QDialog>()
+const titleId = `responsive-dialog-title-${++dialogInstances}`
 const open = () => dialogRef.value?.show()
 const close = () => dialogRef.value?.hide()
 const toggle = () => dialogRef.value?.toggle()
