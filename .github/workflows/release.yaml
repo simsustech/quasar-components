@@ -7,6 +7,10 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   release:
     name: Release
@@ -16,25 +20,27 @@ jobs:
     # Without this block the job inherits the repository's default GITHUB_TOKEN
     # scope; if that is read-only, the npm publish succeeds but the tag push is
     # rejected — leaving a published version with no tag and therefore no
-    # GitHub Release (as happened with 0.12.10).
+    # GitHub Release. The 0.12.10-0.12.12 misses were in fact caused by
+    # changesets/action v1 parsing @changesets/cli v3 stdout, which no longer
+    # emits "New tag" lines — this block is required, but not sufficient.
     permissions:
       contents: write
       pull-requests: write
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup PNPM
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v6
         with:
           version: 11
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -45,11 +51,26 @@ jobs:
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          publish: pnpm run publish
-          commit: 'chore: release package(s)'
-          title: 'chore: release package(s)'
+          publish-script: pnpm run publish
+          commit-message: 'chore: release package(s)'
+          pr-title: 'chore: release package(s)'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Fail if a published package was not tagged
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.published-packages }}
+        run: |
+          set -euo pipefail
+          missing=0
+          while IFS= read -r tag; do
+            if ! git ls-remote --tags origin "refs/tags/$tag" | grep -q .; then
+              echo "::error::Published but not tagged on origin: $tag"
+              missing=1
+            fi
+          done < <(jq -r '.[] | "\(.name)@\(.version)"' \
+            <<<"$PUBLISHED_PACKAGES")
+          exit "$missing"
