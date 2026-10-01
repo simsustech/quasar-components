@@ -1,5 +1,121 @@
 # @simsustech/quasar-components
 
+## 0.12.12
+
+### Patch Changes
+
+- 237514b: Accessible names: a `heading` slot for `Md3Layout`, named row menus, named date segments.
+  
+  `Md3Layout` gains a `heading` slot inside `q-page-container` (before the
+  `router-view`), so a consumer can place exactly one `<h1>` per routed page in
+  the main landmark instead of duplicating the header title in content.
+  
+  `AccountsTable`'s row ⋮ button now carries an accessible name built from the
+  new `lang.moreOptions` key plus the row's identity (`name ?? email`) — "More
+  options" alone does not say *which* row (added to the authentication lang in
+  en-US, nl and de).
+  
+  `DateInput`'s day/month/year segment inputs get an explicit `aria-label` from
+  `lang.datePicker` instead of relying on the placeholder fallback for their
+  accessible name.
+- 28c9445: Make `DateInput` compact and correctly aligned, robust without its stylesheet.
+  
+  Segment sizing. The group stretched across the whole field because
+  `.date-input-row { max-width: fit-content }` only lived in `<style>` — shipped in
+  `dist/quasar-components.css`, a file consumers that style themselves (via
+  unocss/preset-quasar, say) never import, silently disabling every rule in the
+  component. The row is now content-sized inline and each segment cap is tightened —
+  `YYYY` 8ch/7ch → 4.25ch, `MM` 7ch → 3ch, `DD` 7ch/4ch → 3ch — with the
+  `format`-conditional variants collapsed to one value per part. `4.25ch` not `5ch`:
+  5ch is 45px at Roboto 16px, failing the consuming app's `<= 5 * 8` assertion. Caps
+  stay `ch`-relative so they track the caller's font. Measured on the petboarding
+  `/employee/overview` audit pages at 375px and 1440px: group 215px → 118px,
+  segments 63/63/63px → 27/27/38px, no clipping and no document overflow.
+  
+  Separator alignment. The dash between `DD`/`MM`/`YYYY` carried
+  `class="q-field__marginal"` — Quasar's full-height edge affordance for the clear
+  and calendar icons — which the unocss/preset-quasar field rules style with
+  `height: 56px` and `font-size: var(--q-size-icon)` (24px). On a `display: block`
+  span the line box sat at the top of a 56px box, so the parent's `align-items:
+  center` centred the *box* and never the glyph: the dash rendered 19px above the
+  digits and at 24px against their 16px. Replace it with a `date-input-separator`
+  class and inline `display: flex` + `align-items: center` + `font-size: inherit`,
+  so the glyph centres in its own box and matches the digits regardless of the
+  caller's font — inline rather than in `<style>`, for the same reason as above.
+  Measured on `/employee/overview` at 1440px, before → after:
+  
+  | | control | dash glyph | digit glyph | gap | dash font |
+  |---|---|---|---|---|---|
+  | before | 88px | 95 | 114 | 19px | 24px |
+  | after | 56px | 98 | 98 | 0 | 16px |
+  
+  The control height falls out of the same bug: it is `--auto-height`, so its height
+  is the container's 32px padding plus the row, and the 56px span was inflating the
+  row from 24 to 56 — 32 + 56 = 88 before, 32 + 24 = 56 after, landing exactly on the
+  M3 standard `.q-field__control { height: 56px }`. Note this is a page-layout change
+  for consumers; audit captures need re-shooting.
+- d666b0c: `DateInput`'s icon defaults were Quasar material strings, not iconify names.
+  
+  The `icons` prop defaulted to `{ event: 'event', clear: 'clear' }`. Those are
+  `@quasar/extras` material set names, and this stack resolves icons through
+  iconify (`i-mdi-*`, wired via unocss-preset-quasar) with no material set loaded —
+  so `q-icon` had nothing to draw and rendered the raw name as text. Consumers that
+  passed `:icons` explicitly were unaffected; the ones that didn't showed the word
+  **event** where the date picker's calendar glyph belongs. Visible on
+  `AddPaymentDialog`, `SubscriptionForm` and `ExportsPage`.
+  
+  Defaults are now `i-mdi-calendar` / `i-mdi-close`, matching what the pages already
+  pass by hand — so passing `icons` is optional rather than load-bearing.
+- 237514b: Put `Md3Layout`'s drawer scrim on the drawer's own backdrop tier.
+  
+  `Md3Layout` renders its own scrim above the `sm` breakpoint when the drawer is
+  expanded, because QDrawer renders *nothing* to dim or dismiss behind an expanded
+  desktop drawer: its backdrop is pushed inside `if (belowBreakpoint.value)` in
+  `ui/src/components/drawer/QDrawer.js`, and its `overlay` prop only feeds `offset`,
+  not that branch.
+  
+  That scrim was pinned at `z-index: 2500`, which is above the drawer's own 1500 in
+  `unocss-preset-quasar`'s ADR 0007 scale. The expanded drawer therefore sat *under*
+  its own scrim and none of its items took clicks — the `nav-drift` spec could not
+  expand "Administrator", and at 375px the header's controls were unreachable too.
+  
+  It now wears Quasar's own `fullscreen q-drawer__backdrop` classes instead of
+  restating a number, so the tier comes from the same rule as the backdrop it stands
+  in for (the preset emits it at `z-index: 1499 !important`) and follows the scale if
+  the scale moves. Position and background stay inline, so the scrim still covers the
+  viewport and dims whichever style entry is active. Behaviour and the click-to-close
+  handler are unchanged.
+- d666b0c: Point `NavigationRailFabs`' text utilities at tokens that exist.
+  
+  The FABs asked for `text-$on-light-primary-container` and
+  `dark:text-$on-dark-primary-container`, but the preset defines those roles the
+  other way round: `--light-on-primary-container` / `--dark-on-primary-container`
+  (alongside `--light-primary-container`, `--light-on-primary`, …). Neither
+  `--on-light-primary-container` nor `--on-dark-primary-container` is declared
+  anywhere, so the colour declaration was invalid at computed-value time and fell
+  back to `inherit` — which is what produced white text on the light
+  `--light-primary-container` fill (`!bg-$light-primary-container`, which did
+  resolve).
+  
+  The background tokens were already correct; only the two text names were wrong, in
+  both the add and edit FABs.
+- d666b0c: Name `ResponsiveDialog` for assistive tech
+  
+  A dialog carrying `role="dialog"` and `aria-modal="true"` but no accessible name is
+  announced as an unnamed dialog, which leaves a screen-reader user with no idea what
+  opened. `ResponsiveDialog` rendered a `#title` slot inside its toolbar and nothing
+  else — no `aria-labelledby`, no `title` prop — so *every* instance was unnamed,
+  including the two call sites (`BankLinkDialog`, `BankSettingsPage`) that already filled
+  the slot, because the title text was never linked to the dialog element.
+  
+  - New optional `title` prop, rendered as `<slot name="title">{{ title }}</slot>`; the
+    slot keeps winning, so existing call sites are unaffected.
+  - The toolbar title gets a per-instance `id` (module-scope counter, since several
+    dialogs can be mounted at once) and the dialog points `aria-labelledby` at it.
+  
+  Call sites that pass no `title` and fill no slot still render an unnamed dialog; the
+  prop is the intended path, and slimfact's call sites now pass one.
+
 ## 0.12.11
 
 ### Patch Changes
