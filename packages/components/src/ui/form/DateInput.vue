@@ -333,4 +333,11 @@ if (props.required)
 .date-input-row {
   max-width: fit-content;
 }
+
+/* Segment placeholders: on-surface-variant token when a theme defines
+   it, else inherit from the input's own color; opacity 0.6. */
+.date-input-field .q-field__native::placeholder {
+  color: var(--q-on-surface-variant, inherit);
+  opacity: 0.6;
+}
 </style>
