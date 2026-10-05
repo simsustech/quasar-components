@@ -23,6 +23,8 @@ jobs:
     # GitHub Release. The 0.12.10-0.12.12 misses were in fact caused by
     # changesets/action v1 parsing @changesets/cli v3 stdout, which no longer
     # emits "New tag" lines — this block is required, but not sufficient.
+    # 0.12.13 failed for a second reason: the workflow passed only a bare
+    # NPM_TOKEN env var, which pnpm ignores, so the publish ran unauthenticated.
     permissions:
       contents: write
       pull-requests: write
@@ -35,7 +37,7 @@ jobs:
       - name: Setup PNPM
         uses: pnpm/action-setup@v6
         with:
-          version: 11
+          version: 12
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -44,10 +46,25 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Packages
         run: pnpm run build
+
+      # pnpm never reads a bare NPM_TOKEN env var — it only authenticates from a
+      # `//registry.npmjs.org/:_authToken=` line in .npmrc, which
+      # changesets/action (v1 or v2) does not write. Without this,
+      # `changeset publish` runs `pnpm publish` unauthenticated; the
+      # 0.12.13 release failed here with "Publish command exited with code 1".
+      - name: Configure npm auth
+        run: |
+          if [ -z "${NPM_TOKEN}" ]; then
+            echo "::error::NPM_TOKEN secret is empty or missing"
+            exit 1
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -57,6 +74,8 @@ jobs:
           commit-message: 'chore: release package(s)'
           pr-title: 'chore: release package(s)'
         env:
+          # Kept for compatibility; the auth that actually reaches pnpm is the
+          # .npmrc written by "Configure npm auth" above.
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Fail if a published package was not tagged
