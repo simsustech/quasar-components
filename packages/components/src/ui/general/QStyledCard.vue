@@ -1,5 +1,13 @@
 <template>
-  <q-card ref="qCardRef" style="max-width: 300px; padding: 2px">
+  <!--
+    No inline size or padding: the card fills whatever container it lands in —
+    grid classes (col-12 col-md-4) decide the width, sections keep Quasar's own
+    padding. The `style="max-width: 300px; padding: 2px"` this carried capped
+    every card at 300px inside a 445px column at 1440, so grid cards hugged
+    their content and the columns/gutters never filled (petboarding's pets,
+    contact-people and account grids, measured 2026-10-06).
+  -->
+  <q-card ref="qCardRef">
     <slot name="image" />
 
     <q-card-section>
