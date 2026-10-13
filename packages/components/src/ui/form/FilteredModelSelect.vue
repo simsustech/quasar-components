@@ -16,7 +16,8 @@
     input-debounce="500"
     :rules="required ? [requiredValidation] : []"
     @filter="filterFn"
-    @update:model-value="$emit('update:model-value', $event)"
+    @input-value="onInputValue"
+    @update:model-value="onModelValue"
   >
     <template #hint> {{ hint }} </template>
     <template v-for="(_, slot) in $slots" #[slot]="scope">
@@ -120,11 +121,31 @@ const selectedIds = computed(() => {
   return []
 })
 
+// The QSelect input's own text. Quasar fires `filter('')` whenever the
+// options array identity changes while the menu is open and no option is
+// selected (its `watch(innerValue)`); the input still holds whatever the
+// user typed, so that synthetic event is not a clear. Forwarding it would
+// discard the typed phrase and, because the parent refetches, loop forever.
+const inputValue = ref('')
+
+const onInputValue = (val: string | number | null) => {
+  inputValue.value = val == null ? '' : String(val)
+}
+
+// A made selection means the input holds that option's label, which is not a
+// search phrase. Forget it, so a later empty filter (the options-changed
+// re-filter, or QSelect's prefetch of an unmapped value) asks for the full
+// list again instead of searching for the label.
+const onModelValue = (value: number) => {
+  inputValue.value = ''
+  emit('update:model-value', value)
+}
+
 const filterFn: QSelect['$props']['onFilter'] = (val, update) => {
   update(() => {})
   emit('filter', {
     ids: selectedIds.value,
-    searchPhrase: (val || '').toLowerCase(),
+    searchPhrase: (val === '' ? inputValue.value : val || '').toLowerCase(),
     done: () => {}
   })
 }
