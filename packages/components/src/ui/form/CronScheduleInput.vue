@@ -1,27 +1,35 @@
 <template>
+  <!--
+    One field, not a field inside a field. The outer QField owns the frame,
+    label, hint and validation; the parts inside are dense borderless selects,
+    so a value reads as this field's content instead of as a bunch of fields
+    nested in another field.
+
+    That is also why the outer field is NOT `borderless`: it used to be, which
+    meant the one field on a form drawn without a surface, padding or radius —
+    next to a normal input it read as loose text under a floating label. Any
+    field-appearance attribute a consumer passes (`filled`, `outlined`,
+    `standout`, `dense`, `square`) lands on the outer QField through Vue's
+    attribute inheritance, so the input can match the rest of its form.
+  -->
   <q-field
     :model-value="modelValue"
     :rules="validations"
     :label="`${label}${required ? '*' : ''}`"
     stack-label
-    borderless
     class="cron-input-field"
   >
     <template #control>
-      <div class="row cron-input-row items-center">
+      <div class="row items-center cron-input-row">
         <q-select
           v-if="showHour"
           v-model="hour"
-          class="col-auto"
+          class="col-auto cron-input-part"
           :options="hourOptions"
-          :hint="lang.cron.hour"
-          bottom-slots
+          :aria-label="lang.cron.hour"
+          dense
           borderless
-          :filled="false"
-          :outlined="false"
-          :standout="false"
-          :rounded="false"
-          :style="smallStyle"
+          hide-bottom-space
           map-options
           emit-value
           multiple
@@ -29,20 +37,17 @@
           <template #selected>
             {{ hour.length ? hour.join(',') : lang.cron.every.hour }}
           </template>
+          <q-tooltip>{{ lang.cron.hour }}</q-tooltip>
         </q-select>
         <q-select
           v-if="showMinute"
           v-model="minute"
-          class="col-auto"
+          class="col-auto cron-input-part"
           :options="minuteOptions"
-          :hint="lang.cron.minute"
-          bottom-slots
+          :aria-label="lang.cron.minute"
+          dense
           borderless
-          :filled="false"
-          :outlined="false"
-          :standout="false"
-          :rounded="false"
-          :style="smallStyle"
+          hide-bottom-space
           map-options
           emit-value
           multiple
@@ -50,19 +55,16 @@
           <template #selected>
             {{ minute.length ? minute.join(',') : lang.cron.every.minute }}
           </template>
+          <q-tooltip>{{ lang.cron.minute }}</q-tooltip>
         </q-select>
         <q-select
           v-model="dayOfMonth"
-          class="col-auto"
+          class="col-auto cron-input-part"
           :options="dayOfMonthOptions"
-          :hint="lang.cron.dayOfMonth"
-          bottom-slots
+          :aria-label="lang.cron.dayOfMonth"
+          dense
           borderless
-          :filled="false"
-          :outlined="false"
-          :standout="false"
-          :rounded="false"
-          :style="smallStyle"
+          hide-bottom-space
           map-options
           emit-value
           multiple
@@ -74,20 +76,16 @@
                 : lang.cron.every.dayOfMonth
             }}
           </template>
+          <q-tooltip>{{ lang.cron.dayOfMonth }}</q-tooltip>
         </q-select>
         <q-select
           v-model="month"
-          class="col-auto"
+          class="col-auto cron-input-part"
           :options="monthOptions"
-          :hint="lang.cron.month"
-          :placeholder="lang.cron.month"
-          bottom-slots
+          :aria-label="lang.cron.month"
+          dense
           borderless
-          :filled="false"
-          :outlined="false"
-          :standout="false"
-          :rounded="false"
-          :style="smallStyle"
+          hide-bottom-space
           map-options
           emit-value
           multiple
@@ -101,23 +99,17 @@
                 : lang.cron.every.month
             }}
           </template>
+          <q-tooltip>{{ lang.cron.month }}</q-tooltip>
         </q-select>
-      </div>
-      <div v-if="showDayOfWeek" class="row cron-input-row items-center">
         <q-select
           v-if="showDayOfWeek"
           v-model="dayOfWeek"
-          class="col-auto"
+          class="col-auto cron-input-part"
           :options="dayOfWeekOptions"
-          :placeholder="lang.cron.dayOfWeek"
-          :hint="lang.cron.dayOfWeek"
-          :style="dayOfWeekStyle"
-          bottom-slots
+          :aria-label="lang.cron.dayOfWeek"
+          dense
           borderless
-          :filled="false"
-          :outlined="false"
-          :standout="false"
-          :rounded="false"
+          hide-bottom-space
           map-options
           emit-value
           multiple
@@ -131,6 +123,7 @@
                 : lang.cron.every.dayOfWeek
             }}
           </template>
+          <q-tooltip>{{ lang.cron.dayOfWeek }}</q-tooltip>
         </q-select>
       </div>
     </template>
@@ -168,19 +161,19 @@ const dayOfMonth = ref<string[]>(['1'])
 const month = ref<string[]>([])
 const dayOfWeek = ref<string[]>([])
 
-const minuteOptions = ref([...Array(59).keys()].map(String))
+const minuteOptions = ref([...Array(60).keys()].map(String))
 const hourOptions = ref([...Array(24).keys()].map(String))
 const dayOfMonthOptions = ref(
   Array.from({ length: 31 }, (_, i) => i + 1).map((dayOfMonth) =>
     String(dayOfMonth)
   )
 )
-const monthOptions = ref([
-  ...Array.from({ length: 12 }, (_, i) => i + 1).map((month) => ({
+const monthOptions = ref(
+  Array.from({ length: 12 }, (_, i) => i + 1).map((month) => ({
     label: $q.lang.date.months[month - 1],
     value: String(month)
   }))
-])
+)
 const dayOfWeekOptions = ref(
   [...Array(7).keys()].map((day) => ({
     label: $q.lang.date.days[day],
@@ -214,16 +207,6 @@ function setInternalCron(cronString: string) {
   }
 }
 
-const smallStyle = {
-  background: 'transparent',
-  border: 0
-}
-
-const dayOfWeekStyle = {
-  background: 'transparent',
-  border: 0
-}
-
 watch(modelValue, (newVal) => {
   if (newVal) setInternalCron(newVal)
   else if (newVal === null) {
@@ -234,21 +217,51 @@ setInternalCron(modelValue.value)
 </script>
 
 <style>
-/* Stop padding leak from outer q-field--labeled into inner QSelects */
-.cron-input-field.q-field--labeled .cron-input-row .q-field__native,
-.cron-input-field.q-field--labeled .cron-input-row .q-field__input {
-  padding-bottom: 0 !important;
-}
-
-/* Inner control-container — neutralize cascaded padding-top */
-.cron-input-field.q-field--auto-height.q-field--labeled
-  .cron-input-row
-  .q-field__control-container {
+/*
+ * Quasar's `--labeled` and `--auto-height` rules are descendant selectors, so
+ * the outer field's 24px label band cascaded into every part as well: each
+ * inner QSelect reserved a label band of its own and the composite grew to two
+ * field heights. Zero it for the parts only — the outer control keeps the band
+ * it needs for its own label.
+ */
+.cron-input-field .cron-input-row .q-field__control-container {
   padding-top: 0 !important;
 }
 
-/* Inner controls — remove horizontal padding */
-.cron-input-field .cron-input-row .q-field__control {
-  padding-inline: 0 !important;
+/*
+ * A part sits in the field's value band — the control's 56px minus the label
+ * band — so it is shorter than a standalone dense select and draws no
+ * horizontal padding of its own: the outer control already carries that, and
+ * the value then lines up with the label above it. Both inputs are tokens, so
+ * the band follows the active style (md3: 56 − 24, md2: 56 − 28).
+ */
+.cron-input-field .cron-input-row .cron-input-part .q-field__control {
+  height: max(
+    24px,
+    calc(var(--q-comp-lg, 56px) - var(--q-field-labeled-padding-top, 24px))
+  );
+  min-height: 0;
+  padding-inline: 0;
+  background: transparent;
+}
+
+/*
+ * A part is a value, not a field: no frame, no bottom border and no focus
+ * underline of its own. Quasar paints both pseudo-elements on every field
+ * control, which drew a stray rule across the row of values.
+ */
+.cron-input-field .cron-input-row .cron-input-part .q-field__control::before,
+.cron-input-field .cron-input-row .cron-input-part .q-field__control::after {
+  content: none;
+}
+
+/*
+ * `--labeled` reserves 8px under a native input for its underline; this field's
+ * value is a row of selects, so that reservation only added a strip of dead
+ * surface and made the composite taller than the inputs beside it (64px
+ * against a plain field's 56px).
+ */
+.cron-input-field .q-field__native {
+  padding-bottom: 0;
 }
 </style>
