@@ -72,6 +72,12 @@ const lang: Language = {
       invalidCron: 'Cron rule is invalid.'
     }
   },
+  telephoneNumber: {
+    countryCode: 'Country code',
+    validations: {
+      invalidPhoneNumber: 'Invalid phone number.'
+    }
+  },
   countries: {
     SA: 'Saudi Arabia',
     BD: 'Bangladesh',

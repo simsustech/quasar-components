@@ -73,6 +73,12 @@ const lang: Language = {
       invalidCron: 'Cron-Ausdruck ist ungültig.'
     }
   },
+  telephoneNumber: {
+    countryCode: 'Ländervorwahl',
+    validations: {
+      invalidPhoneNumber: 'Ungültige Telefonnummer.'
+    }
+  },
   countries: {
     SA: 'Saudi-Arabien',
     BD: 'Bangladesch',

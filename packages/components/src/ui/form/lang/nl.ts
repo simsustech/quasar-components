@@ -72,6 +72,12 @@ const lang: Language = {
       invalidCron: 'Cron regel is ongeldig.'
     }
   },
+  telephoneNumber: {
+    countryCode: 'Landcode',
+    validations: {
+      invalidPhoneNumber: 'Ongeldig telefoonnummer.'
+    }
+  },
   countries: {
     SA: 'Saudi-Arabië',
     BD: 'Bangladesh',

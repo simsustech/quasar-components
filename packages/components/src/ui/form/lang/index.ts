@@ -240,6 +240,12 @@ export interface Language {
       invalidCron: string
     }
   }
+  telephoneNumber: {
+    countryCode: string
+    validations: {
+      invalidPhoneNumber: string
+    }
+  }
   countries: Record<ISO3166, string>
   languages: Record<ISO639, string>
   bcp47: Record<Locales, LocaleEntry>
