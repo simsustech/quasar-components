@@ -1,0 +1,40 @@
+{
+  "name": "@simsustech/quasar-components-preset",
+  "version": "0.12.14",
+  "description": "UnoCSS preset for @simsustech/quasar-components: the rules its templates cannot write",
+  "bugs": "https://github.com/simsusech/quasar-components/issues",
+  "license": "MIT",
+  "author": "Stefan van Herwijnen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simsustech/quasar-components"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "compile": "tsc -p tsconfig.build.json",
+    "build": "node scripts/check.mjs && tsc -p tsconfig.build.json",
+    "lint": "oxlint src scripts",
+    "lint:fix": "oxlint src scripts --fix",
+    "format:check": "oxfmt --check .",
+    "format:write": "oxfmt --write ."
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "unocss": "^66.12.0"
+  },
+  "peerDependencies": {
+    "unocss": "^66.12.0",
+    "vue": "^3.5.43"
+  }
+}

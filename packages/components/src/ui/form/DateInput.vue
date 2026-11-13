@@ -10,8 +10,8 @@
   >
     <template #control>
       <div
-        class="row items-center date-input-row no-wrap"
-        style="height: 100%; max-width: fit-content"
+        class="row items-center date-input-row no-wrap max-w-fit"
+        style="height: 100%"
       >
         <div
           v-for="(part, index) in parts"
@@ -92,6 +92,11 @@ import { ref, watch, toRefs, computed } from 'vue'
 import { QDate, QDateProps, QuasarLanguageCodes } from 'quasar'
 import { useLang } from './lang'
 
+// `--labeled` reserves a band under a native input for its underline, and the
+// standard style paints an underline under a control that is a row of inputs.
+// Both are on the field root's variants; the placeholders take the token color.
+// Those selectors live in the preset's preflights keyed on `date-input-field`:
+// `--` inside an arbitrary variant is mangled by `presetWind4`.
 export interface Props {
   modelValue: string | null
   format?: 'YYYY-MM-DD' | 'DD-MM-YYYY' | 'MM-DD-YYYY'
@@ -146,12 +151,12 @@ const parts = computed(() => {
       value: year.value,
       placeholder: lang.value.datePicker.YYYY,
       style: {
-        // 4 digits (4ch) + a hair of padding. Inline rather than in the
-        // stylesheet, so the cap holds for consumers that never import
-        // quasar-components.css. Not 5ch: petboarding renders this in
-        // Roboto 16px where 1ch = 9px, so 5ch = 45px and its gate asserts
-        // <= 40px. 4.25ch = 38.25px clears the 37px "YYYY" placeholder and
-        // lands under the gate in both fonts (38px @ ch=9, 34px @ ch=8).
+        // 4 digits (4ch) + a hair of padding. Inline rather than a utility, so
+        // the cap never depends on the safelist having picked it up. Not 5ch:
+        // petboarding renders this in Roboto 16px where 1ch = 9px, so 5ch =
+        // 45px and its gate asserts <= 40px. 4.25ch = 38.25px clears the 37px
+        // "YYYY" placeholder and lands under the gate in both fonts (38px @
+        // ch=9, 34px @ ch=8).
         'max-width': '4.25ch',
         'padding-bottom': '0'
       },
@@ -309,35 +314,3 @@ if (props.required)
     (val: string) => !!val || lang.value.validations.fieldRequired
   )
 </script>
-
-<style>
-/* The outer QField gets q-field--labeled which leaks padding into
-   descendant .q-field__native elements. The auto-height override
-   fixes padding-top but not padding-bottom. */
-.date-input-field.q-field--auto-height.q-field--labeled .q-field__native {
-  padding-bottom: 0 !important;
-  box-sizing: border-box;
-}
-
-/* Remove the standard underline (creates whitespace beneath) */
-.date-input-field.q-field--standard
-  > .q-field__inner
-  > .q-field__control::before {
-  border-bottom: none !important;
-}
-.date-input-field.q-field--standard
-  > .q-field__inner
-  > .q-field__control::after {
-  display: none !important;
-}
-.date-input-row {
-  max-width: fit-content;
-}
-
-/* Segment placeholders: on-surface-variant token when a theme defines
-   it, else inherit from the input's own color; opacity 0.6. */
-.date-input-field .q-field__native::placeholder {
-  color: var(--q-on-surface-variant, inherit);
-  opacity: 0.6;
-}
-</style>

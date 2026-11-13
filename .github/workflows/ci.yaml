@@ -40,11 +40,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # The preset's stylesheet and class list are generated and committed. A
+      # build regenerates them, so without this step a stale artifact would be
+      # silently corrected in CI and ship from whatever was committed.
+      - name: Check generated artifacts
+        run: pnpm -C packages/preset run check
+
       - name: Lint
         run: pnpm run lint
 
       - name: Format Check
         run: pnpm run format:check
+
+      # Unused files, dependencies and unresolved imports. It reads the source
+      # tree only, so it does not need the build that follows.
+      - name: Unused Code
+        run: pnpm run knip
 
       - name: Build Packages
         run: pnpm run build

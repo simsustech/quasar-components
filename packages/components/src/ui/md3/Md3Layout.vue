@@ -18,6 +18,7 @@
 
     <q-drawer
       ref="drawerRef"
+      class="!pt-0"
       :model-value="leftDrawerOpen"
       :width="drawerWidth"
       :mini-width="80"
@@ -74,26 +75,6 @@
       </div>
     </q-drawer>
 
-    <!--
-      Drawer scrim. QDrawer renders its own backdrop only when
-      `belowBreakpoint` (see `ui/src/components/drawer/QDrawer.js` — the backdrop
-      is pushed inside `if (belowBreakpoint.value)`), and its `overlay` prop only
-      feeds `offset`, not the backdrop branch. Above the breakpoint, with the
-      drawer expanded over the content, Quasar renders nothing to dim or dismiss
-      behind it — that gap is this element.
-
-      It wears Quasar's own `q-drawer__backdrop` class rather than restating a
-      z-index: that class carries the drawer's backdrop tier (the preset emits it
-      at 1499 !important inside ADR 0007's scale: floating content 1400, then side
-      panel 1500 with its backdrop 1499, then marginals 2000, then menus and dialogs
-      6000), so the scrim stands exactly where the backdrop it replaces would and
-      follows the scale if the scale moves. The previous hardcoded 2500 sat above
-      the drawer's own 1500, so the expanded drawer was *under* its own scrim and
-      none of its items took clicks.
-
-      Position and background stay inline: the scrim has to cover the viewport and
-      dim regardless of which style entry is active.
-    -->
     <div
       v-if="showScrim"
       class="fullscreen q-drawer__backdrop"
@@ -107,8 +88,6 @@
     </q-footer>
 
     <q-page-container>
-      <!-- One h1 per routed page: the app fills this with the mapped route
-           title (visually hidden unless a page renders its own). -->
       <slot name="heading" />
       <router-view />
       <slot name="fabs" :show-sticky="true" />
@@ -132,6 +111,10 @@ withDefaults(defineProps<Props>(), {
 })
 
 const $q = useQuasar()
+// QDrawer forwards `class` to `.q-drawer__content` (QDrawer.js:765), which is
+// the element Quasar pads down by the header height. It is always on top here
+// (`mini-to-overlay` plus this component's own `<q-header>`), so the pad is
+// never wanted: it is what pushed the close button down the drawer.
 const drawerRef = ref<QDrawer>()
 const leftDrawerOpen = ref(false)
 const miniState = ref(false)
@@ -199,11 +182,3 @@ onMounted(() => {
   }
 })
 </script>
-<style>
-/* Quasar adds q-drawer--top-padding when a QHeader exists, but in overlay
-   mode the drawer floats on top of the header — the padding pushes the close
-   icon down ~188px. Override to keep the close icon at the very top. */
-.q-drawer--on-top.q-drawer--top-padding .q-drawer__content {
-  padding-top: 0 !important;
-}
-</style>

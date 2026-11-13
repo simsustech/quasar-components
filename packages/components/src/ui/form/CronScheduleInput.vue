@@ -1,17 +1,4 @@
 <template>
-  <!--
-    One field, not a field inside a field. The outer QField owns the frame,
-    label, hint and validation; the parts inside are dense borderless selects,
-    so a value reads as this field's content instead of as a bunch of fields
-    nested in another field.
-
-    That is also why the outer field is NOT `borderless`: it used to be, which
-    meant the one field on a form drawn without a surface, padding or radius —
-    next to a normal input it read as loose text under a floating label. Any
-    field-appearance attribute a consumer passes (`filled`, `outlined`,
-    `standout`, `dense`, `square`) lands on the outer QField through Vue's
-    attribute inheritance, so the input can match the rest of its form.
-  -->
   <q-field
     :model-value="modelValue"
     :rules="validations"
@@ -131,6 +118,8 @@
 </template>
 
 <script setup lang="ts">
+// Each part is a QSelect, so the field chrome inside `cron-input-row` belongs to
+// Quasar: those selectors are rules in the preset, keyed on this class.
 import { ref, toRefs, watch } from 'vue'
 import { useLang } from './lang/index.js'
 import { useQuasar } from 'quasar'
@@ -142,6 +131,11 @@ export interface Props {
   showDayOfWeek?: boolean
 }
 
+// A part is a value, not a field: its control takes the field's value band
+// (`--q-comp-lg` minus the label band), draws no frame and no underline of its
+// own, and its container drops the label band the outer field already reserves.
+// `.q-field` is in each chain so these keep the depth of the stylesheet they
+// replaced — Quasar's dense, auto-height control sets a three-class min-height.
 const props = defineProps<Props>()
 const emit = defineEmits<{
   (e: 'update:modelValue', val: string): void
@@ -215,53 +209,3 @@ watch(modelValue, (newVal) => {
 })
 setInternalCron(modelValue.value)
 </script>
-
-<style>
-/*
- * Quasar's `--labeled` and `--auto-height` rules are descendant selectors, so
- * the outer field's 24px label band cascaded into every part as well: each
- * inner QSelect reserved a label band of its own and the composite grew to two
- * field heights. Zero it for the parts only — the outer control keeps the band
- * it needs for its own label.
- */
-.cron-input-field .cron-input-row .q-field__control-container {
-  padding-top: 0 !important;
-}
-
-/*
- * A part sits in the field's value band — the control's 56px minus the label
- * band — so it is shorter than a standalone dense select and draws no
- * horizontal padding of its own: the outer control already carries that, and
- * the value then lines up with the label above it. Both inputs are tokens, so
- * the band follows the active style (md3: 56 − 24, md2: 56 − 28).
- */
-.cron-input-field .cron-input-row .cron-input-part .q-field__control {
-  height: max(
-    24px,
-    calc(var(--q-comp-lg, 56px) - var(--q-field-labeled-padding-top, 24px))
-  );
-  min-height: 0;
-  padding-inline: 0;
-  background: transparent;
-}
-
-/*
- * A part is a value, not a field: no frame, no bottom border and no focus
- * underline of its own. Quasar paints both pseudo-elements on every field
- * control, which drew a stray rule across the row of values.
- */
-.cron-input-field .cron-input-row .cron-input-part .q-field__control::before,
-.cron-input-field .cron-input-row .cron-input-part .q-field__control::after {
-  content: none;
-}
-
-/*
- * `--labeled` reserves 8px under a native input for its underline; this field's
- * value is a row of selects, so that reservation only added a strip of dead
- * surface and made the composite taller than the inputs beside it (64px
- * against a plain field's 56px).
- */
-.cron-input-field .q-field__native {
-  padding-bottom: 0;
-}
-</style>
