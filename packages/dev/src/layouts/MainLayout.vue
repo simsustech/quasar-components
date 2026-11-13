@@ -54,10 +54,6 @@
           </q-item-label>
         </q-item>
       </q-list>
-      <q-item-label header>Flags</q-item-label>
-      <q-item clickable to="/flags">
-        <q-item-label>Flags</q-item-label>
-      </q-item>
       <q-item-label header>Icons</q-item-label>
       <q-item clickable to="/icons">
         <q-item-label>Icons</q-item-label>
@@ -65,30 +61,6 @@
     </q-drawer>
 
     <q-page-container>
-      <!-- <q-select
-        v-model="locale"
-        show-value
-        :options="langOptions"
-        label="Language"
-      />
-      <q-list>
-        <q-item clickable @click="locale = 'nl'">
-          <q-item-section avatar>
-            <nl ref="nlRef" />
-          </q-item-section>
-          <q-item-section v-if="nlRef">
-            {{ nlRef.variables.language }}
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click="locale = 'en-US'">
-          <q-item-section avatar>
-            <en-us ref="enUsRef" />
-          </q-item-section>
-          <q-item-section v-if="enUsRef">
-            {{ enUsRef.variables.language }}
-          </q-item-section>
-        </q-item>
-      </q-list> -->
       <router-view />
     </q-page-container>
   </q-layout>
@@ -97,7 +69,6 @@
 <script setup lang="ts">
 import { ref, Ref, watch, inject } from 'vue'
 import { useQuasar } from 'quasar'
-import { nl, enUs } from '@simsustech/quasar-components/flags'
 import { QLanguageSelect } from '@simsustech/quasar-components'
 import {
   authenticationRoutes,
@@ -112,9 +83,6 @@ const leftDrawerOpen = ref(false)
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
-
-const nlRef = ref<typeof nl>()
-const enUsRef = ref<typeof enUs>()
 
 const locale = ref($q.lang.isoName)
 

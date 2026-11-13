@@ -1,0 +1,50 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignore": [
+    "**/dist/**"
+  ],
+  "exclude": [
+    "types"
+  ],
+  "workspaces": {
+    ".": {
+      "entry": [
+        "e2e/**/*.spec.ts"
+      ]
+    },
+    "packages/components": {
+      "entry": [
+        "src/ui/*/index.ts",
+        "src/ui/*/lang/*.ts",
+        "src/vite-plugin.ts",
+        "src/virtualModules.ts"
+      ],
+      "project": [
+        "src/**/*.{ts,vue}"
+      ]
+    },
+    "packages/preset": {
+      "entry": [
+        "src/index.ts"
+      ]
+    },
+    "packages/dev": {
+      "entry": [
+        "index.html",
+        "vitrify.config.ts",
+        "src/App.vue",
+        "src/router/*.ts",
+        "src/layouts/*.vue",
+        "src/pages/**/*.vue"
+      ],
+      "project": [
+        "src/**/*.{ts,vue,js}"
+      ]
+    }
+  },
+  "ignoreDependencies": [
+    ".*\\.icon$",
+    "@quasar/extras",
+    "@iconify-json/flagpack"
+  ]
+}

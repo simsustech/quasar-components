@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 import { promises } from 'fs'
-import { Icon, FlagIcon } from './virtualModules.js'
+import { Icon } from './virtualModules.js'
 const { readFile } = promises
 import { fileURLToPath } from 'node:url'
 
@@ -29,15 +29,10 @@ export default async function ({
     name: `${name}-plugin`,
     enforce: 'pre',
     resolveId: (id) => {
-      if (id.includes('.flag')) return id
-      else if (id.includes('.icon')) return id
+      if (id.includes('.icon')) return id
     },
     load: (id) => {
-      if (id.includes('.flag')) {
-        const locale = id.slice(0, -5)
-        const flag = FlagIcon(locale)
-        return flag
-      } else if (id.includes('.icon')) {
+      if (id.includes('.icon')) {
         const iconId = id.slice(0, -5)
         const icon = Icon(iconId)
         return icon

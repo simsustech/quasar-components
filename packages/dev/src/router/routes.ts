@@ -72,10 +72,6 @@ const routes: RouteRecordRaw[] = [
         children: formRoutes
       },
       {
-        path: 'flags',
-        component: () => import('../pages/Flags.vue')
-      },
-      {
         path: 'icons',
         component: () => import('../pages/Icons.vue')
       }
