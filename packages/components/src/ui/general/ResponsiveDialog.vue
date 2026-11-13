@@ -23,8 +23,6 @@
             @click="close"
           />
           <q-toolbar-title :id="titleId">
-            <!-- The call site's string; a caller needing richer markup can
-                 still fill the slot as before. -->
             <slot name="title">{{ title }}</slot>
           </q-toolbar-title>
           <q-submit-button

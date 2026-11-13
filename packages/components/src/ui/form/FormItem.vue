@@ -48,9 +48,3 @@ watch($q.lang, () => {
   loadLang($q.lang.isoName)
 })
 </script>
-
-<style>
-.break-all {
-  word-break: break-all;
-}
-</style>

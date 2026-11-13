@@ -6,5 +6,10 @@ node_modules/
 .npmrc
 *.orig
 .pi/
+# session handoff notes are local scratch, never committed
+handoff/
 **/components.d.ts
 test-results/
+
+# Local test scratch (Firefox profiles, temp servers)
+.tmp/
