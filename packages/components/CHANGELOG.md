@@ -1,5 +1,305 @@
 # @simsustech/quasar-components
 
+## 0.13.0
+
+### Minor Changes
+
+- a9ea6db: refactor(components): ship no CSS — every component styles itself with utilities
+  
+  The kit's nine `<style>` blocks are gone, so there is no stylesheet left to
+  import:
+  
+  ```diff
+  -import '@simsustech/quasar-components/css'
+  +// nothing: add `quasarComponentsPreset()` to your UnoCSS config
+  ```
+  
+  Each rule is now a utility on the element the component's own template renders.
+  A consumer's UnoCSS scan skips `.js` by default, so every emitted chunk carries
+  `/* @unocss-include */` (`unocssIncludePlugin`): the consumer's own extractor
+  reads the chunks it imports, and there is no class list to install or keep in
+  step. Every selector the kit writes was already namespaced and nothing used
+  `:deep()`.
+  
+  Rules that reach Quasar's internals — `.q-field__control`, `.q-item__section--avatar`,
+  `.q-drawer__content` — became arbitrary variants on the nearest element the
+  template owns (`[&_.q-field\_\_append]:h-6`,
+  `[&.q-drawer--on-top.q-drawer--top-padding_.q-drawer\_\_content]:!pt-0`), so
+  specificity is still the stylesheet's and Quasar's own rules are still overridden.
+  The ones whose selector carries a `--` (`q-item__section--avatar`,
+  `q-field--standard`, `q-expansion-item--expanded` — `DateInput`'s internals and
+  `QDrawerList`'s whole menu) cannot be written that way: `presetWind4` reads the
+  `--` as a custom property and emits `.q-item__sectionvar(--avatar)`, which
+  lightningcss refuses to minify. Those moved to `@simsustech/quasar-components-preset` as rules keyed on the
+  root class the component writes, so nothing in a template can be mangled by an
+  engine: `QDrawerList`, `DateInput`, `QTelephoneNumber` and `CronScheduleInput`
+  carry no arbitrary variant at all.
+  
+  One sheet cannot be written as utilities: MapLibre's. `./location` imports
+  `maplibre-gl/dist/maplibre-gl.css` and the build lists that exact specifier in
+  `rollupOptions.external`, so `dist/location.js` keeps the import instead of
+  vite's lib mode extracting it into an unexported `dist/style.css`; the
+  consumer's bundler resolves it from the kit's own dependency, in the version the
+  kit was built against.
+  
+  Measured consequence: `pnpm -C packages/components build` emits no CSS asset at
+  all, `grep maplibre-gl/dist/maplibre-gl.css packages/components/dist/location.js`
+  matches, and `packages/dev` — which runs `presetWind3()` + `quasarComponentsPreset()`
+  and imports no stylesheet — renders the same computed styles on the date field,
+  the cron field, the drawer list and the map's controls before and after the
+  conversion. Under `presetWind4` the generated sheet has 0 mangled selectors and
+  survives lightningcss, which it did not before this change.
+- 799cf29: **The `./flags` subpath is gone, and flags are icon classes.** It shipped 252 SVG
+  files, 252 generated components and a language module — 1.3 MB — to render a flag
+  per country, and nothing but the dev app's own demo imported it. `CountrySelect`,
+  `LocaleSelect` and `QTelephoneNumber` already take the flag as an icon name from
+  the caller, so the supported path is the one the consumers use: pass
+  `i-flagpack-nl` (or `i-flag-*`, or an `img:` URL) and let UnoCSS's `presetIcons`
+  resolve it from the icon collection in your app.
+  
+  Removing a subpath is breaking: `import ... from '@simsustech/quasar-components/flags'`
+  has no replacement, and `@iconify-json/flagpack` moves from this package's
+  dependencies to the app that renders flags — the quote site already has it.
+- 21768b8: feat(components): add the location module — QLocation, QLocationSearch, QLocationAddress
+  
+  `@simsustech/quasar-components/location` exports one complete map component plus the
+  primitives it is built from.
+  
+  `QLocation` is a MapLibre map with a draggable pin, a right-click menu
+  (*What's here?*, *Move pin here*, *Center map here*, *Copy coordinates*,
+  *Clear pin*), an address autocomplete in the corner and a structured address
+  card underneath. `v-model` is `LocationValue` — a position with the address the
+  reverse geocode produced — so a consumer stores one object instead of a
+  coordinate tuple and a second, attached form.
+  
+  The basemap is an OpenFreeMap style URL by default; setting `pmtilesUrl`
+  registers the `pmtiles://` protocol and builds a Protomaps style over the
+  archive instead, and `style` overrides both. The geocoder is injected
+  (`Geocoder`, with a keyless Photon implementation as the default), so a
+  deployment with its own geocoder — or none at all, with `:geocoder="null"` —
+  does not have to patch the library.
+  
+  Attribution is drawn by the component, not by MapLibre's `AttributionControl`:
+  the basemap licences require links, and MapLibre's control cannot carry them
+  alongside an empty source attribution.
+  
+  MapLibre is bundled into `dist/location.js`, so no other chunk grows and a
+  consumer only has to import the subpath. PMTiles and `@protomaps/basemaps` are a
+  separate chunk loaded on demand: nothing is downloaded unless `pmtilesUrl` is
+  set (or the exported `loadPmtiles` is called).
+  
+  The module carries its own language pack (`en-US`, `nl`, `de`) with
+  `useLang`/`loadLang`, so `./location` does not depend on the form module being
+  loaded to switch language.
+- 33b9396: feat(components): add QTelephoneNumber and the `./phone` subexport
+  
+  A telephone field that actually knows what a phone number is, in its own
+  subexport so the 29 KB of metadata does not land in `form.js`, which every
+  consumer already imports.
+  
+  `QTelephoneNumber` is one field, not a field inside a field: a `QInput` whose
+  `#prepend` holds a borderless `QSelect` showing the dial code. The model value is
+  E.164 (`+31612345678`); the input shows the national significant number without
+  the trunk prefix (`6 12345678`) and rewrites it on blur (and once on hydration),
+  so typing never moves the caret. The trunk `0` is omitted because `+31` is
+  already visible in the prepend.
+  
+  Incoming values are re-parsed rather than assumed, so nothing stored needs
+  migrating: `0612345678`, `612345678`, `+31612345678`, `+31 6 12345678` and the
+  separator variants all hydrate to `6 12345678` / `+31612345678`, and a leading
+  `+` sets the country in the select. A stored value that is not a phone number at all stays
+  visible untouched and emits nothing; typed into an empty field it shows as
+  typed and emits `''`.
+  
+  Validation is one rule on `lazy-rules`, so the message appears on blur and
+  clears on the first valid keystroke. Countries come from a `countries` prop —
+  `{ iso3166, name, icon? }` items, a different shape from `CountrySelect`'s
+  `{ icon, iso3166 }`, since the label is the caller's name rather than
+  `lang.countries` and the dial code is derived from the metadata — or from the
+  245 countries in the metadata (named by `Intl.DisplayNames` in the active
+  language) when there is none.
+  
+  The component and its `QTelephoneNumberProps` props type are exported from the
+  `./phone` subexport, alongside `isValidPhoneNumber`, `formatInternational`,
+  `formatNationalNumber`, `parsePhoneNumber`, `countryCallingCode` and
+  `defaultCountries`.
+  
+  Known limitation: the metadata is `libphonenumber-js/min` (29.2 KB minified,
+  against 49.9 KB for `/max`), whose length tables are coarser — for some
+  countries a correctly-shaped but too-short number (`+31123456`) is accepted as
+  valid. This is the documented cost of the smaller bundle, not a bug in the
+  component. For scale, the built artifact — which also carries the parser and
+  the component — is `dist/phone.js` at 224 kB (44.6 kB gzip); it lives in its
+  own subexport precisely so that cost stays out of `form.js`.
+  
+  **The dial-code select is searchable, and one click is never a dead end.** The
+  popup opened with the `countries` prop and nothing else, so a number from a
+  country the list did not carry could not be entered: the chip was the only way
+  to change the code. The select takes input now — a name (`spanje`), an ISO code
+  (`es`) or a dial code (`34`, `+34`) narrows the list, and the search runs over
+  every country the metadata knows, with the `countries` prop's entries first. That
+  prop describes what the popup opens with, not the limit of what can be picked.
+  
+  Four things came out of living with it: the search box is sized to the typed text
+  rather than the 20 characters a bare input asks for (Quasar pins a select's input
+  at `min-width: 50px !important`, so the prepend took 289px of a 420px field, and
+  it measures 126px now); the chip yields while there is a query, because an
+  input-enabled select renders both and `+31 +33` reads as two dial codes; the
+  select keeps a `min-w-[13ch]` floor, because the popup's width follows the select
+  and hiding the chip was clipping the options; and the search box takes
+  `font: inherit`, because a theme styles `.q-field__native` while a select's input
+  is `.q-field__input` — the field showed `+31` in 16px Roboto and `33` in 13.3px
+  Arial. The `Landcode` tooltip is gone: it painted over the first option.
+  
+  **`flagUrl` gives a country the list does not name a flag.** It is a function
+  from ISO code to image URL, so a field that offers three countries can still show
+  a flag for any of the 245 a search reaches, and the kit ships no images.
+  
+  What keeps the requests down is the length of the list, not per-image machinery:
+  a query renders at most 12 rows, measured on a 245-row lazy list that fetched
+  173 images in Chromium and 46 in Firefox against exactly 12 for a 12-row one.
+  `loading="lazy"` is the only decoration on top, and it is a hint — Chromium
+  defers a scrolled-out row in a menu where Firefox does not.
+
+### Patch Changes
+
+- 42f6b5b: fix(components): draw CronScheduleInput as one field, not a field inside a field
+  
+  The component forced `borderless` on its outer QField, which is the one thing a
+  field cannot be if it has to sit in a form: under a token-driven style the
+  borderless control carries no surface, no radius and no padding, so the input
+  rendered as loose text under a floating label next to ordinary inputs. It now
+  inherits the same field appearance as any other input (and any field attribute
+  a consumer passes — `filled`, `outlined`, `standout`, `dense`, `square` — reaches
+  the outer QField again), so it matches its siblings instead of announcing that
+  it came from another library.
+  
+  The parts are values, not fields: dense borderless QSelects with no hint strip,
+  no frame and no underline of their own, sized to the field's value band
+  (`--q-comp-lg` minus `--q-field-labeled-padding-top`) so the composite lands on
+  the same 56px control as a plain input. Previously each part reserved its own
+  label band and hint strip, the composite grew to 136px against a 56px sibling,
+  and the per-part hints (the only thing naming the parts) collided with each
+  other — "Day of monthMonth". Part names now live in per-part `aria-label`s and
+  tooltips, and the trailing padding the `--labeled` rule reserves under a native
+  input no longer leaves dead surface at the bottom of the control.
+  
+  Also fixes the minute options stopping at 58: `Array(59)` cannot offer minute 59,
+  so a schedule at minute 59 could not be entered or re-entered through the UI.
+- 21768b8: **`QLocation` answers where the user is looking.** "What's here?" resolved an
+  address and moved the pin, but the only place an address was drawn was
+  `QLocationAddress` above the map, which fills blank fields — so a form whose
+  fields were already typed could never show the result, and on the consumer's
+  quote form the answer was invisible. The map now carries a bubble anchored above
+  the pin with the resolved address: `formatted` when the geocoder provides one,
+  `street houseNumber, postalCode city` otherwise, and nothing at all when the
+  parts come out empty. It is a Vue overlay inside `.q-location__map`, positioned
+  from `map.project()` on MapLibre's `render` event, so it follows the pin through
+  pan, zoom and easing (a `ResizeObserver` sees none of those) and stays assertable
+  in a test. It is not a `maplibregl.Popup` for the same reason the search field
+  and the credit strip are not: the overlay has to react to state.
+  
+  The bubble belongs to the newest pin: a pin move clears it with the address it
+  was showing, and the reverse-geocode sequence number that already discarded a
+  superseded answer now also decides which address may be painted. The close
+  button is a plain `<button type="button">` with a `×` glyph and an
+  `aria-label`, not a `q-icon`: the consumer's dialog ships no Material Icons font,
+  where an icon-font glyph renders as nothing. The bubble is `role="status"` with
+  `aria-live="polite"`, is skipped entirely when the `address` prop is `false`,
+  and disappears when the pin is cleared.
+  
+  "What's here?" keeps taking the same path a left click takes — place the pin,
+  reverse geocode, publish — so its answer is the bubble and nothing else; it does
+  not write to the consumer's address card beyond what a pin move already did.
+  
+  **New `center?: LngLat` prop.** The no-pin view was hardcoded to the world at
+  zoom 1, which is wrong for a service area (north Brabant, not the Pacific). The
+  prop sets the view when there is no pin, with `zoom` applying to it; without it
+  the world view is unchanged.
+  
+  **New `center?: LngLat` prop.** The no-pin view was hardcoded to the world at
+  zoom 1, which is wrong for a service area (north Brabant, not the Pacific). The
+  prop sets the view when there is no pin, with `zoom` applying to it; without it
+  the world view is unchanged.
+  
+  The map itself sits behind a `q-expansion-item` labelled from the language pack
+  (`Kaart`/`Map`/`Karte`), collapsed by default: the address card is the question
+  and the basemap is the confirmation, so a form that never looks at the map does
+  not fetch a tile. The map mounts on the first open and is kept afterwards, so
+  collapsing and reopening never reloads it. While it loads, the element MapLibre
+  will draw into stands empty, so the component draws the box itself — a tinted
+  `q-location__canvas-placeholder` with a spinner, which becomes the failure
+  message when the style never arrives. A spinner in an invisible box says
+  "something is loading"; this says a map is.
+  
+  An address entered in the card is a location, not just text: a suggestion picked
+  there carries coordinates, and the pin moves to them (the card used to fill in
+  while the pin stayed put, or never appeared at all). A hand-typed address is
+  forward geocoded once it names a street and a postcode or city, debounced, and
+  skipped when the address is the one this component just resolved — so a pin move
+  never geocodes the address it obtained from a reverse geocode.
+- 21768b8: **The bubble follows an edited field, and the address echo stops looping.**
+  `formatted` is the geocoder's sentence for the parts it was built from, and it
+  survived a part being edited: the card said `Dorpsstraat 99` while the map's
+  bubble still drew `Dorpsstraat 12`. Editing a part now drops `formatted`, so the
+  bubble falls back to the parts it has.
+  
+  That made a latent bug fire: `applyAddress()` treats an empty field as "fill me",
+  so re-applying an address it had just emitted counted as a change and emitted
+  again — the consumer's echo came straight back and the loop allocated until the
+  renderer died (`V8 javascript OOM (CALL_AND_RETRY_LAST)`, measured in Chromium on
+  the quote form). A value that does not differ is no longer assigned, so the echo
+  settles.
+- 21768b8: fix(location): visible basemap credit, address card above the map, and a pin move that settles
+  
+  Four defects found by using `QLocation` in a real quote form:
+  - **The credit is visible.** A tooltip is not attribution. The map now draws the credit each basemap
+    licence requires as text with links — `© OpenStreetMap contributors · OpenMapTiles · OpenFreeMap`
+    for an OpenFreeMap style, `Protomaps · © OpenStreetMap contributors` over a PMTiles archive — and a
+    custom `attribution` string renders as that visible credit. The `ⓘ` button is gone; it was rendered
+    with Quasar's default Material Icons *ligature* font, so a consumer whose icon set does not ship
+    that font saw the literal text `info_outline` under the search box.
+  - **The address card sits above the map.** The fields are the question, the map is the confirmation.
+  - **The search spinner stops.** `useGeocoder` cleared its pending entry before the `finally` that
+    lowers `loading`, so every lookup that reached the provider left `QSelect` showing a spinner until
+    the next keystroke cancelled it.
+  - **A superseded reverse geocode is silent.** A second pin move aborts the reverse geocode before it,
+    which resolves `null` exactly like an empty result; `QLocation` now only reports the newest move, so
+    a drag no longer paints "address lookup failed" for work it cancelled itself. Every move takes a new
+    sequence number — including *Move pin here* and *Clear pin*, which request no lookup at all — so an
+    in-flight reverse cannot land its address on a pin that has since gone elsewhere, and
+    `useGeocoder`'s teardown lowers its flags instead of leaving them for a discarded instance.
+- 21768b8: **A house number moves the pin.** Photon answers
+  `Dorpsstraat 99, 5504 Veldhoven` with the street's centroid as the first result
+  and the house numbers after it, and the card's forward geocode took `found[0]` —
+  so every number in a street put the pin on the same point. Editing the number
+  changed nothing on the map and nothing in the distance, with the card already
+  showing the new number. The first result that carries the number asked for now
+  wins, and the first answer is still used when none does. Measured against
+  photon.komoot.io: `Dorpsstraat 12` 5.396683/51.403618 (no housenumber),
+  `Dorpsstraat 99` 5.4030191/51.4046998.
+- 21768b8: **The picked street is a value again, not a label.** `QSelect` with `use-input`
+  and no `fill-input` moves the selected option's text into a sibling
+  `<span class="q-select__selected-value">` and leaves the real `<input>` empty, so
+  the address card showed a street that was not in the field: Ctrl+A selected
+  nothing, Home/End did nothing, and typing started a fresh query instead of
+  editing the address that was there. `QLocationSearch` now sets `fill-input`
+  (the label stays in the input) and `hide-selected` (Quasar otherwise renders the
+  same label twice, once in the input and once in that span); the map overlay's
+  search box has no model value, so nothing changes for it.
+- 33b9396: **`QTelephoneNumber`'s prepend is on the field's value line.** The dial code,
+  the flag and the dropdown arrow each sat on a different line — the code in the
+  value band, the arrow centred in the whole control, the flag on neither — so the
+  prepend looked broken next to the typed number. The select is now an ordinary
+  borderless value inside the prepend rather than a style of its own: dropping
+  `dense` and `stack-label` lets Quasar's labelled-field padding reach it, which is
+  exactly what puts the code on the value line, and the field keeps the label
+  behaviour of every other input. The stylesheet is three rules: no frame, the
+  arrow takes the value line, and the flag and code share one line. Measured on
+  the consumer's outlined field: value band 433.3, code/flag/arrow
+  433.3/433.3/433.3 (418.3 empty), and the composite is still as tall as the plain
+  input beside it.
+
 ## 0.12.14
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@simsustech/quasar-components-preset",
-  "version": "0.12.14",
+  "version": "0.13.0",
   "description": "UnoCSS preset for @simsustech/quasar-components: the rules its templates cannot write",
   "bugs": "https://github.com/simsusech/quasar-components/issues",
   "license": "MIT",
